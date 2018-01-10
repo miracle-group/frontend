@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props)
   }
@@ -23,5 +23,3 @@ class Home extends Component {
     )
   }
 }
-
-export default Home;
