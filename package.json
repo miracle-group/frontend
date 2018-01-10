@@ -1,8 +1,9 @@
 {
-  "name": "client",
+  "name": "login",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebaseui": "^2.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17"
