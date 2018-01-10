@@ -18,6 +18,6 @@ describe('App start', () => {
 describe('Home testing', () => {
   let Home = shallow(<Homes/>)
   it('Check load page', () => {
-    expect(Home.find('h2'))
+    expect(Home.find('li')).to.have.length(1)
   })
 })
