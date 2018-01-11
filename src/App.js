@@ -6,16 +6,25 @@ import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {ApolloProvider} from 'react-apollo';
-
 import store from './redux';
 import Home from './components/Home';
 import Login from './components/Login';
-
+import './App.css'
+import 'semantic-ui-css/semantic.min.css'
+import {Fabric} from 'office-ui-fabric-react/lib/Fabric'
+import Home from './home'
+import NavBar from './NavBar.js'
+import { initializeIcons } from '@uifabric/icons';
+import DetailArticle from './home/detailArticle'
+import Preference from './home/preference'
+import User from './user'
+import EditUser from './user/editUser'
+initializeIcons(undefined, { disableWarnings: true });
 const client = new ApolloClient({
-  link : new HttpLink({
-    uri : 'http://localhost:3000/graphql'
+  link: new HttpLink({
+    uri: 'http://localhost:3000/graphql'
   }),
-  cache : new InMemoryCache()
+  cache: new InMemoryCache()
 });
 
 class App extends Component {
@@ -38,10 +47,32 @@ class App extends Component {
       <Router>
         <Provider store={store}>
           <ApolloProvider client={client}>
-            <div>
-              <Route exact path="/" render={() => <Home/>}/>
-              <Route path="/login" render={() => <Login/>}/>
+            
+          
+        
+        <Fabric className="App">
+          <div className="header">
+            <NavBar/>      
+            <ul style={{paddingTop:'50px'}}>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/preference">Prefer</Link></li>
+              <li><Link to="/login">Login</Link></li>
+            </ul>
+            <hr/>
+          </div>
+          <div className="body">
+            <div className="content">
+              <Route exact path="/" component={ Home }/>
+              <Route path="/about" component={ DetailArticle }/>
+              <Route path="/preference" component={ Preference }/>
+              <Route path="/user" component={ User }/>
+              <Route path="/edituser" component={ EditUser }/>
+              <Route exact path='/article/:id' component={ DetailArticle }/>
+              <Route path="/login" render={() => <Login />} />
             </div>
+          </div>
+        </Fabric>
           </ApolloProvider>
         </Provider>
       </Router>
