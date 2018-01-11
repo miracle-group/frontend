@@ -8,6 +8,8 @@ import NavBar from './NavBar.js'
 import { initializeIcons } from '@uifabric/icons';
 import DetailArticle from './home/detailArticle'
 import Preference from './home/preference'
+import User from './user'
+import EditUser from './user/editUser'
 initializeIcons(undefined, { disableWarnings: true });
 const About = () => (
   <div>
@@ -33,6 +35,8 @@ class App extends Component {
               <Route exact path="/" component={ Home }/>
               <Route path="/about" component={ DetailArticle }/>
               <Route path="/preference" component={ Preference }/>
+              <Route path="/user" component={ User }/>
+              <Route path="/edituser" component={ EditUser }/>
               <Route exact path='/article/:id' component={ DetailArticle }/>
             </div>
           </div>
