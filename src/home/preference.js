@@ -1,6 +1,6 @@
 import { Step } from 'semantic-ui-react'
-import React, { Component } from 'react';
-import { Input, Button, Grid } from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Input, Button } from 'semantic-ui-react'
 const category = ['a', 'b', 'sadsdc', 'd', 'e', 'fasdsa' ,'gsad' , 'h', 'i','aasfas ', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i','a', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i','a', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i']
 
 class Preference extends Component {

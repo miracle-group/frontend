@@ -9,4 +9,4 @@ const user = (state = initialState,action) => {
   }
 }
 
-export default user;
+export default user
