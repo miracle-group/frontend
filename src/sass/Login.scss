@@ -1,0 +1,17 @@
+@import "common";
+
+.login-container {
+  left: 0;
+  right: 0;
+  top: 50%;
+  width: 90%;
+  margin: auto;
+  max-width: 350px;
+  position: absolute;
+  background-color: #FFF;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  .login-header {
+  }
+}
