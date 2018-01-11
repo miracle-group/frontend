@@ -15,7 +15,6 @@ class NavBar extends React.Component {
         <nav>
           <ul>
             <li><a href="#">User</a>
-            
             <ul>
                 <li><a href="#">Setting</a></li>
                 <li><a href="#">Logout</a></li>
