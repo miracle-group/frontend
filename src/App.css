@@ -117,3 +117,71 @@ li > a:only-child:after { content: ''; }
 .footer-container {
   color: white;
 }
+img {
+  height: auto;
+  width: 980px;
+}
+/* default screen, non-retina */
+
+@media only screen and (max-width: 320px) {
+    /* Small screen, non-retina */
+    img {
+      height: auto;
+      width: 100%;
+    }
+}
+@media
+only screen and (min-resolution: 2dppx) and (max-width: 320px) {
+    /* Small screen, retina */
+    img {
+      height: auto;
+      width: 100%;
+    }
+}
+@media only screen and (min-width: 321px) and (max-width: 538px) {
+    /* Medium screen, non-retina */
+    img {
+      height: auto;
+      width: 100%;
+    }
+}
+@media
+only screen and (min-resolution: 2dppx) and (min-width: 321px) and (max-width: 538px) {
+    /* Medium screen, retina */
+    img {
+      height: auto;
+      display: inline-block;
+      width: 120%;
+      line-height: 0;
+      padding: 0;
+      margin: 0;
+      vertical-align: middle;
+    }
+    figure {
+      margin: 0!important;
+    }
+}
+span {
+  margin: 0;
+  padding: 0;
+}
+@media
+only screen and (min-resolution: 2dppx) and (min-width: 539px) {
+    /* Large screen, retina */
+    img {
+      height: auto;
+      width: 70%;
+      line-height: 0;
+      padding: 0;
+      margin: 0;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    figure {
+      line-height: 0;
+      padding: 0;
+      margin: 0;
+      vertical-align: middle;
+      display: inline-block;
+    }
+}

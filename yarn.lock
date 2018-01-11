@@ -3539,7 +3539,7 @@ html-webpack-plugin@2.29.0:
     pretty-error "^2.0.2"
     toposort "^1.0.0"
 
-htmlparser2@^3.9.1:
+htmlparser2@^3.9.0, htmlparser2@^3.9.1:
   version "3.9.2"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.9.2.tgz#1bdf87acca0f3f9e53fa4fcceb0f4b4cbb00b338"
   dependencies:
@@ -5994,8 +5994,8 @@ rc-menu@^6.1.0, rc-menu@~6.2.0:
     rc-util "^4.1.0"
 
 rc-notification@~3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/rc-notification/-/rc-notification-3.0.0.tgz#cefbeb8a03052dc5b988a07f9ba31895e886ac2e"
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/rc-notification/-/rc-notification-3.0.1.tgz#9ddcb831895ad40943a7e1df34951aa705173bce"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
@@ -6223,6 +6223,12 @@ react-dom@^16.2.0:
 react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
+
+react-html-parser@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-html-parser/-/react-html-parser-2.0.2.tgz#6dbe1ddd2cebc1b34ca15215158021db5fc5685e"
+  dependencies:
+    htmlparser2 "^3.9.0"
 
 react-lazy-load@^3.0.12:
   version "3.0.13"
