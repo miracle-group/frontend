@@ -1,11 +1,14 @@
 import React, {Component} from 'react'
 import * as firebase from 'firebase'
 import firebaseui from 'firebaseui'
+import { graphql } from "react-apollo"
+import gql from 'graphql-tag'
+
 
 class Login extends Component {
   firebaseUI(){
     const uiConfig = {
-      signInSuccessUrl: 'http://localhost:3000',
+      signInSuccessUrl: 'http://localhost:3000/preference',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -15,9 +18,30 @@ class Login extends Component {
     const ui = new firebaseui.auth.AuthUI(firebase.auth())
     ui.start('#firebaseui-auth-container',uiConfig)
   }
-  checkLogin(){
-    firebase.auth().onAuthStateChanged(user => {
-      if(user){
+  checkLogin () {
+    firebase.auth().onAuthStateChanged(async(user) => {
+      if (user) {
+        console.log('====================================')
+        console.log(user)
+        console.log('====================================')
+        let objUser = {
+          name: user.displayName,
+          email: user.email,
+          validation: user.uid
+        }
+        const { mutate } = this.props
+        const wait = await mutate({ variables: objUser })
+        .then(() => {
+          console.log('====================================')
+          console.log('MASUK')
+          console.log('====================================')
+        })
+        .catch( err => {
+          console.log('====================================')
+          console.log('WHY ERROR', err)
+          console.log('====================================')
+        })
+    
       }
     })
   }
@@ -34,5 +58,25 @@ class Login extends Component {
     )
   }
 }
-
-export default Login
+const checkLogin = gql`
+  mutation 
+    login (
+      $name: String!,
+      $email: String!,
+      $validation: String!
+    ){
+    checkLogin (
+      movieParam: { 
+        name: $name,
+        email: $email,
+        validation: $validation
+      }
+    ){
+      _id
+      name
+      email
+      validation
+    }
+  }
+`
+export default graphql(checkLogin)(Login)

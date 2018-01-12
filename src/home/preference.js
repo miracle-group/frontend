@@ -41,17 +41,10 @@ class Preference extends Component {
           <div className="footer">
             <div className="footer-container">
               <Input 
-                loading   
-                actionPosition='left'
+                action={{content:'Next',  icon:'right arrow', labelPosition:'right'  }} 
+                placeholder='Search...' 
                 label={{ icon: 'asterisk' }}
                 labelPosition='left corner'
-                placeholder=' Time...' 
-              />
-              <Button
-                floated='right'
-                content='Next' 
-                icon='right arrow' 
-                labelPosition='right' 
               />
             </div>
           </div>

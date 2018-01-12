@@ -7,7 +7,7 @@ import logo from './assets/img/logo.svg'
 class NavBar extends React.Component {
   render(){
     return (
-      <div className="NavBar">
+      <div className="NavBar kecil">
         <Image src={logo} size='small' />
         <nav>
           <ul>

@@ -22,7 +22,7 @@ import EditUser from './user/editUser'
 initializeIcons(undefined, { disableWarnings: true })
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://localhost:3000/graphql'
+    uri: 'http://repod.ga:8000/graphql'
   }),
   cache: new InMemoryCache()
 })
@@ -42,6 +42,16 @@ class App extends Component {
   componentWillMount(){
     this.setupFirebase()
   }
+  logout () {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log('====================================')
+      console.log('KELUAR')
+      console.log('====================================')
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
   render(){
     return(
       <Router>
@@ -55,6 +65,7 @@ class App extends Component {
                   <li><Link to="/about">About</Link></li>
                   <li><Link to="/preference">Prefer</Link></li>
                   <li><Link to="/login">Login</Link></li>
+                  <li><a onClick={() => this.logout()}>Logout</a></li>
                 </ul>
                 <hr/>
               </div>

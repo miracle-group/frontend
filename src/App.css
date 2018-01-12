@@ -16,6 +16,10 @@ html, body {
   color: white;
   background-color: #4DB6AC;
   justify-content: space-between;
+  /* overflow-y: hidden; */
+}
+.kecil {
+  overflow-y: hidden;
 }
 
 .body .container {
@@ -128,7 +132,6 @@ li > a:only-child:after { content: '' }
   position: fixed;
   height: 50px;
   width: 100%;
-  display: flex;
   padding: 0 1em; 
   color: white;
   background-color: #4DB6AC;
@@ -144,51 +147,16 @@ img {
 }
 /* default screen, non-retina */
 
-@media only screen and (max-width: 320px) {
-    /* Small screen, non-retina */
-  img {
-    height: auto;
-    width: 100%;
-  }
-}
-@media
-only screen and (min-resolution: 2dppx) and (max-width: 320px) {
-    /* Small screen, retina */
-  img {
-    height: auto;
-    width: 100%;
-  }
-}
-@media only screen and (min-width: 321px) and (max-width: 538px) {
-    /* Medium screen, non-retina */
-  img {
-    height: auto;
-    width: 100%;
-  }
-}
-@media
-only screen and (min-resolution: 2dppx) and (min-width: 321px) and (max-width: 538px) {
-    /* Medium screen, retina */
-  img {
-    height: auto;
-    display: inline-block;
-    width: 120%;
-    line-height: 0;
-    padding: 0;
-    margin: 0;
-    vertical-align: middle;
-  }
-  figure {
-    margin: 0!important;
-  }
-}
 span {
   margin: 0;
   padding: 0;
 }
-@media
-only screen and (min-resolution: 2dppx) and (min-width: 539px) {
-    /* Large screen, retina */
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+  /* Styles */
   img {
     height: auto;
     width: 70%;
@@ -204,5 +172,663 @@ only screen and (min-resolution: 2dppx) and (min-width: 539px) {
     margin: 0;
     vertical-align: middle;
     display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen 
+and (min-width : 321px) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 320px) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* iPads (landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* iPhone 4 - 5s ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* iPhone 6 ----------- */
+@media
+only screen and (max-device-width: 667px) 
+only screen and (-webkit-device-pixel-ratio: 2) {
+  /* Styles */
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* iPhone 6+ ----------- */
+@media
+only screen and (min-device-width : 414px) 
+only screen and (-webkit-device-pixel-ratio: 3) {
+  /*** You've spent way too much on a phone ***/
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
+  }
+}
+
+/* Samsung Galaxy S7 Edge ----------- */
+@media only screen
+and (-webkit-min-device-pixel-ratio: 3)
+and (min-resolution: 192dpi)and (max-width:640px) {
+  img {
+    height: auto;
+    width: 70%;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  figure {
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .NavBar {
+    top: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+    /* overflow-y: hidden; */
+  }
+  .kecil {
+    overflow-y: hidden;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 1em; 
+    color: white;
+    background-color: #4DB6AC;
+    justify-content: space-between;
+  }
+  
+  .footer-container {
+    color: white;
   }
 }
