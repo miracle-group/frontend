@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Image } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 const extra = (
   <a>
     16 Friends
