@@ -1,23 +1,26 @@
-import React, {Component} from 'react'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import './App.css'
+
+import React, {Component} from 'react';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import firebaseui from 'firebaseui';
 import {Provider} from 'react-redux'
 import * as firebase from 'firebase'
 import {ApolloClient} from 'apollo-client'
 import {HttpLink} from 'apollo-link-http'
 import {InMemoryCache} from 'apollo-cache-inmemory'
 import {ApolloProvider} from 'react-apollo'
+import 'semantic-ui-css/semantic.min.css'
+import {Fabric} from 'office-ui-fabric-react/lib/Fabric'
+import {initializeIcons} from '@uifabric/icons'
+
 import store from './redux'
 import Login from './login'
-import './App.css'
-import 'semantic-ui-css/semantic.min.css'
-import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 import Home from './home'
 import NavBar from './NavBar.js'
-import { initializeIcons } from '@uifabric/icons'
 import DetailArticle from './home/detailArticle'
 import Preference from './home/preference'
 import User from './user'
-import EditUser from './user/editUser'
+import EditUser from './user/editUser';
 
 initializeIcons(undefined, { disableWarnings: true })
 const client = new ApolloClient({
@@ -28,6 +31,12 @@ const client = new ApolloClient({
 })
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      ui : ''
+    }
+  }
   setupFirebase(){
     const config = {
       apiKey: "AIzaSyCrLu7tBIy6bqtYq4OWEpmHAfPFaWW0Z3c",
@@ -37,17 +46,17 @@ class App extends Component {
       storageBucket: "final-project-miracle.appspot.com",
       messagingSenderId: "517907313039"
     }
-    firebase.initializeApp(config)
+    firebase.initializeApp(config);
+    this.setState({
+      ui : new firebaseui.auth.AuthUI(firebase.auth())
+    });
   }
   componentWillMount(){
-    this.setupFirebase()
+    this.setupFirebase();
   }
   logout () {
     firebase.auth().signOut().then(function() {
-      // Sign-out successful.
-      console.log('====================================')
-      console.log('KELUAR')
-      console.log('====================================')
+      localStorage.removeItem('repodId');
     }).catch(function(error) {
       // An error happened.
     });
@@ -59,7 +68,7 @@ class App extends Component {
           <ApolloProvider client={client}>
             <Fabric className="App">
               <div className="header">
-                <NavBar/>      
+                <NavBar/>
                 <ul style={{paddingTop:'50px'}}>
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/about">About</Link></li>
@@ -77,7 +86,7 @@ class App extends Component {
                   <Route path="/user" component={ User }/>
                   <Route path="/edituser" component={ EditUser }/>
                   <Route exact path='/article/:id' component={ DetailArticle }/>
-                  <Route path="/login" render={() => <Login />} />
+                  <Route path="/login" render={() => <Login ui={this.state.ui}/>} />
                 </div>
               </div>
             </Fabric>
