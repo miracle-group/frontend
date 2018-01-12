@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.2" width="148mm" height="105mm" viewBox="0 0 14800 10500" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:presentation="http://sun.com/xmlns/staroffice/presentation" xmlns:smil="http://www.w3.org/2001/SMIL20/" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xml:space="preserve">
+<svg version="1.2" width="148mm" height="70mm" viewBox="0 0 14800 7000" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:presentation="http://sun.com/xmlns/staroffice/presentation" xmlns:smil="http://www.w3.org/2001/SMIL20/" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xml:space="preserve">
  <defs class="ClipPathGroup">
   <clipPath id="presentation_clip_path" clipPathUnits="userSpaceOnUse">
-   <rect x="0" y="0" width="14800" height="10500"/>
+   <rect x="0" y="0" width="14800" height="7000"/>
   </clipPath>
  </defs>
  <defs>
@@ -118,8 +118,8 @@
      </g>
      <g class="com.sun.star.drawing.TextShape">
       <g id="id5">
-       <rect class="BoundingBox" stroke="none" fill="none" x="1455" y="2257" width="11677" height="5544"/>
-       <text class="TextShape"><tspan class="TextParagraph" font-family="Haziness Book" font-size="5292px" font-weight="400"><tspan class="TextPosition" x="1705" y="6353"><tspan fill="rgb(255,255,255)" stroke="none">repod</tspan></tspan></tspan></text>
+       <rect class="BoundingBox" stroke="none" fill="none" x="1355" y="557" width="11677" height="5544"/>
+       <text class="TextShape"><tspan class="TextParagraph" font-family="Haziness Book" font-size="5292px" font-weight="400"><tspan class="TextPosition" x="1605" y="4653"><tspan fill="rgb(255,255,255)" stroke="none">repod</tspan></tspan></tspan></text>
       </g>
      </g>
      <g class="com.sun.star.drawing.TextShape">

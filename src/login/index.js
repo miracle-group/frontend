@@ -4,7 +4,8 @@ import firebaseui from 'firebaseui'
 import { graphql } from "react-apollo"
 import gql from 'graphql-tag'
 import  { Redirect } from 'react-router-dom'
-
+import logo from '../assets/img/logo.svg'
+import { Image } from 'semantic-ui-react'
 
 class Login extends Component {
   firebaseUI(){
@@ -58,7 +59,14 @@ class Login extends Component {
   render(){
     return(
       <div className="login-container">
-        <div className="login-header"></div>
+        <div className="login-header">
+          <Image 
+            src={logo}
+            centered
+            size='medium'
+            className='logoColor'
+          />
+        </div>
         <div id="firebaseui-auth-container"></div>
       </div>
     )

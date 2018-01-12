@@ -42,16 +42,6 @@ class App extends Component {
   componentWillMount(){
     this.setupFirebase()
   }
-  logout () {
-    firebase.auth().signOut().then(function() {
-      // Sign-out successful.
-      console.log('====================================')
-      console.log('KELUAR')
-      console.log('====================================')
-    }).catch(function(error) {
-      // An error happened.
-    });
-  }
   render(){
     return(
       <Router>
@@ -59,13 +49,12 @@ class App extends Component {
           <ApolloProvider client={client}>
             <Fabric className="App">
               <div className="header">
-                <NavBar/>      
+                <NavBar/>  
                 <ul style={{paddingTop:'50px'}}>
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/about">About</Link></li>
                   <li><Link to="/preference">Prefer</Link></li>
                   <li><Link to="/login">Login</Link></li>
-                  <li><a onClick={() => this.logout()}>Logout</a></li>
                 </ul>
                 <hr/>
               </div>
