@@ -1,8 +1,10 @@
-import { Step } from 'semantic-ui-react'
-import React, { Component } from 'react'
-import { Input, Button } from 'semantic-ui-react'
-import { log } from 'util';
-const category = ['a', 'b', 'sadsdc', 'd', 'e', 'fasdsa' ,'gsad' , 'h', 'i','aasfas ', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i','a', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i','a', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i']
+import {Step} from 'semantic-ui-react';
+import React, {Component} from 'react';
+import {Input} from 'semantic-ui-react';
+import {withRouter} from 'react-router-dom';
+import {graphql} from 'react-apollo';
+import {connect} from 'react-redux';
+import gql from 'graphql-tag';
 
 class Preference extends Component {
   constructor(){
@@ -19,14 +21,16 @@ class Preference extends Component {
           status : false
         }
       ],
-      time : 0
+      time : 0,
+      name : '',
+      userId : ''
     }
   }
-  click = (prefer) => {
+  click(prefer){
     const changed = this.state.category.map(val => {
-      if(val.status && val.name == prefer){
+      if(val.status && val.name === prefer){
         val.status = false
-      }else if(!val.status && val.name == prefer){
+      }else if(!val.status && val.name === prefer){
         val.status = true
       }
       return val;
@@ -35,29 +39,72 @@ class Preference extends Component {
       category : changed
     });
   }
-  timing = (time) => {
+  timing(time){
     this.setState({
       time : time.target.value
     });
   }
-  submit = () => {
+  submit(){
     const selected = this.state.category.filter(value => {
-      return value.status == true
+      return value.status === true
     });
     const filtered = selected.map(value => {
-      return value.name.toLowerCase()
+      return value.name.toLowerCase();
     });
     const preferences = {
-      time : this.state.time,
+      _id : "5a589f616255cd1e044249c1",
+      times : this.state.time,
       category : filtered
     }
-    const { mutate } = this.props;
-    console.log('====================================')
-    console.log(preferences)
-    console.log('====================================')
+    const {mutate} = this.props;
+    mutate({variables : preferences}).then(({data}) => {
+      // Jika Update Berhasil
+      if(data.updateUser.n === 1){
+        const userData = JSON.parse(localStorage.getItem('repodId'));
+        const edited = {...userData,
+          times : this.state.time,
+          name : this.state.name,
+          preferences : filtered
+        };
+        localStorage.setItem('repodId',JSON.stringify(edited));
+      }
+    }).catch(err => {
+      // Jika Update Gagal
+      console.log(err);
+    });
   }
-  render() {
-    let { cek } = this.state
+  componentWillMount(){
+    const storage = localStorage.getItem('repodId');
+    if(storage){
+      const userData = JSON.parse(storage);
+      this.setState({
+        userId : userData._id
+      });
+    }else{
+      this.props.history.push('/login');
+    }
+  }
+  componentDidMount(){
+    const storage = localStorage.getItem('repodId');
+    if(storage){
+      const userData = JSON.parse(storage);
+      const category = this.state.category.map(item => {
+        for(let i = 0; i < userData.preferences.length; i++){
+          const edited = userData.preferences[i][0].toUpperCase()+userData.preferences[i].slice(1);
+          if(item.name === edited){
+            item.status = true;
+          }
+        }
+        return item;
+      });
+      this.setState({
+        name : userData.name,
+        time : userData.times,
+        category : category
+      });
+    }
+  }
+  render(){
     return (
       <div className="container">
         <div className="selection">
@@ -72,21 +119,41 @@ class Preference extends Component {
           ))}
           <div className="footer">
             <div className="footer-container">
-              <Input 
-                action={{content:'Next',  icon:'right arrow', labelPosition:'right', onClick:() => this.submit()  }} 
-                placeholder='Search...' 
+              <Input
+                action={{content:'Next',  icon:'right arrow', labelPosition:'right', onClick:() => this.submit()  }}
+                placeholder='Search...'
                 label={{ icon: 'asterisk' }}
                 labelPosition='left corner'
                 onChange={(time) => this.timing(time)}
                 type='number'
+                value={this.state.time}
               />
             </div>
           </div>
         </div>
       </div>
-      
     )
   }
 }
 
-export default Preference
+const savePreferences = gql`
+  mutation
+    preferences(
+      $_id: String!,
+      $category: [String!],
+      $times: Int!
+    ){
+      updateUser(
+      input: {
+        _id: $_id,
+        preferences: $category,
+        times: $times
+      }
+    ){
+      n
+      nModified
+      ok
+    }}
+`
+
+export default withRouter(connect(null,null)(graphql(savePreferences)(Preference)));
