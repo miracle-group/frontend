@@ -33,16 +33,16 @@ class Preference extends Component {
       }else if(!val.status && val.name === prefer){
         val.status = true
       }
-      return val;
-    });
+      return val
+    })
     this.setState({
       category : changed
-    });
+    })
   }
   timing(time){
     this.setState({
       time : time.target.value
-    });
+    })
   }
   submit(){
     const selected = this.state.category.filter(value => {
