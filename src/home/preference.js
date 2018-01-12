@@ -1,7 +1,9 @@
 import { Step } from 'semantic-ui-react'
 import React, { Component } from 'react'
 import { Input, Button } from 'semantic-ui-react'
-import { log } from 'util';
+import { log } from 'util'
+import { graphql } from "react-apollo"
+import gql from 'graphql-tag'
 const category = ['a', 'b', 'sadsdc', 'd', 'e', 'fasdsa' ,'gsad' , 'h', 'i','aasfas ', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i','a', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i','a', 'b', 'c', 'd', 'e', 'f' ,'g' , 'h', 'i']
 
 class Preference extends Component {
@@ -29,29 +31,29 @@ class Preference extends Component {
       }else if(!val.status && val.name == prefer){
         val.status = true
       }
-      return val;
-    });
+      return val
+    })
     this.setState({
       category : changed
-    });
+    })
   }
   timing = (time) => {
     this.setState({
       time : time.target.value
-    });
+    })
   }
   submit = () => {
     const selected = this.state.category.filter(value => {
       return value.status == true
-    });
+    })
     const filtered = selected.map(value => {
       return value.name.toLowerCase()
-    });
+    })
     const preferences = {
       time : this.state.time,
       category : filtered
     }
-    const { mutate } = this.props;
+    const { mutate } = this.props
     console.log('====================================')
     console.log(preferences)
     console.log('====================================')
@@ -84,9 +86,28 @@ class Preference extends Component {
           </div>
         </div>
       </div>
-      
     )
   }
 }
-
-export default Preference
+const setPreferences = gql`
+  mutation 
+    preferences (
+      $category: String!,
+      $time: String!
+    ){
+    addPreferences (
+      input: { 
+        category: $name,
+        time: $email
+      }
+    ){
+      _id
+      name
+      email
+      validation
+      time
+      category
+    }
+  }
+`
+export default graphql(setPreferences)(Preference)
