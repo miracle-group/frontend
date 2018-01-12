@@ -3,22 +3,27 @@ import * as firebase from 'firebase'
 import firebaseui from 'firebaseui'
 import { graphql } from "react-apollo"
 import gql from 'graphql-tag'
+import  { Redirect } from 'react-router-dom'
 
 
 class Login extends Component {
   firebaseUI(){
+    const ui = new firebaseui.auth.AuthUI(firebase.auth())
+    console.log('====================================')
+    console.log(this.props, 'INI DATA PROPS')
+    console.log('====================================')
     const uiConfig = {
-      signInSuccessUrl: 'http://localhost:3000/preference',
+      signInSuccessUrl: '/preference',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
         firebase.auth.TwitterAuthProvider.PROVIDER_ID
       ]
     }
-    const ui = new firebaseui.auth.AuthUI(firebase.auth())
+    
     ui.start('#firebaseui-auth-container',uiConfig)
   }
-  checkLogin () {
+  checkLogin = async() => {
     firebase.auth().onAuthStateChanged(async(user) => {
       if (user) {
         console.log('====================================')
@@ -31,10 +36,11 @@ class Login extends Component {
         }
         const { mutate } = this.props
         const wait = await mutate({ variables: objUser })
-        .then(() => {
+        .then(({data}) => {
           console.log('====================================')
-          console.log('MASUK')
+          console.log('MASUK', data)
           console.log('====================================')
+          return <Redirect to='/preference'/>
         })
         .catch( err => {
           console.log('====================================')
@@ -65,8 +71,8 @@ const checkLogin = gql`
       $email: String!,
       $validation: String!
     ){
-    checkLogin (
-      movieParam: { 
+    userAdd (
+      input: { 
         name: $name,
         email: $email,
         validation: $validation
