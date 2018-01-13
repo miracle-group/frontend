@@ -17,108 +17,14 @@ html, body {
   font-family: 'Nunito'!important;
   /* background-color: #64FFDA!important */
 }
-.NavBar {
-  top: 0;
-  position: fixed;
-  height: 50px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 1em;
-  color: white;
-  background-color: #4DB6AC;
-  justify-content: space-between;
-  /* overflow-y: hidden; */
-}
-.kecil {
-  overflow-y: hidden;
-}
-.logoColor {
-  background-color: #4DB6AC;
-  /* box-shadow: 10px 10px 5px grey; */
-}
-.body .container {
-  padding: 1em;
-}
 
-.body .ms-Breadcrumb {
-  margin-top: 0;
-  margin-bottom: 1em;
-}
-
-.body .selection {
-  height: calc(100vh - 10.5em);
-  overflow-x: auto;
-}
-
-.body .selection .selection-item {
-  display: flex;
-  padding: 0;
-}
-
-nav {
-	margin: 50px 0;
-	background-color: #4DB6AC;
-}
-
-nav ul {
-	padding: 0;
-  margin: 0;
-	list-style: none;
-	position: relative;
-	}
-	
-nav ul li {
-	display:inline-block;
-	background-color: #4DB6AC;
-	}
-
-nav a {
-	display:block;
-	padding:0 5px;
-	color:#FFF;
-	font-size:15px;
-	line-height: 40px;
-  text-decoration:none;
-  padding-right: 20px;
-  padding-left: 10px;
-}
 a {
   color: #fff;
 }
 a:hover {
   color: #fff!important;
 }
-nav a:hover { 
-	background-color: #4DB6AC; 
-}
 
-/* Hide Dropdowns by Default */
-nav ul ul {
-	display: none;
-	position: absolute; 
-	/* top: 60px the height of the main nav */
-}
-	
-/* Display Dropdowns on Hover */
-nav ul li:hover > ul {
-	display:inherit;
-}
-	
-/* Fisrt Tier Dropdown */
-nav ul ul li {
-	width:170px;
-	float:none;
-	display:list-item;
-	position: relative;
-}
-
-/* Second, Third and more Tiers	*/
-nav ul ul ul li {
-	position: relative;
-	top:-60px;
-	left:170px;
-}
 .ui.steps .link.step:hover, .ui.steps .link.step:hover::after, .ui.steps a.step:hover, .ui.steps a.step:hover::after {
   background: #57b7ad!important;
 }
@@ -497,22 +403,6 @@ and (orientation : portrait) {
     margin: 0;
     vertical-align: middle;
     display: inline-block;
-  }
-  .NavBar {
-    top: 0;
-    position: fixed;
-    height: 50px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 1em;
-    color: white;
-    background-color: #4DB6AC;
-    justify-content: space-between;
-    /* overflow-y: hidden; */
-  }
-  .kecil {
-    overflow-y: hidden;
   }
   .footer {
     display: flex;

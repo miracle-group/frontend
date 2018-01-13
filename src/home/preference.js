@@ -9,7 +9,9 @@ import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
 import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
 import gql from 'graphql-tag'
 import logo from '../assets/img/logoblack.png'
-import axios from 'axios';
+import axios from 'axios'
+import Spinner from 'react-loader'
+
 
 class Preference extends Component {
   constructor(){
@@ -17,12 +19,7 @@ class Preference extends Component {
     this.state = {
       cek : false,
       prefer: true,
-      category: [
-        {
-          name : "Loading...",
-          status : false
-        }
-      ],
+      category: null,
       time : 0,
       name : '',
       userId : ''
@@ -92,15 +89,15 @@ class Preference extends Component {
     }).catch(err => {
       console.log(err);
     });
-    const storage = localStorage.getItem('repodId');
-    if(storage){
-      const userData = JSON.parse(storage);
-      this.setState({
-        userId : userData._id
-      });
-    }else{
-      this.props.history.push('/login');
-    }
+    // const storage = localStorage.getItem('repodId');
+    // if(storage){
+    //   const userData = JSON.parse(storage);
+    //   this.setState({
+    //     userId : userData._id
+    //   });
+    // }else{
+    //   this.props.history.push('/login');
+    // }
   }
   parseSelected(){
     const userData = JSON.parse(localStorage.getItem('repodId'));
@@ -123,21 +120,34 @@ class Preference extends Component {
     let image = 'https://www.hurstonwright.org/wp-content/uploads/2015/04/book-pages-med11.jpg'
     let time = null
     if(this.state.prefer) {
-      time = <div>
-        { this.state.prefer && this.state.category.map((prefer, i) =>(
-          <Step.Group key={i} style={{margin: 10, backgroundColor: '#4DB6AC'}}>
-            <Step completed onClick={ () => this.click(prefer.name) }>
-              <Step.Content>
-                <Step.Title> {prefer.status ? <Icon icon={checkmarkRound} /> : null} {prefer.name}</Step.Title>
-              </Step.Content>
-            </Step>
-          </Step.Group>
-        ))}
-        <div style={{position : "fixed", width : "60px", bottom : "5%", margin : "auto", left : 0, right : 0}}>
-          <Icon size={60} icon={arrowRightThin} onClick={ () => this.setState({prefer: false})}/>
+      if(!this.state.category) {
+        <div
+          style = {{
+            position : "relative",
+            margin : "auto",
+            textAlign: 'center',
+            padding:0, margin:0
+            // height:'100px',
+          }}>
+          <Spinner name="ball-scale-multiple" color="#4DB6AC"/>
         </div>
-
-      </div>
+      } else {
+        time =
+          <div>
+            { this.state.prefer && this.state.category.map((prefer, i) =>(
+              <Step.Group key={i} style={{margin: 10, backgroundColor: '#4DB6AC'}}>
+                <Step completed onClick={ () => this.click(prefer.name) }>
+                  <Step.Content>
+                    <Step.Title> {prefer.status ? <Icon icon={checkmarkRound} /> : null} {prefer.name}</Step.Title>
+                  </Step.Content>
+                </Step>
+              </Step.Group>
+            ))}
+            <div style={{position : "fixed", width : "60px", bottom : "5%", margin : "auto", left : 0, right : 0}}>
+              <Icon size={60} icon={arrowRightThin} onClick={ () => this.setState({prefer: false})}/>
+            </div>
+          </div>
+      }
     } else {
      time =
       <div className="container-contact100" >

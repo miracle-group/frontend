@@ -39,11 +39,13 @@ class Home extends React.Component {
               </li>
             </ul>
           </div>
-          <Items.Group>
+          <div style={{padding: '30px', paddingLeft:'10px'}}>
+            <Items.Group>
               {items.map((item, index) => (
                 <Item key={index}/>
               ))}
-          </Items.Group>
+            </Items.Group>
+          </div>
         </div>
       </div>
     )

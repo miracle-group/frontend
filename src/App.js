@@ -34,7 +34,8 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      ui : ''
+      ui : '',
+      showMenu: false
     }
   }
   setupFirebase(){
@@ -52,7 +53,18 @@ class App extends Component {
     });
   }
   componentWillMount(){
-    this.setupFirebase();
+    this.setupFirebase()
+    const storage = localStorage.getItem('repodId')
+    if(storage) {
+      this.setState({
+        showMenu: true
+      })
+    } else {
+      this.setState({
+        showMenu: false
+      })
+    }
+
   }
   logout(){
     firebase.auth().signOut().then(function() {
@@ -67,16 +79,7 @@ class App extends Component {
         <Provider store={store}>
           <ApolloProvider client={client}>
             <Fabric className="App">
-              <NavBar/>
-              <div className="headers">
-                <ul style={{paddingTop:'50px'}}>
-                  <li><Link to="/">Home</Link></li>
-                  <li><Link to="/about">About</Link></li>
-                  <li><Link to="/preference">Prefer</Link></li>
-                  <li><Link to="/login">Login</Link></li>
-                </ul>
-                <hr/>
-              </div>
+              {this.state.showMenu ? <NavBar/> : null}
               <div className="body">
                 <div className="content">
                   <Route exact path="/" component={ Home }/>
