@@ -4,7 +4,8 @@ import firebaseui from 'firebaseui'
 import { graphql } from "react-apollo"
 import gql from 'graphql-tag'
 import  { Redirect } from 'react-router-dom'
-import logo from '../assets/img/logo.svg'
+import logoName from '../assets/img/logoRP.png'
+import logo from '../assets/img/logo.png'
 import { Image } from 'semantic-ui-react'
 
 class Login extends Component {
@@ -63,7 +64,13 @@ class Login extends Component {
           <Image 
             src={logo}
             centered
-            size='medium'
+            size='small'
+            className='logoColor'
+          />
+          <Image 
+            src={logoName}
+            centered
+            size='small'
             className='logoColor'
           />
         </div>

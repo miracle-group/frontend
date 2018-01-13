@@ -3,24 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@uifabric/icons": "^5.4.0",
+    "antd": "^3.1.1",
+    "apollo-client-preset": "^1.0.6",
     "chai": "^4.1.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "apollo-client-preset": "^1.0.6",
     "firebaseui": "^2.5.1",
     "graphql": "^0.12.3",
     "graphql-tag": "^2.6.1",
-    "@uifabric/icons": "^5.4.0",
-    "antd": "^3.1.1",
     "office-ui-fabric-react": "^5.39.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
+    "react-burger-menu": "^2.2.3",
     "react-dom": "^16.2.0",
     "react-html-parser": "^2.0.2",
+    "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.77.2"
@@ -31,5 +32,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "sass": "sass src/sass:src/components --watch --no-cache --sourcemap=none"
+  },
+  "devDependencies": {
+    "react-icons-kit": "^1.0.7"
   }
 }

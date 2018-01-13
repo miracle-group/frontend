@@ -2,7 +2,7 @@ import React from 'react'
 import { createListItems} from '../utils/'
 import { Link } from 'react-router-dom'
 import Item from './item'
-import { Card } from 'semantic-ui-react'
+import { Card, Item as Items } from 'semantic-ui-react'
 
 class Home extends React.Component {
   constructor(props) {
@@ -36,11 +36,11 @@ class Home extends React.Component {
               </li>
             </ul>
           </div>
-          <Card.Group>
+          <Items.Group>
               {items.map((item, index) => (
                 <Item key={index}/>       
               ))}
-          </Card.Group>  
+          </Items.Group>  
         </div>
       </div>
     )

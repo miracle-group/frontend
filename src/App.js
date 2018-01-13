@@ -48,8 +48,8 @@ class App extends Component {
         <Provider store={store}>
           <ApolloProvider client={client}>
             <Fabric className="App">
-              <div className="header">
-                <NavBar/>  
+              <NavBar/>
+              <div className="headers">
                 <ul style={{paddingTop:'50px'}}>
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/about">About</Link></li>

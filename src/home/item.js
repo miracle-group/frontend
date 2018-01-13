@@ -1,18 +1,22 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Image, Item } from 'semantic-ui-react'
 const extra = (
   <a>
     16 Friends
   </a>
 )
-const CardExampleGroups = () => (
-  <Card
-    image='https://images.fitpregnancy.mdpcdn.com/sites/fitpregnancy.com/files/styles/width_360/public/11-baby-bundled-in-blue-white-fuzzy-hood-shutterstock_120651157.jpg'
-    header='Elliot Baker'
-    meta='Friend'
-    description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
-    extra={extra}
-  />
+const List = () => (
+  <Item>
+    <Item.Image size='tiny' src='https://react.semantic-ui.com/assets/images/wireframe/image.png' />
+    <Item.Content>
+      <Item.Header as='a'>Header</Item.Header>
+      <Item.Meta>Description</Item.Meta>
+      <Item.Description>
+        <Image src='https://react.semantic-ui.com/assets/images/wireframe/short-paragraph.png' />
+      </Item.Description>
+      <Item.Extra>Additional Details</Item.Extra>
+    </Item.Content>
+  </Item>
 )
 
-export default CardExampleGroups
+export default List
