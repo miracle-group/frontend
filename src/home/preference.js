@@ -2,15 +2,11 @@ import {withRouter} from 'react-router-dom';
 import {graphql} from 'react-apollo';
 import {connect} from 'react-redux';
 import React, { Component } from 'react'
-import { Input, Button, Image, Step } from 'semantic-ui-react'
-import { log } from 'util'
-import Icon from 'react-icons-kit'
-import { check } from 'react-icons-kit/entypo/check'  
-import { checkmark } from 'react-icons-kit/icomoon/checkmark' 
-import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'  
-import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'  
-import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';  
-import { graphql } from "react-apollo"
+import { Input, Image, Step } from 'semantic-ui-react';
+import Icon from 'react-icons-kit';
+import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
+import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
+import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
 import gql from 'graphql-tag'
 import logo from '../assets/img/logoblack.png'
 import axios from 'axios';
@@ -73,6 +69,7 @@ class Preference extends Component {
           preferences : filtered
         };
         localStorage.setItem('repodId',JSON.stringify(edited));
+        this.props.history.push('/');
       }
     }).catch(err => {
       // Jika Update Gagal
@@ -123,7 +120,6 @@ class Preference extends Component {
     });
   }
   render() {
-    let { cek } = this.state
     let image = 'https://www.hurstonwright.org/wp-content/uploads/2015/04/book-pages-med11.jpg'
     let time = null
     if(this.state.prefer) {
@@ -140,18 +136,17 @@ class Preference extends Component {
         <div style={{position : "fixed", width : "60px", bottom : "5%", margin : "auto", left : 0, right : 0}}>
           <Icon size={60} icon={arrowRightThin} onClick={ () => this.setState({prefer: false})}/>
         </div>
-        
+
       </div>
     } else {
-     time =  
+     time =
       <div className="container-contact100" >
-        <div 
+        <div
           style = {{
-            position : "relative", 
+            position : "relative",
             margin : "auto",
             textAlign: 'center',
-            padding:0, margin:0
-            // height:'100px',
+            padding:0
           }}>
           <span className="contact100-form-title">
             Set Your Time
@@ -166,7 +161,7 @@ class Preference extends Component {
         <div style={{position : "fixed", width : "140px", bottom : "5%", margin : "auto", left : 0, right : 0 , flexDirection:'row'}}>
           <Icon size={60} icon={arrowLeftThin} onClick={ () => this.setState({prefer: true})}/>
           <div style={{width : "60px", height : "60px", display : "inline-flex", marginLeft:'10px'}}>
-            <Image 
+            <Image
               src={logo}
               centered
               size='small'

@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
 import * as firebase from 'firebase'
-import firebaseui from 'firebaseui'
-import { graphql } from "react-apollo"
+import { graphql } from 'react-apollo';
 import {withRouter} from 'react-router-dom';
-import gql from 'graphql-tag'
-import  { Redirect } from 'react-router-dom'
+import gql from 'graphql-tag';
 import logoName from '../assets/img/logoRP.png'
 import {connect} from 'react-redux';
 import logo from '../assets/img/logo.png'
@@ -59,13 +57,13 @@ class Login extends Component {
     return(
       <div className="login-container">
         <div className="login-header">
-          <Image 
+          <Image
             src={logo}
             centered
             size='small'
             className='logoColor'
           />
-          <Image 
+          <Image
             src={logoName}
             centered
             size='small'
