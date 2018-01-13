@@ -25,10 +25,10 @@ import EditUser from './user/editUser';
 initializeIcons(undefined, { disableWarnings: true })
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://repod.ga:8000/graphql'
+    uri: store.getState().configReducer.graphqlApi
   }),
   cache: new InMemoryCache()
-})
+});
 
 class App extends Component {
   constructor(){
@@ -54,11 +54,11 @@ class App extends Component {
   componentWillMount(){
     this.setupFirebase();
   }
-  logout () {
+  logout(){
     firebase.auth().signOut().then(function() {
       localStorage.removeItem('repodId');
-    }).catch(function(error) {
-      // An error happened.
+    }).catch(err => {
+      console.log(err);
     });
   }
   render(){
