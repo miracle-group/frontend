@@ -35,8 +35,14 @@ class App extends Component {
     super();
     this.state = {
       ui : '',
-      showMenu: false
+      showMenu: store.getState().configReducer.loginStatus
     }
+    store.subscribe(() => {
+      this.setState({
+        showMenu : store.getState().configReducer.loginStatus,
+        update : Math.random()
+      });
+    });
   }
   setupFirebase(){
     const config = {
@@ -53,25 +59,7 @@ class App extends Component {
     });
   }
   componentWillMount(){
-    this.setupFirebase()
-    const storage = localStorage.getItem('repodId')
-    if(storage) {
-      this.setState({
-        showMenu: true
-      })
-    } else {
-      this.setState({
-        showMenu: false
-      })
-    }
-
-  }
-  logout(){
-    firebase.auth().signOut().then(function() {
-      localStorage.removeItem('repodId');
-    }).catch(err => {
-      console.log(err);
-    });
+    this.setupFirebase();
   }
   render(){
     return(
@@ -79,7 +67,7 @@ class App extends Component {
         <Provider store={store}>
           <ApolloProvider client={client}>
             <Fabric className="App">
-              {this.state.showMenu ? <NavBar/> : null}
+              {store.getState().configReducer.loginStatus ? <NavBar/> : null}
               <div className="body">
                 <div className="content">
                   <Route exact path="/" component={ Home }/>

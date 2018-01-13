@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
 import * as firebase from 'firebase'
-import firebaseui from 'firebaseui'
-import { graphql } from "react-apollo"
+import { graphql } from 'react-apollo';
 import {withRouter} from 'react-router-dom';
-import gql from 'graphql-tag'
-import  { Redirect } from 'react-router-dom'
+import gql from 'graphql-tag';
 import logoName from '../assets/img/logoRP.png'
 import {connect} from 'react-redux';
 import logo from '../assets/img/logo.png'
-import { Image } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react';
+import {setLoginStatus} from '../redux/actions/actionConfig';
 
 class Login extends Component {
   firebaseUI(){
@@ -25,6 +24,7 @@ class Login extends Component {
   checkLogin(){
     const storage = localStorage.getItem('repodId');
     if(storage){
+      this.props.setLoginStatus(true);
       this.props.history.push('/');
     }else{
       firebase.auth().onAuthStateChanged((user) => {
@@ -36,6 +36,7 @@ class Login extends Component {
           }
           const {mutate} = this.props
           mutate({variables: objUser}).then(({data}) => {
+            this.props.setLoginStatus(true);
             localStorage.setItem('repodId',JSON.stringify(data.userAdd));
             if(data.userAdd.times === 0 || data.userAdd.preferences.length === 0){
               this.props.history.push('/preference');
@@ -59,13 +60,13 @@ class Login extends Component {
     return(
       <div className="login-container">
         <div className="login-header">
-          <Image 
+          <Image
             src={logo}
             centered
             size='small'
             className='logoColor'
           />
-          <Image 
+          <Image
             src={logoName}
             centered
             size='small'
@@ -101,4 +102,10 @@ const checkLogin = gql`
   }
 `
 
-export default withRouter(connect(null,null)(graphql(checkLogin)(Login)));
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setLoginStatus : (status) => dispatch(setLoginStatus(status))
+  }
+}
+
+export default withRouter(connect(null,mapDispatchToProps)(graphql(checkLogin)(Login)));

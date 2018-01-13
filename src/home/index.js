@@ -1,8 +1,8 @@
-import React from 'react'
-import { createListItems} from '../utils/'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import {Link, withRouter} from 'react-router-dom';
+import {Item as Items} from 'semantic-ui-react';
+import {createListItems} from '../utils/'
 import Item from './item'
-import { Card, Item as Items, Grid } from 'semantic-ui-react'
 
 class Home extends React.Component {
   constructor(props) {
@@ -12,15 +12,18 @@ class Home extends React.Component {
       canSelect: 'all',
     }
   }
-
   componentDidMount() {
     this._hasMounted = true
   }
-
   _onSelectionChanged = () => {
     if (this._hasMounted) this.forceUpdate()
   }
-
+  componentWillMount(){
+    const storage = localStorage.getItem('repodId');
+    if(!storage){
+      this.props.history.push('/login');
+    }
+  }
   render() {
     let good = 'imaginasi'
     const {items} = this.state
@@ -39,9 +42,9 @@ class Home extends React.Component {
           <div style={{padding: '30px', paddingLeft:'10px'}}>
             <Items.Group>
               {items.map((item, index) => (
-                <Item key={index}/>       
+                <Item key={index}/>
               ))}
-            </Items.Group>  
+            </Items.Group>
           </div>
         </div>
       </div>
@@ -49,4 +52,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+export default withRouter(Home);
