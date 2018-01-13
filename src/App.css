@@ -7,7 +7,7 @@
        url('./assets/fonts/Nunito-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
 }
 * {
-  font-family: 'Nunito'!important;
+  font-family: 'Helvetica'!important;
 }
 html, body {
   margin: 0;
@@ -54,6 +54,10 @@ a:hover {
 img {
   height: auto;
   width: 980px;
+}
+img .photoprofil {
+  height: auto;
+  width: 300px;
 }
 /* default screen, non-retina */
 
@@ -443,11 +447,12 @@ input:-ms-input-placeholder { color: #adadad;}
 button {
 	outline: none !important;
 	border: none;
-	background: transparent;
+  background: transparent;
+  margin: 0!important;
 }
 
 button:hover {
-	cursor: pointer;
+	cursor: pointer!important;
 }
 
 @media (max-width: 992px) {
