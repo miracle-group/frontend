@@ -1,17 +1,19 @@
-import {withRouter} from 'react-router-dom';
-import {graphql} from 'react-apollo';
-import {connect} from 'react-redux';
 import React, { Component } from 'react'
-import { Input, Image, Step } from 'semantic-ui-react';
-import Icon from 'react-icons-kit';
-import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
-import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
-import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
+import Icon from 'react-icons-kit'
 import gql from 'graphql-tag'
 import logo from '../assets/img/logoblack.png'
 import axios from 'axios'
 import Spinner from 'react-loader'
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import { Input, Button, Image, Step } from 'semantic-ui-react'
+import { log } from 'util'
+import { check } from 'react-icons-kit/entypo/check'  
+import { checkmark } from 'react-icons-kit/icomoon/checkmark' 
+import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'  
+import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'  
+import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
 
 class Preference extends Component {
   constructor(){
@@ -121,7 +123,7 @@ class Preference extends Component {
     let time = null
     if(this.state.prefer) {
       if(!this.state.category) {
-        <div
+        time = <div 
           style = {{
             position : "relative",
             margin : "auto",
