@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
-import * as firebase from 'firebase';
-import {graphql} from 'react-apollo';
+import React, {Component} from 'react'
+import * as firebase from 'firebase'
+import firebaseui from 'firebaseui'
+import { graphql } from "react-apollo"
 import {withRouter} from 'react-router-dom';
+import gql from 'graphql-tag'
+import  { Redirect } from 'react-router-dom'
+import logoName from '../assets/img/logoRP.png'
 import {connect} from 'react-redux';
-import gql from 'graphql-tag';
-import logo from '../assets/img/logo.svg'
+import logo from '../assets/img/logo.png'
 import { Image } from 'semantic-ui-react'
 
 class Login extends Component {
@@ -59,7 +62,13 @@ class Login extends Component {
           <Image 
             src={logo}
             centered
-            size='medium'
+            size='small'
+            className='logoColor'
+          />
+          <Image 
+            src={logoName}
+            centered
+            size='small'
             className='logoColor'
           />
         </div>

@@ -16,6 +16,7 @@
     "office-ui-fabric-react": "^5.39.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
+    "react-burger-menu": "^2.2.3",
     "react-dom": "^16.2.0",
     "react-html-parser": "^2.0.2",
     "react-redux": "^5.0.6",
@@ -33,5 +34,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "sass": "sass src/sass:src/components --watch --no-cache --sourcemap=none"
+  },
+  "devDependencies": {
+    "react-icons-kit": "^1.0.7"
   }
 }
