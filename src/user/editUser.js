@@ -5,38 +5,34 @@ import { Link } from 'react-router-dom'
 class EditUser extends React.Component {
   render(){
     return (
-      <div className="container">
-        <div className="selection">
-          <Card.Content>
-            <Card.Header>
-              <h3>Matthew</h3>
-              <Image src='https://react.semantic-ui.com/assets/images/avatar/large/matthew.png' />
+      <div className="container" style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
+        <div className="selection" style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
+          <Card.Content style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
+            <Card.Header style={{ padding: '10px'}}>
+            <h3>Hallo, Matthew</h3>
+            <img className="photoprofil" src='https://react.semantic-ui.com/assets/images/avatar/large/matthew.png' />
             </Card.Header>
-            <br/>
-            <Card.Meta>
+            <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
               <span className='date'>
                 <Input value='Joined in 2015' />
               </span>
             </Card.Meta>
-            <br/>
-            <Card.Description>
-              <Input value='Matthew is a musician living in Nashville.' />          
+            <Card.Description style={{ padding: '10px'}}>
+              <Input value='Matthew is a musician living in Nashville.' />  
             </Card.Description>
           </Card.Content>
-          <br/>
           <Card.Content extra>
-            <a>
-              <Icon name='user' />
-              22 Friends
-            </a>
+   
           </Card.Content> 
-          <Button.Group>
-            <Link to="/user">
-              <Button>Cancel</Button>
-            </Link>
-            <Button.Or />
-            <Button positive>Save</Button>
-          </Button.Group>
+          <div style={{padding: '20px'}}>
+            <Button.Group>
+              <Link to="/user">
+                <Button>Cancel</Button>
+              </Link>
+              <Button.Or />
+              <Button positive>Save</Button>
+            </Button.Group>
+          </div>
         </div>
       </div>
     )
