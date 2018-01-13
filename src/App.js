@@ -87,7 +87,7 @@ class App extends Component {
                   <Route path="/preference" component={ Preference }/>
                   <Route path="/user" component={ User }/>
                   <Route path="/edituser" component={ EditUser }/>
-                  <Route exact path='/article/:id' component={ DetailArticle }/>
+                  <Route exact path='/article/detail/:id' component={ DetailArticle }/>
                   <Route path="/login" render={() => <Login ui={this.state.ui}/>} />
                 </div>
               </div>
