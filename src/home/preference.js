@@ -13,6 +13,7 @@ import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
 import { graphql } from "react-apollo"
 import gql from 'graphql-tag'
 import logo from '../assets/img/logoblack.png'
+import axios from 'axios';
 
 class Preference extends Component {
   constructor(){
@@ -22,11 +23,7 @@ class Preference extends Component {
       prefer: true,
       category: [
         {
-          name : "Tech",
-          status : false
-        },
-        {
-          name : "Health",
+          name : "Loading...",
           status : false
         }
       ],
@@ -61,7 +58,7 @@ class Preference extends Component {
       return value.name.toLowerCase();
     });
     const preferences = {
-      _id : "5a589f616255cd1e044249c1",
+      _id : this.state.userId,
       times : this.state.time,
       category : filtered
     }
@@ -83,6 +80,21 @@ class Preference extends Component {
     });
   }
   componentWillMount(){
+    axios.get(`${this.props.config.expressApi}/category/all`).then(({data}) => {
+      let arrCategories = [];
+      for(let i = 0; i < data.length;i++){
+        const obj = {
+          name : data[i].name,
+          status : false
+        }
+        arrCategories.push(obj);
+      }
+      this.setState({
+        category : arrCategories
+      },() => this.parseSelected());
+    }).catch(err => {
+      console.log(err);
+    });
     const storage = localStorage.getItem('repodId');
     if(storage){
       const userData = JSON.parse(storage);
@@ -93,25 +105,22 @@ class Preference extends Component {
       this.props.history.push('/login');
     }
   }
-  componentDidMount(){
-    const storage = localStorage.getItem('repodId');
-    if(storage){
-      const userData = JSON.parse(storage);
-      const category = this.state.category.map(item => {
-        for(let i = 0; i < userData.preferences.length; i++){
-          const edited = userData.preferences[i][0].toUpperCase()+userData.preferences[i].slice(1);
-          if(item.name === edited){
-            item.status = true;
-          }
+  parseSelected(){
+    const userData = JSON.parse(localStorage.getItem('repodId'));
+    const category = this.state.category.map(item => {
+      for(let i = 0; i < userData.preferences.length; i++){
+        const edited = userData.preferences[i][0].toUpperCase()+userData.preferences[i].slice(1);
+        if(item.name === edited){
+          item.status = true;
         }
-        return item;
-      });
-      this.setState({
-        name : userData.name,
-        time : userData.times,
-        category : category
-      });
-    }
+      }
+      return item;
+    });
+    this.setState({
+      name : userData.name,
+      time : userData.times,
+      category : category
+    });
   }
   render() {
     let { cek } = this.state
@@ -198,4 +207,10 @@ const savePreferences = gql`
     }}
 `
 
-export default withRouter(connect(null,null)(graphql(savePreferences)(Preference)));
+const mapStateToProps = (state) => {
+  return{
+    config : state.configReducer
+  }
+}
+
+export default withRouter(connect(mapStateToProps,null)(graphql(savePreferences)(Preference)));
