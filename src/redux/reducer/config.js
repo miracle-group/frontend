@@ -1,6 +1,6 @@
 const initialState = {
-  graphqlApi : "http://localhost:3001/graphql",
-  expressApi : "http://localhost:3001/api"
+  graphqlApi : "http://repod.ga:8000/graphql",
+  expressApi : "http://repod.ga:8000/api"
 }
 
 const reducer = (state = initialState,action) => {

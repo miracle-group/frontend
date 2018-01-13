@@ -13,7 +13,7 @@ import { Image } from 'semantic-ui-react'
 class Login extends Component {
   firebaseUI(){
     const uiConfig = {
-      signInSuccessUrl: '/login',
+      signInSuccessUrl: '/',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
