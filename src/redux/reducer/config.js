@@ -6,6 +6,8 @@ const initialState = {
 
 const reducer = (state = initialState,action) => {
   switch(action.type){
+    case 'CHANGE_LOGIN_STATUS':
+      return {...state,loginStatus : action.payload.status}
     default:
       return state;
   }
