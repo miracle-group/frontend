@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import * as firebase from 'firebase'
-import { graphql } from 'react-apollo';
-import {withRouter} from 'react-router-dom';
-import gql from 'graphql-tag';
-import logoName from '../assets/img/logoRP.png'
-import {connect} from 'react-redux';
+import gql from 'graphql-tag'
 import logo from '../assets/img/logo.png'
-import { Image } from 'semantic-ui-react';
-import {setLoginStatus} from '../redux/actions/actionConfig';
+import logoName from '../assets/img/logoRP.png'
+import { Image } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { graphql } from 'react-apollo'
+import { withRouter } from 'react-router-dom'
+import { setLoginStatus, setUserLogin } from '../redux/actions/actionConfig'
 
 class Login extends Component {
   firebaseUI(){
@@ -24,7 +24,7 @@ class Login extends Component {
   checkLogin(){
     const storage = localStorage.getItem('repodId');
     if(storage){
-      this.props.setLoginStatus(true);
+      this.props.setLoginStatus(true)
       this.props.history.push('/');
     }else{
       firebase.auth().onAuthStateChanged((user) => {
@@ -36,8 +36,9 @@ class Login extends Component {
           }
           const {mutate} = this.props
           mutate({variables: objUser}).then(({data}) => {
-            this.props.setLoginStatus(true);
-            localStorage.setItem('repodId',JSON.stringify(data.userAdd));
+            this.props.setLoginStatus(true)
+            this.props.setUserLogin(data.userAdd)
+            localStorage.setItem('repodId',JSON.stringify(data.userAdd))
             if(data.userAdd.times === 0 || data.userAdd.preferences.length === 0){
               this.props.history.push('/preference');
             }else if(data.userAdd.times !== 0 && data.userAdd.preferences.length > 0){
@@ -103,8 +104,9 @@ const checkLogin = gql`
 `
 
 const mapDispatchToProps = (dispatch) => {
-  return{
-    setLoginStatus : (status) => dispatch(setLoginStatus(status))
+  return {
+    setLoginStatus : (status) => dispatch(setLoginStatus(status)),
+    setUserLogin : (user) => dispatch(setUserLogin(user))
   }
 }
 
