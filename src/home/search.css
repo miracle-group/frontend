@@ -1,0 +1,32 @@
+.search-input {
+  padding: 10px 10px;
+  height: 52px;
+  position: relative;
+}
+
+.search-input::before {
+  display: block;
+  position: fixed;
+  width: 15px;
+  z-index: 3;
+  height: 15px;
+  font-size: 20px;
+  top: 11px;
+  left: 30px;
+  line-height: 32px;
+  opacity: 0.2;
+}
+
+.search-input > input {
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  line-height: 22px;
+  padding: 5px 10px 5px 25px;
+  height: 32px;
+  position: relative;
+}
+
+.search-input > input:focus {
+  outline: none;
+}

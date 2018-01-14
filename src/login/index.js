@@ -51,10 +51,10 @@ class Login extends Component {
     }
   }
   componentDidMount(){
-    this.firebaseUI();
+    this.firebaseUI()
   }
   componentWillMount(){
-    this.checkLogin();
+    this.checkLogin()
   }
   render(){
     return(
