@@ -52,7 +52,8 @@ class Preference extends Component {
     const preferences = {
       _id : this.state.userId,
       times : this.state.time,
-      category : filtered
+      category : filtered,
+      api : this.props.config.expressApi
     }
     const {mutate} = this.props;
     mutate({variables : preferences}).then(({data}) => {
@@ -88,15 +89,15 @@ class Preference extends Component {
     }).catch(err => {
       console.log(err);
     });
-    // const storage = localStorage.getItem('repodId');
-    // if(storage){
-    //   const userData = JSON.parse(storage);
-    //   this.setState({
-    //     userId : userData._id
-    //   });
-    // }else{
-    //   this.props.history.push('/login');
-    // }
+    const storage = localStorage.getItem('repodId');
+    if(storage){
+      const userData = JSON.parse(storage);
+      this.setState({
+        userId : userData._id
+      });
+    }else{
+      this.props.history.push('/login');
+    }
   }
   parseSelected(){
     const userData = JSON.parse(localStorage.getItem('repodId'));
@@ -202,13 +203,15 @@ const savePreferences = gql`
     preferences(
       $_id: String!,
       $category: [String!],
-      $times: Int!
+      $times: Int!,
+      $api : String!
     ){
       updateUser(
       input: {
         _id: $_id,
         preferences: $category,
-        times: $times
+        times: $times,
+        api: $api
       }
     ){
       n

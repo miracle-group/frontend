@@ -17,8 +17,9 @@ import Home from './home'
 import NavBar from './NavBar.js'
 import DetailArticle from './home/detailArticle'
 import Preference from './home/preference'
-import User from './user'
-import EditUser from './user/editUser'
+import User from './user';
+import EditUser from './user/editUser';
+import {setLoginStatus} from './redux/actions/actionConfig';
 
 initializeIcons(undefined, { disableWarnings: true })
 const client = new ApolloClient({
@@ -57,7 +58,11 @@ class App extends Component {
     })
   }
   componentWillMount(){
-    this.setupFirebase()
+    this.setupFirebase();
+    const storage = localStorage.getItem('repodId');
+    if(storage){
+      store.dispatch(setLoginStatus(true));
+    }
   }
   render(){
     return(
