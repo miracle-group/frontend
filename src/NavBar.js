@@ -14,7 +14,6 @@ import {setLoginStatus} from './redux/actions/actionConfig';
 class NavBar extends React.Component {
   logout(){
     firebase.auth().signOut().then(function(){
-      this.props.setLoginStatus(false);
       localStorage.removeItem('repodId');
     }).catch(err => {
       console.log(err);
@@ -30,7 +29,10 @@ class NavBar extends React.Component {
         <Link className="bm-item-list" to="/user">
           <Icon size={23} icon={cog}/> Setting
         </Link>
-        <Link className="bm-item-list" to="/login" onMouseUp={() => this.logout()}>
+        <Link className="bm-item-list"
+          to="/login"
+          onClick={() => this.props.setLoginStatus(false)}
+          onMouseUp={() => this.logout()}>
           <Icon size={23} icon={out}/> Logout
         </Link>
       </Menu>
