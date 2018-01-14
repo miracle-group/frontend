@@ -5,13 +5,16 @@ import { home } from 'react-icons-kit/entypo/home';
 import { cog } from 'react-icons-kit/entypo/cog';
 import { out } from 'react-icons-kit/entypo/out';
 import {Link, withRouter} from 'react-router-dom';
-import logo from './assets/img/logo.svg'
-import * as firebase from 'firebase'
+import logo from './assets/img/logo.svg';
+import * as firebase from 'firebase';
+import {connect} from 'react-redux';
 import {scaleRotate as Menu} from 'react-burger-menu';
+import {setLoginStatus} from './redux/actions/actionConfig';
 
 class NavBar extends React.Component {
   logout(){
     firebase.auth().signOut().then(function(){
+      this.props.setLoginStatus(false);
       localStorage.removeItem('repodId');
     }).catch(err => {
       console.log(err);
@@ -35,4 +38,10 @@ class NavBar extends React.Component {
   }
 }
 
-export default withRouter(NavBar);
+const mapDispatchToProps = (dispatch) => {
+  return{
+    setLoginStatus : (status) => dispatch(setLoginStatus(status))
+  }
+}
+
+export default withRouter(connect(null,mapDispatchToProps)(NavBar));
