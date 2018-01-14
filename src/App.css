@@ -8,6 +8,7 @@
 }
 * {
   font-family: 'Helvetica'!important;
+  width: 100%;
 }
 html, body {
   margin: 0;

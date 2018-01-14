@@ -1,21 +1,18 @@
-import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import {createListItems} from '../utils/'
+import React from 'react'
 import Item from './item'
-import { Card, Item as Items, Grid } from 'semantic-ui-react'
-import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import Spinner from 'react-loader'
-import Search from './search'
 import SearchInput, {createFilter} from 'react-search-input'
 import './search.css'
+import { BounceLoader } from 'react-spinners'
+import { withRouter } from 'react-router-dom'
+import { Item as Items, Grid } from 'semantic-ui-react'
+import { graphql } from 'react-apollo'
 
 const KEYS_TO_FILTERS = ['title', 'content']
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: createListItems(10),
       canSelect: 'all',
       searchTerm: ''
     }
@@ -42,26 +39,26 @@ class Home extends React.Component {
   }
 
   render() {
-    const {items} = this.state
     const { data: { article } }= this.props
     let articles = null
     if(!article) {
       articles = 
         <div 
-        style = {{
-          position : "relative", 
-          margin : "auto",
-          textAlign: 'center',
-          padding:0, margin:0
-          // height:'100px',
-        }}>
-          <Spinner style = {{
-            position : "relative", 
+          style = {{
+            position : "relative",
             margin : "auto",
             textAlign: 'center',
-            padding:0, margin:0
-            // height:'100px',
-          }} name="ball-scale-multiple" color="#4DB6AC"/>
+            paddingTop: '25%',
+            paddingBottom: '25%',
+            width: '60px',
+          }}>
+          <div 
+            className='sweet-loading'>
+            <BounceLoader
+              color={'#4DB6AC'} 
+              loading={true} 
+            />
+          </div>
         </div>
     } else {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
@@ -74,11 +71,26 @@ class Home extends React.Component {
     }
     return (
       <div>
-        <div className="container">
-          <div className="selection" style={{paddingTop:'40px'}}>
+        <div 
+          className="container">
+          <div 
+            className="selection" 
+            style={{
+              paddingTop:'40px'
+            }}>
             <Grid centered>
-              <Grid.Column width={14}>
-                <SearchInput className="search-input" onChange={this.searchUpdated} style={{position: 'fixed', top: 0, height: '40px', margin: 'auto'}}/>
+              <Grid.Column 
+                width={14} >
+                <SearchInput
+                  className="search-input" 
+                  onChange={this.searchUpdated} 
+                  style={{
+                    position: 'fixed', 
+                    top: 0, 
+                    height: '40px', 
+                    margin: 'auto', 
+                    zIndex: 100
+                  }}/>
                 { articles }
               </Grid.Column>
             </Grid>
