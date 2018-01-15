@@ -49,6 +49,7 @@
     "sass": "sass src/sass:src/components --watch --no-cache --sourcemap=none"
   },
   "devDependencies": {
+    "jest-localstorage-mock": "^2.1.0",
     "react-icons-kit": "^1.0.7"
   }
 }

@@ -10,13 +10,13 @@ class DetailArticle extends Component {
       this.props.history.push('/login');
     }
   }
- 
+
   render() {
     const { article } = this.props.location.query
     let showArticle = null
     if(!article) {
-      showArticle = 
-      <div 
+      showArticle =
+      <div className="tes"
         style = {{
           position : "relative",
           margin : "auto",
@@ -27,13 +27,13 @@ class DetailArticle extends Component {
         }}>
         <div className='sweet-loading'>
           <BounceLoader
-            color={'#4DB6AC'} 
-            loading={true} 
+            color={'#4DB6AC'}
+            loading={true}
           />
         </div>
       </div>
     } else {
-      showArticle = 
+      showArticle =
         <div>
           <h2>{article.title}</h2>
           <span>{ReactHtmlParser(article.content)}</span>
