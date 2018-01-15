@@ -1,4 +1,4 @@
-const host = "http://localhost:3001";
+const host = "http://repod.ga:8000";
 
 const initialState = {
   loginStatus : false,
