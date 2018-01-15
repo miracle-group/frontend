@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import io from 'socket.io-client';
 
-const KEYS_TO_FILTERS = ['title', 'content']
+const KEYS_TO_FILTERS = ['title']
 class Home extends React.Component {
   constructor(props) {
     super(props)
@@ -41,6 +41,9 @@ class Home extends React.Component {
     if(storage) {
       axios.get(`${config.expressApi}/article/all/${storage._id}`)
       .then(({data}) => {
+        console.log('====================================')
+        console.log(data)
+        console.log('====================================')
         const times = storage.times
         let calculation = 0
         let arrArticles = []
@@ -102,34 +105,58 @@ class Home extends React.Component {
     } else {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
       articles =
-      <Items.Group>
+      <Items.Group 
+        style={{
+          backgroundColor: '#FFF',
+          padding: '15px',
+          margin: '5px',
+          fontSize: '12px'
+        }}>
         {filteredArticle.map((item, index) => (
-          <Item key={index} article={item}/>
+          <Item key={index} article={item}/> 
         ))}
       </Items.Group>
     }
     return (
       <div>
+        <div 
+          style={{
+            position: 'fixed',
+            height: '100px',
+            width: '100%',
+            backgroundColor: '#4DB6AC',
+            zIndex: 50,
+            margin: 'auto'
+          }}>
+          <SearchInput
+            className="search-input"
+            onChange={this.searchUpdated}
+            style={{
+              top: '80%',
+              margin: 'auto',
+              width: 'auto',
+              zIndex: 100,
+              marginTop: '0',
+              marginLeft: '80px',
+            }}/>
+        </div>
         <div
           className="container">
           <div
             className="selection"
             style={{
-              paddingTop:'40px'
+              paddingTop:'150px',
+              paddingRight: '20px',
+              height: '100px',
             }}>
             <Grid centered>
               <Grid.Column 
-                width={14}>
-                <SearchInput
-                  className="search-input"
-                  onChange={this.searchUpdated}
-                  style={{
-                    position: 'fixed',
-                    top: 0,
-                    height: '40px',
-                    margin: 'auto',
-                    zIndex: 100
-                  }}/>
+                width={14}
+                style={{
+                  width: '100%',
+                  paddingRight: '0px',
+                  paddingLeft: '0px'
+                }}>
                 { articles }
               </Grid.Column>
             </Grid>

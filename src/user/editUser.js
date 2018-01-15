@@ -176,7 +176,7 @@ class EditUser extends React.Component {
           <Card.Content style={{ padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
             <Card.Header style={{ padding: '10px'}}>
             <h3>{ user && user.name }</h3>
-            <img className="photoprofil" alt='profile logo' src={ user && user.profileImage } />
+            <Image size='small' className="photoprofil" alt='profile logo' src={ user && user.profileImage } />
             </Card.Header>
             <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
               <span className='date'>
@@ -212,12 +212,20 @@ class EditUser extends React.Component {
           <div 
             style={{
               position : "fixed", 
-              bottom : "5%", 
+              bottom : 0,
               margin : "auto", 
               left : 0, 
-              right : 0
+              right : 0,
+              backgroundColor: '#4DB6AC',
+              height: '60px',
+              textAlign: 'center'
             }}>
-            <Button.Group>
+            <Button.Group
+              style={{
+              top: '50%',
+              position: 'relative',
+              transform: 'translateY(-50%)'
+            }}>
               <Link to="/user">
                 <Button>Cancel</Button>
               </Link>

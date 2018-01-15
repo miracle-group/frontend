@@ -49,7 +49,7 @@ class User extends Component {
           <Card.Content style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
             <Card.Header style={{ padding: '10px'}}>
             <h3>Hallo, { user && user.name }</h3>
-            <img className="photoprofil" size='small' alt='profile' src={ user && user.profileImage} />
+            <img size='small' className="photoprofil" alt='profile' src={ user && user.profileImage} />
             </Card.Header>
             <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
               <span className='date'>
