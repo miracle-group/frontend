@@ -1,15 +1,7 @@
 import { Button, Card, Image } from 'semantic-ui-react'
 import React, { Component } from 'react'
-import {
-  // main component
-  Chart, 
-  // graphs
-  Bars, Cloud, Dots, Labels, Lines, Pies, RadialLines, Ticks, Title,
-  // wrappers
-  Layer, Animate, Transform, Handlers,
-  // helpers
-  helpers, DropShadow, Gradient
-} from 'rumble-charts'
+import { Chart, Cloud, Transform } from 'rumble-charts'
+
 const series = [{
   data: [
     {label: 'Highcharts', y: 30},
@@ -49,10 +41,11 @@ class Sumary extends Component {
           left: 0,
           right: 0,
           marginTop: '80px',
-          paddingLeft: '30px'
+          paddingLeft: '20px',
+          textAlign: 'center'
         }}
       >
-        <Card.Group>
+        <Card.Group style={{margin: 'auto', textAlign: 'center'}}>
           <Card>
             <Card.Content>
               <Card.Header>
@@ -61,8 +54,9 @@ class Sumary extends Component {
               <Card.Meta>
                 Statistic by category
               </Card.Meta>
-              <Card.Description>
-                <Chart series={series} minY={0}>
+              <Card.Description style={{margin: 'auto', textAlign: 'center'}}>
+                <br/>
+                <Chart width={200} height={200} series={series} minY={0}>
                   <Transform method='transpose'>
                     <Cloud
                       minFontSize={24}
