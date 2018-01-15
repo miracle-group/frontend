@@ -62,6 +62,7 @@ class Preference extends Component {
     const {mutate} = this.props
     mutate({variables : preferences}).then(({data}) => {
       // Jika Update Berhasil
+      this.props.setLoading(true);
       if(data.updateUser.n === 1){
         const userData = JSON.parse(localStorage.getItem('repodId'))
         const edited = {...userData,
