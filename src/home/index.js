@@ -43,10 +43,18 @@ class Home extends React.Component {
         const times = storage.times
         let calculation = 0
         let arrArticles = []
-        for (let idx = 0; idx < data.length; idx++) {
+        let randomArticle = ''
+        Array.prototype.shuffled = function() {
+          return this.map(function(n){ return [Math.random(), n] })
+                    .sort().map(function(n){ return n[1] })
+        }
+        if(data) {
+          randomArticle = data.shuffled()
+        }
+        for (let idx = 0; idx < randomArticle.length; idx++) {
           if(calculation <= times + 3) {
-            arrArticles.push(data[idx])
-            calculation += data[idx].postId.read_time
+            arrArticles.push(randomArticle[idx])
+            calculation += randomArticle[idx].postId.read_time
           }
         }
         this.setState({
@@ -105,7 +113,7 @@ class Home extends React.Component {
             }}>
             <Grid centered>
               <Grid.Column 
-                width={14} >
+                width={14}>
                 <SearchInput
                   className="search-input" 
                   onChange={this.searchUpdated} 

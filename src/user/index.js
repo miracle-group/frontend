@@ -40,16 +40,16 @@ class User extends Component {
       }
       user.date = formatDate(user.createdAt)
       tag = 
-      user.preferences.map((tag, i) => <Label key={i} as='a' color='teal' tag>{ tag }</Label>)
+      user.preferences.map((tag, i) => <Label style={{margin: '5px'}} key={i} as='a' color='teal' tag>{ tag }</Label>)
     }
     
     return (
       <div className="container" style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
-        <div className="selection" style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
+        <div className="selection" style={{padding: '10px', textAlign: 'center', paddingTop:'50px', marginTop: '10px'}}>
           <Card.Content style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
             <Card.Header style={{ padding: '10px'}}>
             <h3>Hallo, { user && user.name }</h3>
-            <img className="photoprofil" alt='profile' src={ user && user.profileImage } />
+            <img className="photoprofil" size='small' alt='profile' src={ user && user.profileImage} />
             </Card.Header>
             <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
               <span className='date'>
@@ -63,18 +63,15 @@ class User extends Component {
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <Input 
-              action='Save' 
-              placeholder='Cange time' 
-            />
+            <div style={{ padding: '20px' }}>
+              <Link to={{ pathname: `/edituser`, query: { user } }}>
+                <Button>
+                  Edit preferences
+                </Button>
+              </Link>
+            </div>
           </Card.Content> 
-          <div style={{padding: '20px'}}>
-            <Link to="/edituser" >
-              <Button>
-                Edit profile
-              </Button>
-            </Link>
-          </div>
+          
         </div>
       </div>
     )
