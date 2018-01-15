@@ -12,12 +12,14 @@ import axios from 'axios'
 import io from 'socket.io-client';
 
 const KEYS_TO_FILTERS = ['title']
+import {setPosts,setLoading} from '../redux/actions/actionPost';
+
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       canSelect: 'all',
-      searchTerm: '', 
+      searchTerm: '',
       article: null
     }
     this.searchUpdated = this.searchUpdated.bind(this)
@@ -69,11 +71,12 @@ class Home extends React.Component {
         console.log(err)
       })
     }
-    
+
     const socket = io(this.props.config.host);
     socket.on('conjuction',response => {
       // Ini data post
       console.log(response);
+      this.props.setLoading(false);
     })
     if(!storage){
       this.props.history.push('/login');
@@ -178,14 +181,21 @@ const getAllData = gql`
       thumbnail
     }
   }
-` 
+`
 
 const mapStateToProps = (state) => {
   return {
     config : state.configReducer,
-    user : state.configReducer.user
+    user : state.configReducer.user,
+    post : state.postReducer  // this.props.post.posts, this.props.post.loading
   }
 }
 
-export default withRouter(connect(mapStateToProps ,null)(Home))
-// export default withRouter(graphql(getAllData)(Home))
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPosts : (posts) => dispatch(setPosts(posts)),
+    setLoading : (status) => dispatch(setLoading(status))
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(graphql(getAllData)(Home)));
