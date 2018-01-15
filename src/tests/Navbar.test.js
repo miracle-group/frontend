@@ -7,6 +7,8 @@ import App from '../App'
 import Homes from '../home/index'
 import { fromJS } from 'immutable';
 import renderer from 'react-test-renderer';
+import sinon from 'sinon'
+import {mapDispatchToProps} from '../NavBar';
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -33,18 +35,14 @@ Object.defineProperty(window, 'localStorage', {
      value: localStorageMock
 });
 
-describe('App Testing', () => {
-  let Home = shallow(<Homes/>)
-  it('Check load page home', () => {
-    expect(Home.find('Route'))
-  })
-  it('Check Fabric class name is App', () => {
-    expect(Home.find('Fabric'))
-  })
-  it('Check Provider Apps Required', () => {
-    expect(Home.find('Provider'))
-  })
-  it('Check ApolloProvider Apps Required', () => {
-    expect(Home.find('ApolloProvider'))
-  })
+describe('Status Login Navbar Testing', () => {
+    it('should call fetch data action', () => {
+      const dispatchStatusLogin = sinon.spy();
+      const {setLoginStatus} = mapDispatchToProps(dispatchStatusLogin());
+      setLoginStatus();
+      const expectedAction = setLoginStatus();
+      const spyLastCall = dispatchStatusLogin.args[0][0];
+      expect(spyLastCall.types).to.be.eql(expectedAction.types);
+      expect(spyLastCall.callAPI).to.be.ok;
+    });
 })

@@ -4,9 +4,8 @@ import { expect } from 'chai'
 import Enzyme, { shallow, mount, render } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import App from '../App'
-import Homes from '../home/index'
-import { fromJS } from 'immutable';
-import renderer from 'react-test-renderer';
+import { setLoginStatus } from '../redux/actions/actionConfig'
+import { BounceLoader } from 'react-spinners'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -14,6 +13,7 @@ global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 
+//config localstorage
 var localStorageMock = (function() {
     var store = {};
     return {
@@ -33,18 +33,11 @@ Object.defineProperty(window, 'localStorage', {
      value: localStorageMock
 });
 
-describe('App Testing', () => {
-  let Home = shallow(<Homes/>)
-  it('Check load page home', () => {
-    expect(Home.find('Route'))
-  })
-  it('Check Fabric class name is App', () => {
-    expect(Home.find('Fabric'))
-  })
-  it('Check Provider Apps Required', () => {
-    expect(Home.find('Provider'))
-  })
-  it('Check ApolloProvider Apps Required', () => {
-    expect(Home.find('ApolloProvider'))
-  })
+//cek status action
+describe('Check Login Status Di ACTION', function (){
+    describe('setLoginStatus', function(){
+      it('Should have a type of CHANGE_LOGIN_STATUS', function () {
+         expect(setLoginStatus().type).equal('CHANGE_LOGIN_STATUS')
+      })
+    })
 })

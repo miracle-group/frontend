@@ -37,7 +37,7 @@ Object.defineProperty(window, 'localStorage', {
 describe('Article Testing', () => {
  it('It Should Loading', () => {
    const wrapper = mount(
-   <BounceLoader color={'#4DB6AC'} loading={true} />
+     <BounceLoader color={'#4DB6AC'} loading={true} />
    )
    expect(wrapper.find('sweet-loading'))
   })
