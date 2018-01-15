@@ -1,18 +1,18 @@
 import React from 'react'
-import { Card, Image, Item } from 'semantic-ui-react'
-import Striptag from 'striptags'
+import { Item } from 'semantic-ui-react'
+import Striptag from 'string-strip-html'
 import { Link } from 'react-router-dom'
 
 class List extends React.Component {
   render () {
-    const { article } = this.props
+    const article = this.props.article.postId
     let content =  Striptag(article.content)
     return(
       <Item>
         <Item.Image size='tiny' src={article.thumbnail} />
         <Item.Content style={{ paddingLeft: '25px'}}>
           <Item.Header as='a'>{ article.title }</Item.Header>
-          <Item.Meta>Description</Item.Meta>
+          <Item.Meta>time {article.read_time}</Item.Meta>
           <Item.Description>
             <p>
               {content.substring(0,100)}...
@@ -25,7 +25,7 @@ class List extends React.Component {
         <br/>
         <hr/>
       </Item>
-      )
+    )
   }
 }
 

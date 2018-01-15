@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react'
 import ReactHtmlParser from 'react-html-parser'
-import Spinner from 'react-loader'
+import { BounceLoader } from 'react-spinners'
 
 class DetailArticle extends Component {
   componentWillMount(){
@@ -16,13 +16,22 @@ class DetailArticle extends Component {
     let showArticle = null
     if(!article) {
       showArticle = 
-      <Spinner style = {{
-        position : "relative", 
-        margin : "auto",
-        textAlign: 'center',
-        padding:0, margin:0
-        // height:'100px',
-      }} name="ball-scale-multiple" color="#4DB6AC"/>
+      <div 
+        style = {{
+          position : "relative",
+          margin : "auto",
+          textAlign: 'center',
+          paddingTop: '25%',
+          paddingBottom: '25%',
+          width: '60px',
+        }}>
+        <div className='sweet-loading'>
+          <BounceLoader
+            color={'#4DB6AC'} 
+            loading={true} 
+          />
+        </div>
+      </div>
     } else {
       showArticle = 
         <div>
