@@ -16,7 +16,7 @@ class DetailArticle extends Component {
     let showArticle = null
     if(!article) {
       showArticle =
-      <div className="tes"
+      <div
         style = {{
           position : "relative",
           margin : "auto",

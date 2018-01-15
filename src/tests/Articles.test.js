@@ -42,8 +42,8 @@ describe('Article Testing', () => {
    expect(wrapper.find('sweet-loading'))
   })
 
-  it('styles articles', () => {
-    const styles = shallow (
+  it('Styles custom articles', () => {
+    const stylesArticle = shallow (
       <div
         style = {{
           position : "relative",
@@ -54,6 +54,45 @@ describe('Article Testing', () => {
           width: '60px',
         }}/>
     )
-    expect(styles.prop('style'))
+    expect(stylesArticle.prop('style'))
+  })
+
+  it('Styles custom Preferences', () => {
+    const stylesPreferences = shallow (
+      <div style={{
+        position : "fixed",
+        width : "60px",
+        bottom : "5%",
+        margin : "auto",
+        left : 0,
+        right : 0
+      }}/>
+    )
+    expect(stylesPreferences.prop('style'))
+  })
+
+  it('Styles custom Times', () => {
+    const stylesTimes = shallow (
+      <div
+        style = {{
+          position : "relative",
+          margin : "auto",
+          textAlign: 'center',
+          padding:0
+        }}/>
+    )
+    expect(stylesTimes.prop('style'))
+  })
+
+  it('Styles custom Image', () => {
+    const stylesImages = shallow (
+      <div style={{
+        width : "60px",
+        height : "60px",
+        display : "inline-flex",
+        marginLeft:'10px'
+      }}/>
+    )
+    expect(stylesImages.prop('style'))
   })
 })

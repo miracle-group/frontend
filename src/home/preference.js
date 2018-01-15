@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import { Input, Image, Step } from 'semantic-ui-react'
-import { BounceLoader } from 'react-spinners' 
-import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'  
-import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'  
+import { BounceLoader } from 'react-spinners'
+import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
+import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
 import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
 
 class Preference extends Component {
@@ -120,8 +120,8 @@ class Preference extends Component {
     let time = null
     if(this.state.prefer) {
       if(!this.state.category) {
-        time = 
-          <div 
+        time =
+          <div
             style = {{
               position : "relative",
               margin : "auto",
@@ -132,8 +132,8 @@ class Preference extends Component {
             }}>
             <div className='sweet-loading'>
               <BounceLoader
-                color={'#4DB6AC'} 
-                loading={true} 
+                color={'#4DB6AC'}
+                loading={true}
               />
             </div>
           </div>
