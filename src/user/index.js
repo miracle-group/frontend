@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image as img, Input, Button } from 'semantic-ui-react'
+import { Card, Image as img, Input, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 
@@ -9,7 +9,7 @@ const User = () => (
       <Card.Content style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
         <Card.Header style={{ padding: '10px'}}>
         <h3>Hallo, Matthew</h3>
-        <img className="photoprofil" src='https://react.semantic-ui.com/assets/images/avatar/large/matthew.png' />
+        <img className="photoprofil" alt='profile' src='https://react.semantic-ui.com/assets/images/avatar/large/matthew.png' />
         </Card.Header>
         <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
           <span className='date'>

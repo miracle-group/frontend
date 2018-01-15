@@ -3,14 +3,11 @@ import Icon from 'react-icons-kit'
 import gql from 'graphql-tag'
 import logo from '../assets/img/logoblack.png'
 import axios from 'axios'
-import Spinner from 'react-loader'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { graphql } from 'react-apollo';
-import { Input, Button, Image, Step } from 'semantic-ui-react'
-import { log } from 'util'
-import { check } from 'react-icons-kit/entypo/check'  
-import { checkmark } from 'react-icons-kit/icomoon/checkmark' 
+import { Input, Image, Step } from 'semantic-ui-react'
+import { BounceLoader } from 'react-spinners' 
 import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'  
 import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'  
 import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
@@ -55,7 +52,8 @@ class Preference extends Component {
     const preferences = {
       _id : this.state.userId,
       times : this.state.time,
-      category : filtered
+      category : filtered,
+      api : this.props.config.expressApi
     }
     const {mutate} = this.props;
     mutate({variables : preferences}).then(({data}) => {
@@ -91,15 +89,15 @@ class Preference extends Component {
     }).catch(err => {
       console.log(err);
     });
-    // const storage = localStorage.getItem('repodId');
-    // if(storage){
-    //   const userData = JSON.parse(storage);
-    //   this.setState({
-    //     userId : userData._id
-    //   });
-    // }else{
-    //   this.props.history.push('/login');
-    // }
+    const storage = localStorage.getItem('repodId');
+    if(storage){
+      const userData = JSON.parse(storage);
+      this.setState({
+        userId : userData._id
+      });
+    }else{
+      this.props.history.push('/login');
+    }
   }
   parseSelected(){
     const userData = JSON.parse(localStorage.getItem('repodId'));
@@ -119,20 +117,26 @@ class Preference extends Component {
     });
   }
   render() {
-    let image = 'https://www.hurstonwright.org/wp-content/uploads/2015/04/book-pages-med11.jpg'
     let time = null
     if(this.state.prefer) {
       if(!this.state.category) {
-        time = <div 
-          style = {{
-            position : "relative",
-            margin : "auto",
-            textAlign: 'center',
-            padding:0, margin:0
-            // height:'100px',
-          }}>
-          <Spinner name="ball-scale-multiple" color="#4DB6AC"/>
-        </div>
+        time = 
+          <div 
+            style = {{
+              position : "relative",
+              margin : "auto",
+              textAlign: 'center',
+              paddingTop: '25%',
+              paddingBottom: '25%',
+              width: '60px',
+            }}>
+            <div className='sweet-loading'>
+              <BounceLoader
+                color={'#4DB6AC'} 
+                loading={true} 
+              />
+            </div>
+          </div>
       } else {
         time =
           <div>
@@ -199,13 +203,15 @@ const savePreferences = gql`
     preferences(
       $_id: String!,
       $category: [String!],
-      $times: Int!
+      $times: Int!,
+      $api : String!
     ){
       updateUser(
       input: {
         _id: $_id,
         preferences: $category,
-        times: $times
+        times: $times,
+        api: $api
       }
     ){
       n
