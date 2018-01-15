@@ -7,6 +7,8 @@ import { BounceLoader } from 'react-spinners'
 import { withRouter } from 'react-router-dom'
 import { Item as Items, Grid } from 'semantic-ui-react'
 import { graphql } from 'react-apollo'
+import { connect } from 'react-redux'
+import axios from 'axios'
 
 const KEYS_TO_FILTERS = ['title', 'content']
 class Home extends React.Component {
@@ -14,7 +16,8 @@ class Home extends React.Component {
     super(props)
     this.state = {
       canSelect: 'all',
-      searchTerm: ''
+      searchTerm: '', 
+      article: null
     }
     this.searchUpdated = this.searchUpdated.bind(this)
   }
@@ -32,14 +35,36 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
-    const storage = localStorage.getItem('repodId');
+    const { config } = this.props
+    const storage = JSON.parse(localStorage.getItem('repodId'))
+    if(storage) {
+      axios.get(`${config.expressApi}/article/all/${storage._id}`)
+      .then(({data}) => {
+        const times = storage.times
+        let calculation = 0
+        let arrArticles = []
+        for (let idx = 0; idx < data.length; idx++) {
+          if(calculation <= times + 3) {
+            arrArticles.push(data[idx])
+            calculation += data[idx].postId.read_time
+          }
+        }
+        this.setState({
+          article: arrArticles
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+    
     if(!storage){
       this.props.history.push('/login');
     }
   }
 
   render() {
-    const { data: { article } }= this.props
+    const { article }= this.state
     let articles = null
     if(!article) {
       articles = 
@@ -112,5 +137,14 @@ const getAllData = gql`
       thumbnail
     }
   }
-`
-export default withRouter(graphql(getAllData)(Home));
+` 
+
+const mapStateToProps = (state) => {
+  return {
+    config : state.configReducer,
+    user : state.configReducer.user
+  }
+}
+
+export default withRouter(connect(mapStateToProps ,null)(Home))
+// export default withRouter(graphql(getAllData)(Home))

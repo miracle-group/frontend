@@ -149,25 +149,25 @@ class Preference extends Component {
               paddingBottom: '80px'
             }}>
             { this.state.prefer && this.state.category.map((prefer, i) =>(
-                <Label 
-                  key={i}
-                  as='a' 
-                  color={
-                    prefer.status ? 
-                    'teal' : null
+              <Label 
+                key={i}
+                as='a' 
+                color={
+                  prefer.status ? 
+                  'teal' : null
+                } 
+                image
+                onClick={ () => this.click(prefer.name) }
+                style={{
+                  margin: '10px',
+                  padding: '15px'
+                }}
+                >
+                { prefer.name  }
+                  { prefer.status ? 
+                    <Icon style={{paddingLeft: '5px'}} size={10} icon={checkmarkRound} /> : null
                   } 
-                  image
-                  onClick={ () => this.click(prefer.name) }
-                  style={{
-                    margin: '10px',
-                    padding: '15px'
-                  }}
-                  >
-                  { prefer.name  }
-                    { prefer.status ? 
-                      <Icon style={{paddingLeft: '5px'}} size={10} icon={checkmarkRound} /> : null
-                    } 
-                </Label>
+              </Label>
             ))}
             <div 
               style={{
@@ -219,7 +219,13 @@ class Preference extends Component {
               effect="float"
             />
           </span>
-          <Input fluid size='large' placeholder='Enter time...' />
+          <Input 
+            fluid 
+            size='large' 
+            placeholder='Enter time...'
+            value={this.state.time}
+            onChange={(time) => this.timing(time)}
+            />
         </div>
         <div 
           style={{

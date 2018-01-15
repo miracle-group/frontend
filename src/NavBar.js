@@ -12,6 +12,22 @@ import { setLoginStatus } from './redux/actions/actionConfig'
 import { Link, withRouter } from 'react-router-dom'
 
 class NavBar extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      user : null
+    }
+  }
+
+  componentWillMount () {
+    const storage = JSON.parse(localStorage.getItem('repodId'))
+    if(storage) {
+      this.setState({
+        user: storage
+      })
+    }
+  }
+
   logout(){
     firebase
     .auth()
@@ -24,13 +40,15 @@ class NavBar extends React.Component {
   }
 
   render(){
-    const { user } = this.props
+    const { user } = this.state
     return(
       <Menu 
         className="bm-menu bm-cross" 
         style={{ 
           overflow: 'hidden'
         }}>
+        <Image src={user && user.profileImage} size='small' circular />
+        <br/>
         <h2 style={{color: '#fff'}}>{user && user.name}</h2>
         <br/>
         <Link 
@@ -64,19 +82,10 @@ class NavBar extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setLoginStatus : (status) => dispatch(setLoginStatus(status))
-  }
-}
-
 const mapStateToProps = (state) => {
-  console.log('====================================')
-  console.log(state)
-  console.log('====================================')
   return {
     user : state.configReducer.user
   }
 }
 
-export default withRouter(connect(mapStateToProps ,mapDispatchToProps)(NavBar))
+export default withRouter(connect(mapStateToProps ,null)(NavBar))
