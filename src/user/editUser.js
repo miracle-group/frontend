@@ -176,11 +176,11 @@ class EditUser extends React.Component {
           <Card.Content style={{ padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
             <Card.Header style={{ padding: '10px'}}>
             <h3>{ user && user.name }</h3>
-            <Image size='small' className="photoprofil" alt='profile logo' src={ user && user.profileImage } />
+            <img className="photoprofil" alt='profile logo' src={ user && user.profileImage } />
             </Card.Header>
             <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
               <span className='date'>
-                Joined in { user && user.date }
+                Your reading time
               </span>
               <br/>
               <div
@@ -203,6 +203,7 @@ class EditUser extends React.Component {
               </div>
             </Card.Meta>
             <Card.Description style={{ padding: '10px' }}>
+              <h4>List preferences</h4>
               <FocusZone direction={ FocusZoneDirection.vertical } style={{ padding: '10px', height: '400px' }}>
                 { time }
               </FocusZone>

@@ -10,6 +10,7 @@ import NavBar from './NavBar.js'
 import DetailArticle from './home/detailArticle'
 import Preference from './home/preference'
 import User from './user'
+import Sumary from './sumary'
 import EditUser from './user/editUser'
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 import { HttpLink } from 'apollo-link-http'
@@ -79,6 +80,7 @@ class App extends Component {
                   <Route path="/preference" component={ Preference }/>
                   <Route path="/user" component={ User }/>
                   <Route path="/edituser" component={ EditUser }/>
+                  <Route path="/sumary" component={ Sumary }/>
                   <Route exact path='/article/detail/:id' component={ DetailArticle }/>
                   <Route path="/login" render={() => <Login ui={this.state.ui}/>} />
                 </div>
