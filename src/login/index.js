@@ -27,11 +27,12 @@ class Login extends Component {
       this.props.setLoginStatus(true);
       this.props.history.push('/');
     }else{
-      firebase.auth().onAuthStateChanged((user) => {
+      firebase.auth().onAuthStateChanged(user => {
         if(user){
           let objUser = {
             name: user.displayName,
             email: user.email,
+            profileImage : user.photoURL,
             validation: user.uid
           }
           const {mutate} = this.props
@@ -83,18 +84,21 @@ const checkLogin = gql`
     login (
       $name: String!,
       $email: String!,
+      $profileImage : String!,
       $validation: String!
     ){
     userAdd (
       input: {
         name: $name,
         email: $email,
+        profileImage : $profileImage,
         validation: $validation
       }
     ){
       _id
       name
       email
+      profileImage
       validation
       times
       preferences

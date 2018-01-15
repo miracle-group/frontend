@@ -1,6 +1,9 @@
+const host = "http://repod.ga:8000";
+
 const initialState = {
-  graphqlApi : "http://repod.ga:8000/graphql",
-  expressApi : "http://repod.ga:8000/api",
+  graphqlApi : `${host}/graphql`,
+  expressApi : `${host}/api`,
+  host : host,
   loginStatus : false
 }
 

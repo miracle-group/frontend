@@ -6,7 +6,9 @@ import './search.css'
 import { BounceLoader } from 'react-spinners'
 import { withRouter } from 'react-router-dom'
 import { Item as Items, Grid } from 'semantic-ui-react'
-import { graphql } from 'react-apollo'
+import { graphql } from 'react-apollo';
+import {connect} from 'react-redux';
+import io from 'socket.io-client';
 
 const KEYS_TO_FILTERS = ['title', 'content']
 class Home extends React.Component {
@@ -32,6 +34,11 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
+    const socket = io(this.props.config.host);
+    socket.on('conjuction',response => {
+      // Ini data post
+      console.log(response);
+    });
     const storage = localStorage.getItem('repodId');
     if(!storage){
       this.props.history.push('/login');
@@ -42,8 +49,8 @@ class Home extends React.Component {
     const { data: { article } }= this.props
     let articles = null
     if(!article) {
-      articles = 
-        <div 
+      articles =
+        <div
           style = {{
             position : "relative",
             margin : "auto",
@@ -52,43 +59,43 @@ class Home extends React.Component {
             paddingBottom: '25%',
             width: '60px',
           }}>
-          <div 
+          <div
             className='sweet-loading'>
             <BounceLoader
-              color={'#4DB6AC'} 
-              loading={true} 
+              color={'#4DB6AC'}
+              loading={true}
             />
           </div>
         </div>
     } else {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-      articles = 
+      articles =
       <Items.Group>
         {filteredArticle.map((item, index) => (
-          <Item key={index} article={item}/>       
+          <Item key={index} article={item}/>
         ))}
-      </Items.Group> 
+      </Items.Group>
     }
     return (
       <div>
-        <div 
+        <div
           className="container">
-          <div 
-            className="selection" 
+          <div
+            className="selection"
             style={{
               paddingTop:'40px'
             }}>
             <Grid centered>
-              <Grid.Column 
+              <Grid.Column
                 width={14} >
                 <SearchInput
-                  className="search-input" 
-                  onChange={this.searchUpdated} 
+                  className="search-input"
+                  onChange={this.searchUpdated}
                   style={{
-                    position: 'fixed', 
-                    top: 0, 
-                    height: '40px', 
-                    margin: 'auto', 
+                    position: 'fixed',
+                    top: 0,
+                    height: '40px',
+                    margin: 'auto',
                     zIndex: 100
                   }}/>
                 { articles }
@@ -113,4 +120,11 @@ const getAllData = gql`
     }
   }
 `
-export default withRouter(graphql(getAllData)(Home));
+
+const mapStateToProps = (state) => {
+  return{
+    config : state.configReducer
+  }
+}
+
+export default withRouter(connect(mapStateToProps,null)(graphql(getAllData)(Home)));
