@@ -10,9 +10,8 @@ import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import io from 'socket.io-client';
-
+import { setPosts,setLoading } from '../redux/actions/actionPost';
 const KEYS_TO_FILTERS = ['title']
-import {setPosts,setLoading} from '../redux/actions/actionPost';
 
 class Home extends React.Component {
   constructor(props) {
