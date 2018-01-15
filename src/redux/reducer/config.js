@@ -1,8 +1,8 @@
-const host = "http://repod.ga:8000";
+const host = "http://localhost:3001";
 
 const initialState = {
   loginStatus : false,
-  user : null
+  user : null,
   graphqlApi : `${host}/graphql`,
   expressApi : `${host}/api`,
   host : host
