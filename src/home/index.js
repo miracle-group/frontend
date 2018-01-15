@@ -63,19 +63,16 @@ class Home extends React.Component {
         this.setState({
           article: arrArticles
         })
-      })
-      .catch(err => {
+      }).catch(err => {
         console.log(err)
+      });
+      const socket = io(this.props.config.host);
+      socket.on(`conjuction-${storage.userId}`,response => {
+        // Ini data post
+        console.log(response);
+        this.props.setLoading(false);
       })
-    }
-
-    const socket = io(this.props.config.host);
-    socket.on('conjuction',response => {
-      // Ini data post
-      console.log(response);
-      this.props.setLoading(false);
-    })
-    if(!storage){
+    }else{
       this.props.history.push('/login');
     }
   }
