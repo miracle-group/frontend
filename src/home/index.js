@@ -9,6 +9,7 @@ import { Item as Items, Grid } from 'semantic-ui-react'
 import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import io from 'socket.io-client';
 
 const KEYS_TO_FILTERS = ['title', 'content']
 class Home extends React.Component {
@@ -58,6 +59,11 @@ class Home extends React.Component {
       })
     }
     
+    const socket = io(this.props.config.host);
+    socket.on('conjuction',response => {
+      // Ini data post
+      console.log(response);
+    })
     if(!storage){
       this.props.history.push('/login');
     }
@@ -67,8 +73,8 @@ class Home extends React.Component {
     const { article }= this.state
     let articles = null
     if(!article) {
-      articles = 
-        <div 
+      articles =
+        <div
           style = {{
             position : "relative",
             margin : "auto",
@@ -77,43 +83,43 @@ class Home extends React.Component {
             paddingBottom: '25%',
             width: '60px',
           }}>
-          <div 
+          <div
             className='sweet-loading'>
             <BounceLoader
-              color={'#4DB6AC'} 
-              loading={true} 
+              color={'#4DB6AC'}
+              loading={true}
             />
           </div>
         </div>
     } else {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-      articles = 
+      articles =
       <Items.Group>
         {filteredArticle.map((item, index) => (
-          <Item key={index} article={item}/>       
+          <Item key={index} article={item}/>
         ))}
-      </Items.Group> 
+      </Items.Group>
     }
     return (
       <div>
-        <div 
+        <div
           className="container">
-          <div 
-            className="selection" 
+          <div
+            className="selection"
             style={{
               paddingTop:'40px'
             }}>
             <Grid centered>
-              <Grid.Column 
+              <Grid.Column
                 width={14} >
                 <SearchInput
-                  className="search-input" 
-                  onChange={this.searchUpdated} 
+                  className="search-input"
+                  onChange={this.searchUpdated}
                   style={{
-                    position: 'fixed', 
-                    top: 0, 
-                    height: '40px', 
-                    margin: 'auto', 
+                    position: 'fixed',
+                    top: 0,
+                    height: '40px',
+                    margin: 'auto',
                     zIndex: 100
                   }}/>
                 { articles }

@@ -1,8 +1,11 @@
+const host = "http://repod.ga:8000";
+
 const initialState = {
-  graphqlApi : "http://repod.ga:8000/graphql",
-  expressApi : "http://repod.ga:8000/api",
   loginStatus : false,
   user : null
+  graphqlApi : `${host}/graphql`,
+  expressApi : `${host}/api`,
+  host : host
 }
 
 const reducer = (state = initialState, action) => {
