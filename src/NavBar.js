@@ -7,6 +7,7 @@ import { cog } from 'react-icons-kit/entypo/cog'
 import { out } from 'react-icons-kit/entypo/out'
 import { Image, List } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import { graph } from 'react-icons-kit/entypo/graph'; 
 import { scaleRotate as Menu } from 'react-burger-menu'
 import { setLoginStatus } from './redux/actions/actionConfig'
 import { Link, withRouter } from 'react-router-dom'
@@ -58,6 +59,14 @@ class NavBar extends React.Component {
             size={23} 
             icon={home}
           /> Home
+        </Link>
+        <Link 
+          className="bm-item-list" 
+          to="/sumary">
+          <Icon 
+            size={23} 
+            icon={graph}
+          /> Sumary
         </Link>
         <Link 
           className="bm-item-list" 

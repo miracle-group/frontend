@@ -36,7 +36,7 @@ class DetailArticle extends Component {
   }
 
   getCurrentLocation(){
-
+    const { article } = this.props.location.query
     let b = document.documentElement
     let newReadTime = this.state.readTime + 1
     let currentLocation = b.scrollTop
@@ -46,15 +46,38 @@ class DetailArticle extends Component {
     this.checkScroll(newReadTime, currentLocation)
 
     // check jika sudah scroll mentok
-
-    if (b.scrollHeight - b.scrollTop === b.clientHeight) {
-      clearInterval(this.checker)
-      let detik = this.state.readTime
-      alert(`kamu membaca selama ${detik} detik`)
-    }
-    // check kalo durasi baca lebih lama dari yang disebut
-    if (newReadTime > this.state.maxDuration) {
-      alert('kelamaan cuk')
+    console.log('====================================')
+    console.log(b.scrollHeight, 'TINGGI')
+    console.log('====================================')
+    // if (b.scrollHeight - b.scrollTop === b.clientHeight) {
+    //   clearInterval(this.checker)
+    //   let detik = this.state.readTime
+    //   alert(`kamu membaca selama ${detik} detik`)
+    // }
+    // // check kalo durasi baca lebih lama dari yang disebut
+    // if (newReadTime > this.state.maxDuration) {
+    //   alert('kelamaan cuk')
+    //   clearInterval(this.checker)
+    // }
+    if(b.scrollHeight >= 1500) {
+      if(currentLocation >= b.scrollHeight - 1000) {
+        console.log('====================================')
+        console.log('masuk')
+        console.log('====================================')
+        console.log('====================================')
+        console.log(newReadTime)
+        console.log(article.read_time, '====================================')
+        if(newReadTime >= (article.read_time * 60) - ((article.read_time * 60) * (20 / 100))) {
+          alert('good')
+        } else if(newReadTime >= (article.read_time * 60) / 2){
+          alert('medium')
+        } else {
+          alert('bad')
+        }
+        clearInterval(this.checker)
+      }
+    } else {
+      alert('halaman sedikit')
       clearInterval(this.checker)
     }
 
@@ -78,7 +101,6 @@ class DetailArticle extends Component {
       console.log('kondisiB', isReadingNotTooSlow)
     }
   }
-
 
   // useful event listener
   handleScroll() {

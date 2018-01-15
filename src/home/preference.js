@@ -132,14 +132,19 @@ class Preference extends Component {
               textAlign: 'center',
               paddingTop: '25%',
               paddingBottom: '25%',
-              width: '60px',
+              width: '50%',
             }}>
-            <div className='sweet-loading'>
+            <div 
+              className='sweet-loading' 
+              style={{
+                display: 'inline-block'
+              }}>
               <BounceLoader
                 color={'#4DB6AC'}
                 loading={true}
               />
             </div>
+            <h3 style={{textAlign: 'center', margin : "auto",}}>Loading preferences...</h3>
           </div>
       } else {
         time =
@@ -162,7 +167,8 @@ class Preference extends Component {
                 onClick={ () => this.click(prefer.name) }
                 style={{
                   margin: '10px',
-                  padding: '15px'
+                  padding: '15px',
+                  fontSize: '20px'
                 }}
                 >
                 { prefer.name  }
@@ -221,10 +227,10 @@ class Preference extends Component {
               effect="float"
             />
           </span>
-          <Input
-            fluid
-            size='large'
-            placeholder='Enter time...'
+          <Input 
+            fluid 
+            size='large' 
+            placeholder='Reading time preferences...'
             value={this.state.time}
             onChange={(time) => this.timing(time)}
             />
