@@ -30,6 +30,20 @@ class Home extends React.Component {
 
   componentDidMount () {
     this._hasMounted = true
+    console.log(
+
+
+
+
+
+
+
+
+
+
+
+        
+    )
   }
 
   _onSelectionChanged = () => {
