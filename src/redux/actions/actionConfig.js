@@ -9,7 +9,9 @@ export const setLoginStatus = (status) => {
 
 export const setUserLogin = (user) => {
   return {
-    type: 'SET_USER_LOGIN',
-    user
+    type: 'SET_LOGGEDIN_USER',
+    payload : {
+      user
+    }
   }
 }

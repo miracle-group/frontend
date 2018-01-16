@@ -51,7 +51,10 @@ class Preference extends Component {
       return value.status === true
     })
     const filtered = selected.map(value => {
-      return value.name.toLowerCase()
+      return {
+        name : value.name.toLowerCase(),
+        value : 0
+      }
     })
     const preferences = {
       _id : this.state.userId,
@@ -75,7 +78,7 @@ class Preference extends Component {
     }).catch(err => {
       // Jika Update Gagal
       console.log(err)
-    })
+    });
   }
   componentWillMount(){
     axios.get(`${this.props.config.expressApi}/category/all`).then(({data}) => {
@@ -107,7 +110,7 @@ class Preference extends Component {
     const userData = JSON.parse(localStorage.getItem('repodId'))
     const category = this.state.category.map(item => {
       for(let i = 0; i < userData.preferences.length; i++){
-        const edited = userData.preferences[i][0].toUpperCase()+userData.preferences[i].slice(1)
+        const edited = userData.preferences[i].name[0].toUpperCase()+userData.preferences[i].name.slice(1);
         if(item.name === edited){
           item.status = true
         }
@@ -134,8 +137,8 @@ class Preference extends Component {
               paddingBottom: '25%',
               width: '50%',
             }}>
-            <div 
-              className='sweet-loading' 
+            <div
+              className='sweet-loading'
               style={{
                 display: 'inline-block'
               }}>
@@ -152,7 +155,6 @@ class Preference extends Component {
             style={{
               paddingTop:'80px',
               paddingLeft: '30px',
-              margin: '20px',
               paddingBottom: '80px'
             }}>
             { this.state.prefer && this.state.category.map((prefer, i) =>(
@@ -227,9 +229,9 @@ class Preference extends Component {
               effect="float"
             />
           </span>
-          <Input 
-            fluid 
-            size='large' 
+          <Input
+            fluid
+            size='large'
             placeholder='Reading time preferences...'
             value={this.state.time}
             onChange={(time) => this.timing(time)}
@@ -284,7 +286,7 @@ const savePreferences = gql`
   mutation
     preferences(
       $_id: String!,
-      $category: [String!],
+      $category: [Preferences!]!,
       $times: Int!,
       $api : String!
     ){

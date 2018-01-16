@@ -42,9 +42,6 @@ class Home extends React.Component {
     if(storage) {
       axios.get(`${config.expressApi}/article/all/${storage._id}`)
       .then(({data}) => {
-        console.log('====================================')
-        console.log(data)
-        console.log('====================================')
         const times = storage.times
         let calculation = 0
         let arrArticles = []
@@ -69,7 +66,7 @@ class Home extends React.Component {
         console.log(err)
       });
       const socket = io(this.props.config.host);
-      socket.on(`conjuction-${storage.userId}`,response => {
+      socket.on(`conjuction-${storage._id}`,response => {
         // Ini data post
         console.log(response);
         this.props.setLoading(false);
@@ -104,7 +101,7 @@ class Home extends React.Component {
     } else {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
       articles =
-      <Items.Group 
+      <Items.Group
         style={{
           backgroundColor: '#FFF',
           padding: '15px',
@@ -112,13 +109,13 @@ class Home extends React.Component {
           fontSize: '12px'
         }}>
         {filteredArticle.map((item, index) => (
-          <Item key={index} article={item}/> 
+          <Item key={index} article={item}/>
         ))}
       </Items.Group>
     }
     return (
       <div>
-        <div 
+        <div
           style={{
             position: 'fixed',
             height: '100px',
@@ -149,7 +146,7 @@ class Home extends React.Component {
               height: '100px',
             }}>
             <Grid centered>
-              <Grid.Column 
+              <Grid.Column
                 width={14}
                 style={{
                   width: '100%',
