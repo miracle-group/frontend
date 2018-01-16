@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { graphql } from 'react-apollo'
 import { withRouter } from 'react-router-dom'
-import { BounceLoader } from 'react-spinners' 
+import { BounceLoader } from 'react-spinners'
 import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin'
 import { buttonQuestion } from 'react-icons-kit/metrize/buttonQuestion'
-import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'  
-import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'  
+import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
+import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
 import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone'
 import { Input, Image, Label, Button, Card } from 'semantic-ui-react'
 
@@ -49,8 +49,11 @@ class EditUser extends React.Component {
       return value.status === true
     })
     const filtered = selected.map(value => {
-      return value.name.toLowerCase()
-    })
+      return {
+        name : value.name.toLowerCase(),
+        value : 0
+      }
+    });
     const preferences = {
       _id : this.state.userId,
       times : this.state.time,
@@ -64,16 +67,17 @@ class EditUser extends React.Component {
         const userData = JSON.parse(localStorage.getItem('repodId'))
         const edited = {...userData,
           times : this.state.time,
-          name : this.state.name,
-          preferences : filtered
+          name : this.state.name
         }
         localStorage.setItem('repodId',JSON.stringify(edited))
-        this.props.history.push('/user')
+        localStorage.setItem('repodIdCategories',JSON.stringify(filtered));
+        this.props.location.updateCategory();
+        this.props.history.push('/user');
       }
     }).catch(err => {
       // Jika Update Gagal
       console.log(err)
-    })
+    });
   }
   componentWillMount(){
     axios.get(`${this.props.config.expressApi}/category/all`).then(({data}) => {
@@ -102,28 +106,30 @@ class EditUser extends React.Component {
     }
   }
   parseSelected(){
-    const userData = JSON.parse(localStorage.getItem('repodId'))
+    const userData = JSON.parse(localStorage.getItem('repodId'));
+    const userCategories = JSON.parse(localStorage.getItem('repodIdCategories'))
     const category = this.state.category.map(item => {
-      for(let i = 0; i < userData.preferences.length; i++){
-        const edited = userData.preferences[i][0].toUpperCase()+userData.preferences[i].slice(1)
+      for(let i = 0; i < userCategories.length; i++){
+        const edited = userCategories[i].name[0].toUpperCase()+userCategories[i].name.slice(1);
         if(item.name === edited){
           item.status = true
         }
       }
       return item
-    })
+    });
     this.setState({
       name : userData.name,
       time : userData.times,
       category : category
-    })
+    });
+    console.log(userData);
   }
   render(){
     const { user } = this.props.location.query
     let time = null
     if(!this.state.category) {
-      time = 
-        <div 
+      time =
+        <div
           style = {{
             position : "relative",
             margin : "auto",
@@ -134,27 +140,27 @@ class EditUser extends React.Component {
           }}>
           <div className='sweet-loading'>
             <BounceLoader
-              color={'#4DB6AC'} 
-              loading={true} 
+              color={'#4DB6AC'}
+              loading={true}
             />
           </div>
         </div>
     } else {
       time =
-        <div 
+        <div
           style={{
             paddingTop:'5px',
             margin: '20px',
             paddingBottom: '80px'
           }}>
           { this.state.prefer && this.state.category.map((prefer, i) =>(
-            <Label 
+            <Label
               key={i}
-              as='a' 
+              as='a'
               color={
-                prefer.status ? 
+                prefer.status ?
                 'teal' : null
-              } 
+              }
               image
               onClick={ () => this.click(prefer.name) }
               style={{
@@ -163,9 +169,9 @@ class EditUser extends React.Component {
               }}
               >
               { prefer.name  }
-                { prefer.status ? 
+                { prefer.status ?
                   <Icon style={{paddingLeft: '5px'}} size={10} icon={checkmarkRound} /> : null
-                } 
+                }
             </Label>
           ))}
         </div>
@@ -190,12 +196,12 @@ class EditUser extends React.Component {
                   top: '45%',
                   bottom: '25%',
                   width: '200px',
-                  left : 0, 
+                  left : 0,
                   right : 0 ,
                 }}>
-                <Input 
-                  fluid 
-                  size='large' 
+                <Input
+                  fluid
+                  size='large'
                   placeholder='Enter time...'
                   value={this.state.time}
                   onChange={(time) => this.timing(time)}
@@ -210,12 +216,12 @@ class EditUser extends React.Component {
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
-          <div 
+          <div
             style={{
-              position : "fixed", 
+              position : "fixed",
               bottom : 0,
-              margin : "auto", 
-              left : 0, 
+              margin : "auto",
+              left : 0,
               right : 0,
               backgroundColor: '#4DB6AC',
               height: '60px',
@@ -231,14 +237,14 @@ class EditUser extends React.Component {
                 <Button>Cancel</Button>
               </Link>
               <Button.Or />
-              <Button 
+              <Button
               onClick={ () => this.submit()}
               positive
               >Save</Button>
             </Button.Group>
           </div>
-          </Card.Content> 
-          
+          </Card.Content>
+
         </div>
       </div>
     )
@@ -249,7 +255,7 @@ const savePreferences = gql`
   mutation
     preferences(
       $_id: String!,
-      $category: [String!],
+      $category: [Preferences!]!,
       $times: Int!,
       $api : String!
     ){

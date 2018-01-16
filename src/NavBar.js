@@ -34,6 +34,7 @@ class NavBar extends React.Component {
   }
   logout(){
     firebase.auth().signOut().then(function(){
+      localStorage.removeItem('repodIdCategories');
       localStorage.removeItem('repodId');
     }).catch(err => {
       console.log(err)
