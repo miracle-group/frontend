@@ -8,11 +8,13 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import { Input, Image, Label } from 'semantic-ui-react'
-import { BounceLoader } from 'react-spinners' 
+import { BounceLoader } from 'react-spinners'
 import { buttonQuestion } from 'react-icons-kit/metrize/buttonQuestion'
-import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'  
-import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'  
-import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin'
+import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
+import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
+import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
+
+import {setPosts,setLoading} from '../redux/actions/actionPost';
 
 class Preference extends Component {
   constructor(){
@@ -49,7 +51,11 @@ class Preference extends Component {
       return value.status === true
     })
     const filtered = selected.map(value => {
-      return value.name.toLowerCase()
+      return {
+        name:  value.name.toLowerCase(),
+        value: 0,
+        stats: 0
+      }
     })
     const preferences = {
       _id : this.state.userId,
@@ -122,26 +128,31 @@ class Preference extends Component {
     let time = null
     if(this.state.prefer) {
       if(!this.state.category) {
-        time = 
-          <div 
+        time =
+          <div
             style = {{
               position : "relative",
               margin : "auto",
               textAlign: 'center',
               paddingTop: '25%',
               paddingBottom: '25%',
-              width: '60px',
+              width: '50%',
             }}>
-            <div className='sweet-loading'>
+            <div 
+              className='sweet-loading' 
+              style={{
+                display: 'inline-block'
+              }}>
               <BounceLoader
-                color={'#4DB6AC'} 
-                loading={true} 
+                color={'#4DB6AC'}
+                loading={true}
               />
             </div>
+            <h3 style={{textAlign: 'center', margin : "auto",}}>Loading preferences...</h3>
           </div>
       } else {
         time =
-          <div 
+          <div
             style={{
               paddingTop:'80px',
               paddingLeft: '30px',
@@ -149,38 +160,39 @@ class Preference extends Component {
               paddingBottom: '80px'
             }}>
             { this.state.prefer && this.state.category.map((prefer, i) =>(
-              <Label 
+              <Label
                 key={i}
-                as='a' 
+                as='a'
                 color={
-                  prefer.status ? 
+                  prefer.status ?
                   'teal' : null
-                } 
+                }
                 image
                 onClick={ () => this.click(prefer.name) }
                 style={{
                   margin: '10px',
-                  padding: '15px'
+                  padding: '15px',
+                  fontSize: '20px'
                 }}
                 >
                 { prefer.name  }
-                  { prefer.status ? 
+                  { prefer.status ?
                     <Icon style={{paddingLeft: '5px'}} size={10} icon={checkmarkRound} /> : null
-                  } 
+                  }
               </Label>
             ))}
-            <div 
+            <div
               style={{
-                position : "fixed", 
-                width : "60px", 
-                bottom : "5%", 
-                margin : "auto", 
-                left : 0, 
+                position : "fixed",
+                width : "60px",
+                bottom : "5%",
+                margin : "auto",
+                left : 0,
                 right : 0
               }}>
-              <Icon 
-                size={60} 
-                icon={arrowRightThin} 
+              <Icon
+                size={60}
+                icon={arrowRightThin}
                 onClick={ () => this.setState({prefer: false})}
               />
             </div>
@@ -197,56 +209,56 @@ class Preference extends Component {
             top: '45%',
             bottom: '25%',
             width: '200px',
-            left : 0, 
+            left : 0,
             right : 0 ,
           }}>
-          <span>  
-            <span 
+          <span>
+            <span
               data-tip="This is info for everithing you want to do. So, do it... bos" >
-            <Icon 
+            <Icon
                 style={{
                   color: '#4DB6AC'
                 }}
-                size={50} 
+                size={50}
                 icon={buttonQuestion}
               />
             </span>
             <br/>
             <br/>
-            <ReactTooltip 
-              place="top" 
-              type="dark" 
+            <ReactTooltip
+              place="top"
+              type="dark"
               effect="float"
             />
           </span>
           <Input 
             fluid 
             size='large' 
-            placeholder='Enter time...'
+            placeholder='Reading time preferences...'
             value={this.state.time}
             onChange={(time) => this.timing(time)}
             />
         </div>
-        <div 
+        <div
           style={{
-            position : "fixed", 
-            width : "140px", 
-            bottom : "5%", 
-            margin : "auto", 
-            left : 0, 
-            right : 0 , 
+            position : "fixed",
+            width : "140px",
+            bottom : "5%",
+            margin : "auto",
+            left : 0,
+            right : 0 ,
             flexDirection:'row'
           }}>
-          <Icon 
-            size={60} 
-            icon={arrowLeftThin} 
+          <Icon
+            size={60}
+            icon={arrowLeftThin}
             onClick={ () => this.setState({prefer: true})}
           />
-          <div 
+          <div
             style={{
-              width : "60px", 
-              height : "60px", 
-              display : "inline-flex", 
+              width : "60px",
+              height : "60px",
+              display : "inline-flex",
               marginLeft:'10px'
             }}>
             <Image
@@ -261,9 +273,9 @@ class Preference extends Component {
       </div>
     }
     return (
-      <div 
+      <div
         className="container">
-        <div 
+        <div
           className="selections">
           {time}
         </div>
@@ -300,4 +312,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps,null)(graphql(savePreferences)(Preference)))
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPosts : (posts) => dispatch(setPosts(posts)),
+    setLoading : (status) => dispatch(setLoading(status))
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(graphql(savePreferences)(Preference)));

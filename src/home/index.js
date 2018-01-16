@@ -10,14 +10,15 @@ import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import io from 'socket.io-client';
+import { setPosts,setLoading } from '../redux/actions/actionPost';
+const KEYS_TO_FILTERS = ['postId.title']
 
-const KEYS_TO_FILTERS = ['title', 'content']
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       canSelect: 'all',
-      searchTerm: '', 
+      searchTerm: '',
       article: null
     }
     this.searchUpdated = this.searchUpdated.bind(this)
@@ -41,6 +42,9 @@ class Home extends React.Component {
     if(storage) {
       axios.get(`${config.expressApi}/article/all/${storage._id}`)
       .then(({data}) => {
+        console.log('====================================')
+        console.log(data)
+        console.log('====================================')
         const times = storage.times
         let calculation = 0
         let arrArticles = []
@@ -61,18 +65,16 @@ class Home extends React.Component {
         this.setState({
           article: arrArticles
         })
-      })
-      .catch(err => {
+      }).catch(err => {
         console.log(err)
+      });
+      const socket = io(this.props.config.host);
+      socket.on(`conjuction-${storage.userId}`,response => {
+        // Ini data post
+        console.log('INI HOME', response);
+        this.props.setLoading(false);
       })
-    }
-    
-    const socket = io(this.props.config.host);
-    socket.on('conjuction',response => {
-      // Ini data post
-      console.log(response);
-    })
-    if(!storage){
+    }else{
       this.props.history.push('/login');
     }
   }
@@ -89,47 +91,76 @@ class Home extends React.Component {
             textAlign: 'center',
             paddingTop: '25%',
             paddingBottom: '25%',
-            width: '60px',
+            width: '50%',
           }}>
-          <div
-            className='sweet-loading'>
+          <div 
+            className='sweet-loading' 
+            style={{
+              display: 'inline-block'
+            }}>
             <BounceLoader
               color={'#4DB6AC'}
               loading={true}
             />
           </div>
+          <h3 style={{textAlign: 'center', margin : "auto",}}>Loading articles suggestion...</h3>
         </div>
     } else {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
       articles =
-      <Items.Group>
+      <Items.Group
+        divided 
+        style={{
+          backgroundColor: '#FFF',
+          padding: '15px',
+          margin: '5px',
+          fontSize: '12px'
+        }}>
         {filteredArticle.map((item, index) => (
-          <Item key={index} article={item}/>
+          <Item key={index} article={item}/> 
         ))}
       </Items.Group>
     }
     return (
       <div>
+        <div 
+          style={{
+            position: 'fixed',
+            height: '100px',
+            width: '100%',
+            backgroundColor: '#4DB6AC',
+            zIndex: 50,
+            margin: 'auto'
+          }}>
+          <SearchInput
+            className="search-input"
+            onChange={this.searchUpdated}
+            style={{
+              top: '80%',
+              margin: 'auto',
+              width: 'auto',
+              zIndex: 100,
+              marginTop: '0',
+              marginLeft: '80px',
+            }}/>
+        </div>
         <div
           className="container">
           <div
             className="selection"
             style={{
-              paddingTop:'40px'
+              paddingTop:'150px',
+              paddingRight: '20px',
+              height: '100px',
             }}>
             <Grid centered>
               <Grid.Column 
-                width={14}>
-                <SearchInput
-                  className="search-input"
-                  onChange={this.searchUpdated}
-                  style={{
-                    position: 'fixed',
-                    top: 0,
-                    height: '40px',
-                    margin: 'auto',
-                    zIndex: 100
-                  }}/>
+                width={14}
+                style={{
+                  width: '100%',
+                  paddingRight: '0px',
+                  paddingLeft: '0px'
+                }}>
                 { articles }
               </Grid.Column>
             </Grid>
@@ -151,14 +182,21 @@ const getAllData = gql`
       thumbnail
     }
   }
-` 
+`
 
 const mapStateToProps = (state) => {
   return {
     config : state.configReducer,
-    user : state.configReducer.user
+    user : state.configReducer.user,
+    post : state.postReducer  // this.props.post.posts, this.props.post.loading
   }
 }
 
-export default withRouter(connect(mapStateToProps ,null)(Home))
-// export default withRouter(graphql(getAllData)(Home))
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPosts : (posts) => dispatch(setPosts(posts)),
+    setLoading : (status) => dispatch(setLoading(status))
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(graphql(getAllData)(Home)));

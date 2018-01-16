@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react'
 import ReactHtmlParser from 'react-html-parser'
 import { BounceLoader } from 'react-spinners'
+import axios from 'axios'
 
 class DetailArticle extends Component {
   constructor(){
@@ -36,7 +37,7 @@ class DetailArticle extends Component {
   }
 
   getCurrentLocation(){
-
+    const article = this.props.location.query.article.postId
     let b = document.documentElement
     let newReadTime = this.state.readTime + 1
     let currentLocation = b.scrollTop
@@ -46,15 +47,38 @@ class DetailArticle extends Component {
     this.checkScroll(newReadTime, currentLocation)
 
     // check jika sudah scroll mentok
-
-    if (b.scrollHeight - b.scrollTop === b.clientHeight) {
-      clearInterval(this.checker)
-      let detik = this.state.readTime
-      alert(`kamu membaca selama ${detik} detik`)
-    }
-    // check kalo durasi baca lebih lama dari yang disebut
-    if (newReadTime > this.state.maxDuration) {
-      alert('kelamaan cuk')
+    console.log('====================================')
+    console.log(b.scrollHeight, 'TINGGI')
+    console.log('====================================')
+    // if (b.scrollHeight - b.scrollTop === b.clientHeight) {
+    //   clearInterval(this.checker)
+    //   let detik = this.state.readTime
+    //   alert(`kamu membaca selama ${detik} detik`)
+    // }
+    // // check kalo durasi baca lebih lama dari yang disebut
+    // if (newReadTime > this.state.maxDuration) {
+    //   alert('kelamaan cuk')
+    //   clearInterval(this.checker)
+    // }
+    if(b.scrollHeight >= 1500) {
+      if(currentLocation >= b.scrollHeight - 1000) {
+        console.log('====================================')
+        console.log('masuk')
+        console.log('====================================')
+        console.log('====================================')
+        console.log(newReadTime)
+        console.log(article.read_time, '====================================')
+        if(newReadTime >= (article.read_time * 60) - ((article.read_time * 60) * (20 / 100))) {
+          alert('good')
+        } else if(newReadTime >= (article.read_time * 60) / 2){
+          alert('medium')
+        } else {
+          alert('bad')
+        }
+        clearInterval(this.checker)
+      }
+    } else {
+      alert('halaman sedikit')
       clearInterval(this.checker)
     }
 
@@ -79,7 +103,6 @@ class DetailArticle extends Component {
     }
   }
 
-
   // useful event listener
   handleScroll() {
     // console.log(document.getElementById('root').scrollTop)
@@ -89,9 +112,13 @@ class DetailArticle extends Component {
     const { article } = this.props.location.query
     const storage = JSON.parse(localStorage.getItem('repodId'))
     if(storage){
+      console.log('====================================')
+      console.log(article)
+      console.log('====================================')
+      axios.post(`http://repod.ga:8000/api/article/${article._id}/${true}`)
       this.setState({
-        articleDuration: article.read_time * 60,
-        maxDuration: (article.read_time * 60) * 2
+        articleDuration: article.postId.read_time * 60,
+        maxDuration: (article.postId.read_time * 60) * 2
       })
     } else {
       this.props.history.push('/login')
@@ -99,7 +126,7 @@ class DetailArticle extends Component {
   }
  
   render() {
-    const { article } = this.props.location.query
+    const article = this.props.location.query.article.postId
     let showArticle = null
     if(!article) {
       showArticle = 
