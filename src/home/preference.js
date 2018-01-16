@@ -51,7 +51,11 @@ class Preference extends Component {
       return value.status === true
     })
     const filtered = selected.map(value => {
-      return value.name.toLowerCase()
+      return {
+        name:  value.name.toLowerCase(),
+        value: 0,
+        stats: 0
+      }
     })
     const preferences = {
       _id : this.state.userId,

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react'
 import ReactHtmlParser from 'react-html-parser'
 import { BounceLoader } from 'react-spinners'
+import axios from 'axios'
 
 class DetailArticle extends Component {
   constructor(){
@@ -36,7 +37,7 @@ class DetailArticle extends Component {
   }
 
   getCurrentLocation(){
-    const { article } = this.props.location.query
+    const article = this.props.location.query.article.postId
     let b = document.documentElement
     let newReadTime = this.state.readTime + 1
     let currentLocation = b.scrollTop
@@ -111,9 +112,13 @@ class DetailArticle extends Component {
     const { article } = this.props.location.query
     const storage = JSON.parse(localStorage.getItem('repodId'))
     if(storage){
+      console.log('====================================')
+      console.log(article)
+      console.log('====================================')
+      axios.post(`http://repod.ga:8000/api/article/${article._id}/${true}`)
       this.setState({
-        articleDuration: article.read_time * 60,
-        maxDuration: (article.read_time * 60) * 2
+        articleDuration: article.postId.read_time * 60,
+        maxDuration: (article.postId.read_time * 60) * 2
       })
     } else {
       this.props.history.push('/login')
@@ -121,7 +126,7 @@ class DetailArticle extends Component {
   }
  
   render() {
-    const { article } = this.props.location.query
+    const article = this.props.location.query.article.postId
     let showArticle = null
     if(!article) {
       showArticle = 

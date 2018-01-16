@@ -65,54 +65,6 @@ class Sumary extends Component {
             <Card.Content extra>
             </Card.Content>
           </Card>
-          <Card>
-            <Card.Content>
-              <Card.Header>
-                Most reads
-              </Card.Header>
-              <Card.Meta>
-                Statistic by category
-              </Card.Meta>
-              <Card.Description style={{margin: 'auto', textAlign: 'center'}}>
-                <br/>
-                <Chart width={200} height={200} series={series} minY={0}>
-                  <Transform method='transpose'>
-                    <Cloud
-                      minFontSize={24}
-                      maxFontSize={62}
-                      padding={2}
-                    />
-                  </Transform>
-                </Chart>
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-            </Card.Content>
-          </Card>
-          <Card>
-            <Card.Content>
-              <Card.Header>
-                Most reads
-              </Card.Header>
-              <Card.Meta>
-                Statistic by category
-              </Card.Meta>
-              <Card.Description style={{margin: 'auto', textAlign: 'center'}}>
-                <br/>
-                <Chart width={200} height={200} series={series} minY={0}>
-                  <Transform method='transpose'>
-                    <Cloud
-                      minFontSize={24}
-                      maxFontSize={62}
-                      padding={2}
-                    />
-                  </Transform>
-                </Chart>
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-            </Card.Content>
-          </Card>
         </Card.Group>
       </div>
     )

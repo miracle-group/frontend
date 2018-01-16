@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import io from 'socket.io-client';
 import { setPosts,setLoading } from '../redux/actions/actionPost';
-const KEYS_TO_FILTERS = ['title']
+const KEYS_TO_FILTERS = ['postId.title']
 
 class Home extends React.Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class Home extends React.Component {
       const socket = io(this.props.config.host);
       socket.on(`conjuction-${storage.userId}`,response => {
         // Ini data post
-        console.log(response);
+        console.log('INI HOME', response);
         this.props.setLoading(false);
       })
     }else{
@@ -91,20 +91,25 @@ class Home extends React.Component {
             textAlign: 'center',
             paddingTop: '25%',
             paddingBottom: '25%',
-            width: '60px',
+            width: '50%',
           }}>
-          <div
-            className='sweet-loading'>
+          <div 
+            className='sweet-loading' 
+            style={{
+              display: 'inline-block'
+            }}>
             <BounceLoader
               color={'#4DB6AC'}
               loading={true}
             />
           </div>
+          <h3 style={{textAlign: 'center', margin : "auto",}}>Loading articles suggestion...</h3>
         </div>
     } else {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
       articles =
-      <Items.Group 
+      <Items.Group
+        divided 
         style={{
           backgroundColor: '#FFF',
           padding: '15px',

@@ -23,7 +23,7 @@ a {
   color: #fff;
 }
 a:hover {
-  color: #fff!important;
+  color: #4DB6AC!important;
 }
 
 .ui.steps .link.step:hover, .ui.steps .link.step:hover::after, .ui.steps a.step:hover, .ui.steps a.step:hover::after {
@@ -501,68 +501,72 @@ button:hover {
   height: 30px;
   left: 36px;
   top: 36px;
-  }
+}
   
   /* Color/shape of burger icon bars */
-  .bm-burger-bars {
+.bm-burger-bars {
   background: #373a47;
-  
-  }
+}
   
   /* Position and sizing of clickable cross button */
-  .bm-cross-button {
+.bm-cross-button {
   height: 24px;
   width: 24px;
-  }
+}
   
   /* Color/shape of close button cross */
-  .bm-cross {
-    overflow-x: hidden;
-    background: #bdc3c7;
-  }
+.bm-cross {
+  overflow-x: hidden;
+  background: #bdc3c7;
+}
   
   /* General sidebar styles */
-  .bm-menu {
-    width: 105%;
-    background: #4DB6AC;
-    padding: 0;
-    padding-top: 20px;
-    font-size: 2.15em;
-    font-weight: bold;
-    left: 0;
-    
-  }
+.bm-menu {
+  width: 105%;
+  background: #4DB6AC;
+  padding: 0;
+  padding-top: 5px;
+  font-size: 2.15em;
+  font-weight: bold;
+  left: 0;
   
-  .bm-menu img {
-    width: 100%;
-  }
+}
   
-  .bm-menu a {
-    text-decoration: none;
-    color: aliceblue;
-    font-size: 20px
-  }
-  
-  /* Morph shape necessary with bubble or elastic */
-  .bm-morph-shape {
+.bm-menu img {
+  width: 100%;
+}
+
+.bm-menu a {
+  text-decoration: none;
+  color: rgb(255, 248, 248);
+  font-size: 20px
+}
+.bm-menu a:hover {
+  text-decoration: none;
+  color: #FFF!important;
+  font-size: 20px
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
   fill: #373a47;
-  }
-  
-  /* Wrapper for item list */
-  .bm-item-list {
+}
+
+/* Wrapper for item list */
+.bm-item-list {
   color: #b8b7ad;
-  padding: 0.8em;
-  }
-  
-  /* Styling of overlay */
-  .bm-overlay {
+  padding: 1em;
+}
+
+/* Styling of overlay */
+.bm-overlay {
   background: rgba(0, 0, 0, 0.3);
-  }
-  
-  iframe {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+}
+
+iframe {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
