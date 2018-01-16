@@ -23,12 +23,12 @@ class Login extends Component {
   }
   checkLogin(){
     const storage = localStorage.getItem('repodId');
-    if(storage){
+    if (storage) {
       this.props.setLoginStatus(true)
       this.props.history.push('/');
-    }else{
+    } else {
       firebase.auth().onAuthStateChanged(user => {
-        if(user){
+        if (user) {
           let objUser = {
             name: user.displayName,
             email: user.email,

@@ -1702,7 +1702,7 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.1.1, classnames@^2.2.5:
+classnames@^2.1.1, classnames@^2.2.1, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -6166,6 +6166,10 @@ react-icons-kit@^1.0.7:
     camel-case "^3.0.0"
     prop-types "^15.5.8"
 
+react-rating@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-rating/-/react-rating-1.0.4.tgz#3bbd8bc11b0370460c3eb0c3295ced49af29f073"
+
 react-reconciler@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.7.0.tgz#9614894103e5f138deeeb5eabaf3ee80eb1d026d"
@@ -6269,6 +6273,14 @@ react-spinners@^0.2.5:
     react-emotion "^8.0.6"
     recompose "0.26.0"
 
+react-star-ratings@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-star-ratings/-/react-star-ratings-1.4.1.tgz#96d304e8f3cb40d9cea85d100cf68ce50c61b2c1"
+  dependencies:
+    classnames "^2.2.1"
+    prop-types "^15.6.0"
+    react "^16.1.0"
+
 react-test-renderer@^16.0.0-0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.2.0.tgz#bddf259a6b8fcd8555f012afc8eacc238872a211"
@@ -6284,7 +6296,7 @@ react-tooltip@^3.4.0:
     classnames "^2.2.5"
     prop-types "^15.6.0"
 
-react@^16.2.0:
+react@^16.1.0, react@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:

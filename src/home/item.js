@@ -1,12 +1,17 @@
 import React from 'react'
-import { Button, Icon, Image as ImageComponent, Item, Label } from 'semantic-ui-react'
+import Rating from 'react-star-ratings'
 import Striptag from 'string-strip-html'
 import { Link } from 'react-router-dom'
+import { iosHeart } from 'react-icons-kit/ionicons/iosHeart'
+import { iosHeartOutline } from 'react-icons-kit/ionicons/iosHeartOutline'
+import { Button, Icon, Image as ImageComponent, Item, Label } from 'semantic-ui-react'
 
 class List extends React.Component {
   render () {
     const article = this.props.article.postId
     let content =  Striptag(article.content)
+    const reducer = (accumulator, currentValue) => accumulator + currentValue
+    let rate = article.rate.reduce(reducer)/ article.rate.length
     return(
       <Item>
         <Item.Image src={article.thumbnail}/>
@@ -20,6 +25,16 @@ class List extends React.Component {
             <Item.Header style={{fontSize: '18px', fontWeight: 'bold'}}>{ article.title }</Item.Header>
           </Link>
           <Item.Meta>
+            <Rating
+              rating={ rate }
+              isSelectable={ false }
+              isAggregateRating={ true }
+              numOfStars={ 5 }
+              starWidthAndHeight={ '20px' }
+              starRatedColor={ '#4DB6AC' }
+            />            
+            <br/>
+            <br/>
             <span className='cinema'>time {article.read_time} min reads</span>
           </Item.Meta>
           <Item.Description> 
