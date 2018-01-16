@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import Enzyme, { shallow, mount, render } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import App from '../App'
-import Homes from '../home/index'
+import Navbar from '../NavBar'
 import { fromJS } from 'immutable';
 import renderer from 'react-test-renderer';
 import sinon from 'sinon'
@@ -36,13 +36,25 @@ Object.defineProperty(window, 'localStorage', {
 });
 
 describe('Status Login Navbar Testing', () => {
-    it('should call fetch data action', () => {
-      const dispatchStatusLogin = sinon.spy();
-      const {setLoginStatus} = mapDispatchToProps(dispatchStatusLogin());
-      setLoginStatus();
-      const expectedAction = setLoginStatus();
-      const spyLastCall = dispatchStatusLogin.args[0][0];
-      expect(spyLastCall.types).to.be.eql(expectedAction.types);
-      expect(spyLastCall.callAPI).to.be.ok;
+    // it('should call fetch data action', () => {
+    //   const dispatchStatusLogin = sinon.spy();
+    //   const {setLoginStatus} = mapDispatchToProps(dispatchStatusLogin());
+    //   setLoginStatus();
+    //   const expectedAction = setLoginStatus();
+    //   const spyLastCall = dispatchStatusLogin.args[0][0];
+    //   expect(spyLastCall.types).to.be.eql(expectedAction.types);
+    //   expect(spyLastCall.callAPI).to.be.ok;
+    // });
+
+    let wrapper
+    const output = 10
+
+    beforeEach (() => {
+        wrapper = shallow(<Navbar/>)
+    })
+    it('+++ render the DUMB component', () => {
+       expect(wrapper.length).equal(1)
     });
+
+
 })
