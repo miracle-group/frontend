@@ -1,16 +1,16 @@
-import React from 'react'
-import Item from './item'
-import gql from 'graphql-tag'
-import SearchInput, {createFilter} from 'react-search-input'
 import './search.css'
-import { BounceLoader } from 'react-spinners'
-import { withRouter } from 'react-router-dom'
-import { Item as Items, Grid } from 'semantic-ui-react'
-import { graphql } from 'react-apollo'
-import { connect } from 'react-redux'
-import axios from 'axios'
 import io from 'socket.io-client';
-import { setPosts,setLoading } from '../redux/actions/actionPost';
+import gql from 'graphql-tag'
+import Item from './item'
+import React from 'react'
+import axios from 'axios'
+import SearchInput, { createFilter } from 'react-search-input'
+import { connect } from 'react-redux'
+import { graphql } from 'react-apollo'
+import { withRouter } from 'react-router-dom'
+import { BounceLoader } from 'react-spinners'
+import { Item as Items, Grid } from 'semantic-ui-react'
+import { setPosts, setLoading } from '../redux/actions/actionPost';
 const KEYS_TO_FILTERS = ['postId.title']
 
 class Home extends React.Component {

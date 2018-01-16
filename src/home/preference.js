@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Icon from 'react-icons-kit'
 import gql from 'graphql-tag'
 import logo from '../assets/img/logoblack.png'
+import Icon from 'react-icons-kit'
 import axios from 'axios'
 import ReactTooltip from 'react-tooltip'
 import { connect } from 'react-redux'
@@ -13,7 +13,6 @@ import { buttonQuestion } from 'react-icons-kit/metrize/buttonQuestion'
 import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
 import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
 import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
-
 import {setPosts,setLoading} from '../redux/actions/actionPost';
 
 class Preference extends Component {

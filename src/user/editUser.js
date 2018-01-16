@@ -49,7 +49,10 @@ class EditUser extends React.Component {
       return value.status === true
     })
     const filtered = selected.map(value => {
-      return value.name.toLowerCase()
+      return {
+        name : value.name.toLowerCase(),
+        value : 0
+      }
     })
     const preferences = {
       _id : this.state.userId,
@@ -105,7 +108,7 @@ class EditUser extends React.Component {
     const userData = JSON.parse(localStorage.getItem('repodId'))
     const category = this.state.category.map(item => {
       for(let i = 0; i < userData.preferences.length; i++){
-        const edited = userData.preferences[i][0].toUpperCase()+userData.preferences[i].slice(1)
+        const edited = userData.preferences[i].name[0].toUpperCase()+userData.preferences[i].name.slice(1);
         if(item.name === edited){
           item.status = true
         }
@@ -249,7 +252,7 @@ const savePreferences = gql`
   mutation
     preferences(
       $_id: String!,
-      $category: [String!],
+      $category: [Preferences!]!,
       $times: Int!,
       $api : String!
     ){

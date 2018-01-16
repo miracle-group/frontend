@@ -1,6 +1,6 @@
+import React, { Component } from 'react'
 import './App.css'
 import 'semantic-ui-css/semantic.min.css'
-import React, { Component } from 'react'
 import firebaseui from 'firebaseui'
 import * as firebase from 'firebase'
 import store from './redux'

@@ -1,30 +1,38 @@
 import React, { Component } from 'react'
-import { Card, Image as img, Input, Button, Label } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { Card, Image as img, Input, Button, Label } from 'semantic-ui-react'
 
 class User extends Component {
   constructor () {
     super()
     this.state = {
-      user : null
+      user : null, 
+      preferences: null
     }
   }
 
   componentWillMount () {
     const storage = localStorage.getItem('repodId')
+    const preferences = localStorage.getItem('repodIdCategories')
     if(storage) {
       this.setState({
-        user: storage
+        user: storage,
+        preferences: preferences
       })
     }
   }
 
   render() {
     const user = JSON.parse(this.state.user)
-    let tag = null
+    const preferences = JSON.parse(this.state.preferences)
+    let tags = null
     if(user){
-      tag =
-      user.preferences.map((tag, i) => <Label style={{margin: '5px'}} key={i} as='a' color='teal' tag>{ tag }</Label>)
+      tags =
+      preferences.map((tag, i) => {
+        return (
+          <Label style={{margin: '5px'}} key={i} as='a' color='teal' tag>{ tag.name }</Label>
+        )
+      })
     }
     return (
       <div className="container" style={{padding: '10px', textAlign: 'center', paddingTop:'10px'}}>
@@ -38,7 +46,7 @@ class User extends Component {
             </Card.Meta>
             <Card.Description style={{ width: '300px', padding: '10px', textAlign: 'center', margin: 'auto'}}>
               <div style={{width: '300px', textAlign: 'center'}}>
-                { tag }
+                { tags }
               </div>
             </Card.Description>
           </Card.Content>
