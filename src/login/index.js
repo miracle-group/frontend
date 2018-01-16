@@ -37,8 +37,8 @@ class Login extends Component {
           }
           const {mutate} = this.props
           mutate({variables: objUser}).then(({data}) => {
-            this.props.setLoginStatus(true)
-            this.props.setUserLogin(data.userAdd)
+            this.props.setLoginStatus(true);
+            this.props.setLoggedinUser(data.userAdd);
             localStorage.setItem('repodId',JSON.stringify(data.userAdd))
             if(data.userAdd.times === 0 || data.userAdd.preferences.length === 0){
               this.props.history.push('/preference');
@@ -110,7 +110,7 @@ const checkLogin = gql`
 const mapDispatchToProps = (dispatch) => {
   return {
     setLoginStatus : (status) => dispatch(setLoginStatus(status)),
-    setUserLogin : (user) => dispatch(setUserLogin(user))
+    setLoggedinUser : (user) => dispatch(setUserLogin(user))
   }
 }
 
