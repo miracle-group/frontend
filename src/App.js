@@ -1,27 +1,29 @@
 import './App.css'
 import 'semantic-ui-css/semantic.min.css'
-import React, {Component} from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import React, { Component } from 'react'
 import firebaseui from 'firebaseui'
-import {Provider} from 'react-redux'
 import * as firebase from 'firebase'
-import {ApolloClient} from 'apollo-client'
-import {HttpLink} from 'apollo-link-http'
-import {InMemoryCache} from 'apollo-cache-inmemory'
-import {ApolloProvider} from 'react-apollo'
-import {Fabric} from 'office-ui-fabric-react/lib/Fabric'
-import {initializeIcons} from '@uifabric/icons'
 import store from './redux'
 import Login from './login'
 import Home from './home'
 import NavBar from './NavBar.js'
 import DetailArticle from './home/detailArticle'
 import Preference from './home/preference'
-import User from './user';
-import EditUser from './user/editUser';
-import {setLoginStatus} from './redux/actions/actionConfig';
+import User from './user'
+import Sumary from './sumary'
+import EditUser from './user/editUser'
+import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
+import { HttpLink } from 'apollo-link-http'
+import { Provider } from 'react-redux'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloProvider } from 'react-apollo'
+import { setLoginStatus } from './redux/actions/actionConfig'
+import { initializeIcons } from '@uifabric/icons'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 initializeIcons(undefined, { disableWarnings: true })
+
 const client = new ApolloClient({
   link: new HttpLink({
     uri: store.getState().configReducer.graphqlApi
@@ -58,10 +60,10 @@ class App extends Component {
     })
   }
   componentWillMount(){
-    this.setupFirebase();
-    const storage = localStorage.getItem('repodId');
+    this.setupFirebase()
+    const storage = localStorage.getItem('repodId')
     if(storage){
-      store.dispatch(setLoginStatus(true));
+      store.dispatch(setLoginStatus(true))
     }
   }
   render(){
@@ -78,6 +80,7 @@ class App extends Component {
                   <Route path="/preference" component={ Preference }/>
                   <Route path="/user" component={ User }/>
                   <Route path="/edituser" component={ EditUser }/>
+                  <Route path="/sumary" component={ Sumary }/>
                   <Route exact path='/article/detail/:id' component={ DetailArticle }/>
                   <Route path="/login" render={() => <Login ui={this.state.ui}/>} />
                 </div>

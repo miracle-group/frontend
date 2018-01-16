@@ -7,14 +7,19 @@ import { BounceLoader } from 'react-spinners'
 import { withRouter } from 'react-router-dom'
 import { Item as Items, Grid } from 'semantic-ui-react'
 import { graphql } from 'react-apollo'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import io from 'socket.io-client';
+import { setPosts,setLoading } from '../redux/actions/actionPost';
+const KEYS_TO_FILTERS = ['postId.title']
 
-const KEYS_TO_FILTERS = ['title', 'content']
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       canSelect: 'all',
-      searchTerm: ''
+      searchTerm: '',
+      article: null
     }
     this.searchUpdated = this.searchUpdated.bind(this)
   }
@@ -32,65 +37,127 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
-    const storage = localStorage.getItem('repodId');
-    if(!storage){
+    const { config } = this.props
+    const storage = JSON.parse(localStorage.getItem('repodId'))
+    if(storage) {
+      axios.get(`${config.expressApi}/article/all/${storage._id}`)
+      .then(({data}) => {
+        const times = storage.times
+        let calculation = 0
+        let arrArticles = []
+        let randomArticle = ''
+        Array.prototype.shuffled = function() {
+          return this.map(function(n){ return [Math.random(), n] })
+                    .sort().map(function(n){ return n[1] })
+        }
+        if(data) {
+          randomArticle = data.shuffled()
+        }
+        for (let idx = 0; idx < randomArticle.length; idx++) {
+          if(calculation <= times + 3) {
+            arrArticles.push(randomArticle[idx])
+            calculation += randomArticle[idx].postId.read_time
+          }
+        }
+        this.setState({
+          article: arrArticles
+        })
+      }).catch(err => {
+        console.log(err)
+      });
+      const socket = io(this.props.config.host);
+      socket.on(`conjuction-${storage._id}`,response => {
+        // Ini data post
+        console.log('INI HOME', response);
+        this.props.setLoading(false);
+      })
+    }else{
       this.props.history.push('/login');
     }
   }
 
   render() {
-    const { data: { article } }= this.props
+    const { article }= this.state
     let articles = null
     if(!article) {
-      articles = 
-        <div 
+      articles =
+        <div
           style = {{
             position : "relative",
             margin : "auto",
             textAlign: 'center',
             paddingTop: '25%',
             paddingBottom: '25%',
-            width: '60px',
+            width: '50%',
           }}>
           <div 
-            className='sweet-loading'>
+            className='sweet-loading' 
+            style={{
+              display: 'inline-block'
+            }}>
             <BounceLoader
-              color={'#4DB6AC'} 
-              loading={true} 
+              color={'#4DB6AC'}
+              loading={true}
             />
           </div>
+          <h3 style={{textAlign: 'center', margin : "auto",}}>Loading articles suggestion...</h3>
         </div>
     } else {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-      articles = 
-      <Items.Group>
+      articles =
+      <Items.Group
+        divided 
+        style={{
+          backgroundColor: '#FFF',
+          padding: '15px',
+          margin: '5px',
+          fontSize: '12px'
+        }}>
         {filteredArticle.map((item, index) => (
-          <Item key={index} article={item}/>       
+          <Item key={index} article={item}/>
         ))}
-      </Items.Group> 
+      </Items.Group>
     }
     return (
       <div>
-        <div 
-          className="container">
-          <div 
-            className="selection" 
+        <div
+          style={{
+            position: 'fixed',
+            height: '100px',
+            width: '100%',
+            backgroundColor: '#4DB6AC',
+            zIndex: 50,
+            margin: 'auto'
+          }}>
+          <SearchInput
+            className="search-input"
+            onChange={this.searchUpdated}
             style={{
-              paddingTop:'40px'
+              top: '80%',
+              margin: 'auto',
+              width: 'auto',
+              zIndex: 100,
+              marginTop: '0',
+              marginLeft: '80px',
+            }}/>
+        </div>
+        <div
+          className="container">
+          <div
+            className="selection"
+            style={{
+              paddingTop:'150px',
+              paddingRight: '20px',
+              height: '100px',
             }}>
             <Grid centered>
-              <Grid.Column 
-                width={14} >
-                <SearchInput
-                  className="search-input" 
-                  onChange={this.searchUpdated} 
-                  style={{
-                    position: 'fixed', 
-                    top: 0, 
-                    height: '40px', 
-                    margin: 'auto', 
-                    zIndex: 100
-                  }}/>
+              <Grid.Column
+                width={14}
+                style={{
+                  width: '100%',
+                  paddingRight: '0px',
+                  paddingLeft: '0px'
+                }}>
                 { articles }
               </Grid.Column>
             </Grid>
@@ -113,4 +180,20 @@ const getAllData = gql`
     }
   }
 `
-export default withRouter(graphql(getAllData)(Home));
+
+const mapStateToProps = (state) => {
+  return {
+    config : state.configReducer,
+    user : state.configReducer.user,
+    post : state.postReducer  // this.props.post.posts, this.props.post.loading
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPosts : (posts) => dispatch(setPosts(posts)),
+    setLoading : (status) => dispatch(setLoading(status))
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(graphql(getAllData)(Home)));

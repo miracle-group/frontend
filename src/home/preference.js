@@ -3,14 +3,18 @@ import Icon from 'react-icons-kit'
 import gql from 'graphql-tag'
 import logo from '../assets/img/logoblack.png'
 import axios from 'axios'
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { graphql } from 'react-apollo';
-import { Input, Image, Step } from 'semantic-ui-react'
-import { BounceLoader } from 'react-spinners' 
-import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'  
-import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'  
+import ReactTooltip from 'react-tooltip'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { graphql } from 'react-apollo'
+import { Input, Image, Label } from 'semantic-ui-react'
+import { BounceLoader } from 'react-spinners'
+import { buttonQuestion } from 'react-icons-kit/metrize/buttonQuestion'
+import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
+import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
 import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
+
+import {setPosts,setLoading} from '../redux/actions/actionPost';
 
 class Preference extends Component {
   constructor(){
@@ -45,138 +49,216 @@ class Preference extends Component {
   submit(){
     const selected = this.state.category.filter(value => {
       return value.status === true
-    });
+    })
     const filtered = selected.map(value => {
-      return value.name.toLowerCase();
-    });
+      return {
+        name : value.name.toLowerCase(),
+        value : 0
+      }
+    })
     const preferences = {
       _id : this.state.userId,
       times : this.state.time,
       category : filtered,
       api : this.props.config.expressApi
     }
-    const {mutate} = this.props;
+    const {mutate} = this.props
     mutate({variables : preferences}).then(({data}) => {
       // Jika Update Berhasil
       if(data.updateUser.n === 1){
-        const userData = JSON.parse(localStorage.getItem('repodId'));
+        const userData = JSON.parse(localStorage.getItem('repodId'))
         const edited = {...userData,
           times : this.state.time,
           name : this.state.name,
           preferences : filtered
-        };
-        localStorage.setItem('repodId',JSON.stringify(edited));
-        this.props.history.push('/');
+        }
+        localStorage.setItem('repodId',JSON.stringify(edited))
+        this.props.history.push('/')
       }
     }).catch(err => {
       // Jika Update Gagal
-      console.log(err);
+      console.log(err)
     });
   }
   componentWillMount(){
     axios.get(`${this.props.config.expressApi}/category/all`).then(({data}) => {
-      let arrCategories = [];
-      for(let i = 0; i < data.length;i++){
+      let arrCategories = []
+      for(let i = 0; i < data.length; i++){
         const obj = {
           name : data[i].name,
           status : false
         }
-        arrCategories.push(obj);
+        arrCategories.push(obj)
       }
       this.setState({
         category : arrCategories
-      },() => this.parseSelected());
+      },() => this.parseSelected())
     }).catch(err => {
-      console.log(err);
-    });
-    const storage = localStorage.getItem('repodId');
-    if(storage){
-      const userData = JSON.parse(storage);
+      console.log(err)
+    })
+    const storage = localStorage.getItem('repodId')
+    if(storage) {
+      const userData = JSON.parse(storage)
       this.setState({
         userId : userData._id
-      });
-    }else{
-      this.props.history.push('/login');
+      })
+    } else {
+      this.props.history.push('/login')
     }
   }
   parseSelected(){
-    const userData = JSON.parse(localStorage.getItem('repodId'));
+    const userData = JSON.parse(localStorage.getItem('repodId'))
     const category = this.state.category.map(item => {
       for(let i = 0; i < userData.preferences.length; i++){
-        const edited = userData.preferences[i][0].toUpperCase()+userData.preferences[i].slice(1);
+        const edited = userData.preferences[i].name[0].toUpperCase()+userData.preferences[i].name.slice(1);
         if(item.name === edited){
-          item.status = true;
+          item.status = true
         }
       }
-      return item;
-    });
+      return item
+    })
     this.setState({
       name : userData.name,
       time : userData.times,
       category : category
-    });
+    })
   }
   render() {
     let time = null
     if(this.state.prefer) {
       if(!this.state.category) {
-        time = 
-          <div 
+        time =
+          <div
             style = {{
               position : "relative",
               margin : "auto",
               textAlign: 'center',
               paddingTop: '25%',
               paddingBottom: '25%',
-              width: '60px',
+              width: '50%',
             }}>
-            <div className='sweet-loading'>
+            <div
+              className='sweet-loading'
+              style={{
+                display: 'inline-block'
+              }}>
               <BounceLoader
-                color={'#4DB6AC'} 
-                loading={true} 
+                color={'#4DB6AC'}
+                loading={true}
               />
             </div>
+            <h3 style={{textAlign: 'center', margin : "auto",}}>Loading preferences...</h3>
           </div>
       } else {
         time =
-          <div>
+          <div
+            style={{
+              paddingTop:'80px',
+              paddingLeft: '30px',
+              paddingBottom: '80px'
+            }}>
             { this.state.prefer && this.state.category.map((prefer, i) =>(
-              <Step.Group key={i} style={{margin: 10, backgroundColor: '#4DB6AC'}}>
-                <Step completed onClick={ () => this.click(prefer.name) }>
-                  <Step.Content>
-                    <Step.Title> {prefer.status ? <Icon icon={checkmarkRound} /> : null} {prefer.name}</Step.Title>
-                  </Step.Content>
-                </Step>
-              </Step.Group>
+              <Label
+                key={i}
+                as='a'
+                color={
+                  prefer.status ?
+                  'teal' : null
+                }
+                image
+                onClick={ () => this.click(prefer.name) }
+                style={{
+                  margin: '10px',
+                  padding: '15px',
+                  fontSize: '20px'
+                }}
+                >
+                { prefer.name  }
+                  { prefer.status ?
+                    <Icon style={{paddingLeft: '5px'}} size={10} icon={checkmarkRound} /> : null
+                  }
+              </Label>
             ))}
-            <div style={{position : "fixed", width : "60px", bottom : "5%", margin : "auto", left : 0, right : 0}}>
-              <Icon size={60} icon={arrowRightThin} onClick={ () => this.setState({prefer: false})}/>
+            <div
+              style={{
+                position : "fixed",
+                width : "60px",
+                bottom : "5%",
+                margin : "auto",
+                left : 0,
+                right : 0
+              }}>
+              <Icon
+                size={60}
+                icon={arrowRightThin}
+                onClick={ () => this.setState({prefer: false})}
+              />
             </div>
           </div>
       }
     } else {
      time =
-      <div className="container-contact100" >
+      <div>
         <div
           style = {{
-            position : "relative",
+            position : "fixed",
             margin : "auto",
             textAlign: 'center',
-            padding:0
+            top: '45%',
+            bottom: '25%',
+            width: '200px',
+            left : 0,
+            right : 0 ,
           }}>
-          <span className="contact100-form-title">
-            Set Your Time
+          <span>
+            <span
+              data-tip="This is info for everithing you want to do. So, do it... bos" >
+            <Icon
+                style={{
+                  color: '#4DB6AC'
+                }}
+                size={50}
+                icon={buttonQuestion}
+              />
+            </span>
+            <br/>
+            <br/>
+            <ReactTooltip
+              place="top"
+              type="dark"
+              effect="float"
+            />
           </span>
           <Input
+            fluid
             size='large'
-            label={{ tag: true, content: 'Minutes' }}
-            labelPosition='right'
-            placeholder='Enter time'
-          />
+            placeholder='Reading time preferences...'
+            value={this.state.time}
+            onChange={(time) => this.timing(time)}
+            />
         </div>
-        <div style={{position : "fixed", width : "140px", bottom : "5%", margin : "auto", left : 0, right : 0 , flexDirection:'row'}}>
-          <Icon size={60} icon={arrowLeftThin} onClick={ () => this.setState({prefer: true})}/>
-          <div style={{width : "60px", height : "60px", display : "inline-flex", marginLeft:'10px'}}>
+        <div
+          style={{
+            position : "fixed",
+            width : "140px",
+            bottom : "5%",
+            margin : "auto",
+            left : 0,
+            right : 0 ,
+            flexDirection:'row'
+          }}>
+          <Icon
+            size={60}
+            icon={arrowLeftThin}
+            onClick={ () => this.setState({prefer: true})}
+          />
+          <div
+            style={{
+              width : "60px",
+              height : "60px",
+              display : "inline-flex",
+              marginLeft:'10px'
+            }}>
             <Image
               src={logo}
               centered
@@ -189,8 +271,10 @@ class Preference extends Component {
       </div>
     }
     return (
-      <div className="container">
-        <div className="selections">
+      <div
+        className="container">
+        <div
+          className="selections">
           {time}
         </div>
       </div>
@@ -202,7 +286,7 @@ const savePreferences = gql`
   mutation
     preferences(
       $_id: String!,
-      $category: [String!],
+      $category: [Preferences!]!,
       $times: Int!,
       $api : String!
     ){
@@ -221,9 +305,16 @@ const savePreferences = gql`
 `
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     config : state.configReducer
   }
 }
 
-export default withRouter(connect(mapStateToProps,null)(graphql(savePreferences)(Preference)));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPosts : (posts) => dispatch(setPosts(posts)),
+    setLoading : (status) => dispatch(setLoading(status))
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(graphql(savePreferences)(Preference)));
