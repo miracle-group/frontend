@@ -110,8 +110,8 @@ class DetailArticle extends Component {
     console.log(article)
     console.log('====================================')
     if(storage){
-      axios.post(`http://repod.ga:8000/api/article/${article._id}/${true}`)
-      axios.put(`http://repod.ga:8000/api/category/user/${storage._id}/${article._id}`)
+      axios.post(`https://repod.ga/api/article/${article._id}/${true}`)
+      axios.put(`https://repod.ga/api/category/user/${storage._id}/${article._id}`)
       .then(({data})=>{
         localStorage.setItem('repodIdCategories', JSON.stringify(data))
       })
@@ -146,7 +146,7 @@ class DetailArticle extends Component {
     let time_medium = articleDuration * 0.4
     let time_bad = articleDuration * 0.2
     const nilai = (value) => {
-      axios.put(`http://repod.ga:8000/api/article/${article.postId._id}/${value}`)
+      axios.put(`https://repod.ga/api/article/${article.postId._id}/${value}`)
     }
     if( currentLocation <= bad) {
       if( readTime <= time_bad) {
