@@ -111,7 +111,15 @@ class DetailArticle extends Component {
     console.log('====================================')
     if(storage){
       axios.post(`http://repod.ga:8000/api/article/${article._id}/${true}`)
-      axios.post(`http://repod.ga:8000/api/category/user/${storage._id}/${article._id}`)
+      axios.put(`http://repod.ga:8000/api/category/user/${storage._id}/${article._id}`)
+      .then(({data})=>{
+        localStorage.setItem('repodIdCategories', JSON.stringify(data))
+      })
+      .catch(err => {
+        console.log('====================================')
+        console.log(err)
+        console.log('====================================')
+      })
       this.setState({
         articleDuration: article.postId.read_time * 60,
         maxDuration: (article.postId.read_time * 60) * 2
