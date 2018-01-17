@@ -1,7 +1,16 @@
 import { Button, Card, Image, Container, Header } from 'semantic-ui-react'
 import React, { Component } from 'react'
 import { Chart, Cloud, Transform } from 'rumble-charts'
-// import WordCloud from 'react-d3-cloud'
+import { Radar, RadarChart, PolarGrid, Legend,
+  PolarAngleAxis, PolarRadiusAxis} from 'recharts'
+const dataSumary = [
+  { subject: 'Math', A: 50},
+  { subject: 'Chinese', A: 70},
+  { subject: 'English', A: 30},
+  { subject: 'Geography', A: 20},
+  { subject: 'Physics', A: 30},
+  { subject: 'History', A: 20},
+];
 const seriess = [{data: [{label: 'Highcharts', y: 30}]}];
 
 class Sumary extends Component {
@@ -16,14 +25,13 @@ class Sumary extends Component {
     let newSeries = []
     categories.map(category => {
       let newData = {
-        label: category.name,
-        y: +category.value
+        subject: category.name,
+        A: +category.value
       }
       newSeries.push(newData)
     })
-    let data = newSeries
     this.setState({
-      series: [{data}]
+      series: newSeries
     })
   }
 
@@ -32,25 +40,27 @@ class Sumary extends Component {
     const rotate = word => word.value % 360;
     const { series } = this.state
     let chart = null
-    console.log('====================================')
-    console.log('A', series[0])
-    console.log('====================================')
-    console.log('====================================')
-    console.log('B', seriess[0])
-    console.log('====================================')
     if(series) {
       chart = 
-      <Chart width={300} height={300} series={series} minY={0}>
-        <Transform method='transpose'>
-          <Cloud
-            font='Open Sans Condensed'
-            minFontSize={24}
-            maxFontSize={72}
-            padding={2}
-            rotate={() => (~~(Math.random() * 12) - 6) * 15}
-          />
-        </Transform>
-      </Chart>
+      <RadarChart 
+        style={{
+          margin: 'auto', 
+          padding: 0, 
+          paddingTop: '50%',
+          fontSize: '15px',
+          fontWeight: 'bold'
+        }}
+        cx={170} 
+        cy={100} 
+        outerRadius={60} 
+        width={300} 
+        height={300} 
+        data={series}>
+        <PolarGrid />
+        <PolarAngleAxis dataKey="subject" />
+        <PolarRadiusAxis/>
+        <Radar name="Mike" dataKey="A" stroke="rgb(77, 182, 172)" fill="rgb(77, 182, 172)" fillOpacity={0.6}/>
+      </RadarChart>
     } else {
       chart = 'Empty'
     }
@@ -65,39 +75,26 @@ class Sumary extends Component {
           zIndex: 50,
           margin: 'auto'
         }}>
+        <p style={{
+          top: '50%',
+          position: 'relative',
+          transform: 'translateY(-50%)',
+          fontSize: '20px',
+          color: '#fff',
+          fontWeight: 'bold'
+        }}>Most Reads</p>
         </div>
         <Container text>
           <div 
           style={{
             padding: '10px',
-            paddingLeft: '50px',
             textAlign: 'center',
             zIndex: 50,
-          }}>
-          <Header 
-            as='h3'
-            style={{
-              padding: '10px',
-              marginTop: '50px',
-            }}
-            >Most reads
-            </Header>
-            {chart}
-          </div>
-        </Container>
-        <hr 
-          style={{
+            paddingTop: '30px',
             paddingLeft: 0,
-          }}
-        />
-        <Container text>
-          <div 
-            style={{
-              padding: '10px',
-              paddingLeft: '50px',
-              textAlign: 'center',
-              zIndex: 50,
-            }}>
+            marginLeft:0
+          }}>            
+            {chart}
           </div>
         </Container>
       </div>

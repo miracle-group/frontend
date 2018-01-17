@@ -328,7 +328,7 @@ class Preference extends Component {
             top: '50%',
             position: 'relative',
             transform: 'translateY(-50%)',
-            fontSize: '25px',
+            fontSize: '20px',
             color: '#fff',
             fontWeight: 'bold'
           }}>Preferences & Time</p>
