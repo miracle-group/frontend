@@ -243,7 +243,7 @@ class DetailArticle extends Component {
                       position : "fixed",
                       width : "100px",
                       bottom : "1%",
-                      right : 0 ,
+                      right : '35%',
                     }}>
                     <div
                       style={{
@@ -269,7 +269,7 @@ class DetailArticle extends Component {
                       position : "fixed",
                       width : "100px",
                       bottom : "1%",
-                      right : 0 ,
+                      right : '35%' ,
                     }}>
                     <div
                       style={{
@@ -294,9 +294,10 @@ class DetailArticle extends Component {
                   style={{
                     position: 'fixed',
                     zIndex: 1000,
-                    bottom: '1%',
-                    right: '10%',
-                    width: '30%',
+                    bottom: '150px',
+                    left: '20%',
+                    right: '20%',
+                    width: 'auto',
                     backgroundColor: '#88acad'
                   }}>
                   <Header style={{color: 'white'}}>Article Rating Based on Reading Time</Header>
