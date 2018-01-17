@@ -42,8 +42,10 @@ class Login extends Component {
             localStorage.setItem('repodId',JSON.stringify(data.userAdd));
             localStorage.setItem('repodIdCategories',JSON.stringify(data.userAdd.preferences));
             if(data.userAdd.times === 0 || data.userAdd.preferences.length === 0){
+              console.log(data.userAdd.times === 0 || data.userAdd.preferences.length === 0);
               this.props.history.push('/preference');
             }else if(data.userAdd.times !== 0 && data.userAdd.preferences.length > 0){
+              console.log(data.userAdd.times !== 0 && data.userAdd.preferences.length > 0);
               this.props.history.push('/');
             }
           }).catch(err => {
@@ -103,7 +105,9 @@ const checkLogin = gql`
       profileImage
       validation
       times
-      preferences
+      preferences{
+        name value
+      }
     }
   }
 `
