@@ -56,6 +56,16 @@ class Sumary extends Component {
     }
     return (
       <div>
+        <div
+        style={{
+          position: 'fixed',
+          height: '70px',
+          width: '100%',
+          backgroundColor: '#4DB6AC',
+          zIndex: 50,
+          margin: 'auto'
+        }}>
+        </div>
         <Container text>
           <div 
           style={{
@@ -88,13 +98,6 @@ class Sumary extends Component {
               textAlign: 'center',
               zIndex: 50,
             }}>
-            <Header 
-              as='h3'
-              style={{
-                padding: '10px',
-                marginTop: '5px',
-              }}>Empty
-            </Header>
           </div>
         </Container>
       </div>

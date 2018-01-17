@@ -499,13 +499,13 @@ button:hover {
   /* position:absolute; */
   width: 36px;
   height: 30px;
-  left: 36px;
-  top: 36px;
+  left: 20px;
+  top: 20px;
 }
   
   /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a47;
+  background: #FFF;
 }
   
   /* Position and sizing of clickable cross button */
@@ -540,7 +540,8 @@ button:hover {
   text-decoration: none;
   color: rgb(255, 248, 248);
   font-size: 15px;
-  padding-left: 0;
+  padding-left: 0!important;
+  left: 0,
 }
 .bm-menu a:hover {
   text-decoration: none;
@@ -562,7 +563,7 @@ a .bm-item-list {
   color: #b8b7ad;
   padding: 0.3em;
   padding-left: 0;
-  left: 0;
+  left: 0!important;
 }
 
 /* Styling of overlay */
@@ -580,4 +581,8 @@ iframe {
 
 figcaption {
   line-height: 20px;
+}
+
+pre {
+  visibility: hidden;
 }

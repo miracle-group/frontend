@@ -2,7 +2,7 @@
   padding: 10px 10px;
   display: inline-block;
   margin-right: 40px;
-  height: 52px;
+  height: 50px;
   position: relative;
 }
 
@@ -14,7 +14,7 @@
   z-index: 3;
   height: 15px;
   font-size: 20px;
-  top: 11px;
+  top: 10px;
   left: 30px;
   line-height: 32px;
   opacity: 0.2;
@@ -26,7 +26,7 @@
   border: none;
   line-height: 22px;
   padding: 5px 10px 5px 25px;
-  height: 32px;
+  height: 30px;
   position: relative;
   margin-right: 40px;
 }
