@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import './search.css'
+import './readStatus.css'
 import logo from '../assets/img/logo.png'
+import axios from 'axios'
 import logoblack from '../assets/img/logoblack.png'
 import ReactHtmlParser from 'react-html-parser'
 import { BounceLoader } from 'react-spinners'
 import { Grid, Button, Header, Segment, TransitionablePortal, Image } from 'semantic-ui-react'
-
 
 class DetailArticle extends Component {
   constructor(){
@@ -18,8 +19,10 @@ class DetailArticle extends Component {
       jumpInterval: 0,
       tolerance: 0,
       maxDuration: 0,
-      currentLocation: 0, 
-      open: false
+      currentLocation: 0,
+      open: false,
+      color: null,
+      status: ''
     }
     this.checker = ''
     this.articleHeight = 0
@@ -38,9 +41,6 @@ class DetailArticle extends Component {
     this.clientHeight = b.clientHeight
     this.setState({jumpInterval: jumpInterval, tolerance: tolerance})
     this.checker = setInterval(this.getCurrentLocation.bind(this), 1000)
-    console.log('====================================')
-    console.log(this.props)
-    console.log('====================================')
   }
 
   getCurrentLocation(){
@@ -48,11 +48,42 @@ class DetailArticle extends Component {
     let b = document.documentElement
     let newReadTime = this.state.readTime + 1
     let currentLocation = b.scrollTop
+    const {
+      articleDuration,
+      articleHeight,
+      readTime,
+      maxDuration
+    } = this.state
+    let time_very_good = articleDuration * 0.10
+    let time_good = articleDuration * 0.8
+    let time_medium = articleDuration * 0.6
+    let time_bad = articleDuration * 0.4
+    let time_very_bad = articleDuration * 0.2
+    let status = ''
+    let color = ''
+    if( readTime <= time_very_bad) {
+      status = 'Very Bad'
+      color = '#DC143C'
+    } else if ( readTime <= time_bad) {
+      status = 'Bad'
+      color = '#FF8C00'
+    } else if ( readTime <= time_medium) {
+      status = 'Medium'
+      color = '#00BFFF'
+    } else if ( readTime <= time_good) {
+      status = 'Good'
+      color = '#8FBC8F'
+    } else {
+      status = 'Very Good'
+      color = '#4DB6AC'
+    }
 
     this.setState({
       readTime: newReadTime,
       currentLocation: currentLocation,
-      articleHeight: b.scrollHeight
+      articleHeight: b.scrollHeight,
+      status: status,
+      color: color
     })
 
     this.checkScroll(newReadTime, currentLocation)
@@ -75,8 +106,20 @@ class DetailArticle extends Component {
   componentWillMount(){
     const { article } = this.props.location.query
     const storage = JSON.parse(localStorage.getItem('repodId'))
+    console.log('====================================')
+    console.log(article)
+    console.log('====================================')
     if(storage){
       axios.post(`http://repod.ga:8000/api/article/${article._id}/${true}`)
+      axios.put(`http://repod.ga:8000/api/category/user/${storage._id}/${article._id}`)
+      .then(({data})=>{
+        localStorage.setItem('repodIdCategories', JSON.stringify(data))
+      })
+      .catch(err => {
+        console.log('====================================')
+        console.log(err)
+        console.log('====================================')
+      })
       this.setState({
         articleDuration: article.postId.read_time * 60,
         maxDuration: (article.postId.read_time * 60) * 2
@@ -93,7 +136,7 @@ class DetailArticle extends Component {
       articleHeight,
       readTime,
       maxDuration
-    } = this.state    
+    } = this.state
     let very_good = articleHeight * 0.8
     let good = articleHeight * 0.6
     let medium = articleHeight * 0.4
@@ -169,11 +212,11 @@ class DetailArticle extends Component {
   }
   render() {
     const article = this.props.location.query.article.postId
-    const { open } = this.state
+    const { open, color, status } = this.state
     let showArticle = null
     if(!article) {
-      showArticle = 
-      <div 
+      showArticle =
+      <div
         style = {{
           position : "relative",
           margin : "auto",
@@ -184,13 +227,13 @@ class DetailArticle extends Component {
         }}>
         <div className='sweet-loading'>
           <BounceLoader
-            color={'#4DB6AC'} 
-            loading={true} 
+            color={'#4DB6AC'}
+            loading={true}
           />
         </div>
       </div>
     } else {
-      showArticle = 
+      showArticle =
         <div
           style = {{
             paddingTop: '80px'
@@ -198,21 +241,31 @@ class DetailArticle extends Component {
           <h2>{article.title}</h2>
           <span>{ReactHtmlParser(article.content)}</span>
         </div>
+    } let defaultcolor = null
+    if(color === '#DC143C') {
+      defaultcolor = <div><div style={{ background:'#DC143C' }}>{status}</div></div>
+    } else if(color === '#FF8C00') {
+      defaultcolor = <div><div style={{ background:'#FF8C00' }}>{status}</div></div>
+    } else if(color === '#00BFFF') {
+      defaultcolor = <div><div style={{ background:'#00BFFF' }}>{status}</div></div>
+    } else if(color === '#8FBC8F') {
+      defaultcolor = <div><div style={{ background:'#8FBC8F' }}>{status}</div></div>
+    } else {
+      defaultcolor = <div><div style={{ background:'#4DB6AC' }}>{status}</div></div>
     }
     return (
       <div className="container">
         <div className="selection">
           <Grid centered>
             <Grid.Column width={14}>
-              {this.state.readTime}
               { showArticle }
               <TransitionablePortal
                 closeOnTriggerClick
                 onOpen={this.handleOpen}
                 onClose={this.handleClose}
                 openOnTriggerClick
-                trigger={(       
-                  open ? 
+                trigger={(
+                  open ?
                   <div
                     style={{
                       position : "fixed",
@@ -236,9 +289,9 @@ class DetailArticle extends Component {
                           open: true
                         })}
                       />
-                    </div> 
+                    </div>
                   </div>
-                  : 
+                  :
                   <div
                     style={{
                       position : "fixed",
@@ -265,17 +318,20 @@ class DetailArticle extends Component {
                     </div>
                   </div>
                   )}>
-                <Segment 
-                  style={{ 
-                    left: 0, 
-                    position: 'fixed', 
-                    zIndex: 1000, 
-                    bottom: '1%', 
-                    right: '22%' 
+                <Segment
+                  style={{
+                    left: 0,
+                    position: 'fixed',
+                    zIndex: 1000,
+                    bottom: '1%',
+                    right: '22%'
                   }}>
-                  <Header>This is an example portal</Header>
-                  <p>Portals have tons of great callback functions to hook into.</p>
-                  <p>To close, simply click the close button or click away</p>
+                  <Header>Status Reading Time</Header>
+                  <div id='container2'>
+                    <div id='flip'>
+                      {defaultcolor}
+                    </div>
+                  </div>
                 </Segment>
               </TransitionablePortal>
             </Grid.Column>

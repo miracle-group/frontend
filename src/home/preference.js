@@ -52,7 +52,7 @@ class Preference extends Component {
     const filtered = selected.map(value => {
       return {
         name : value.name.toLowerCase(),
-        value : 0
+        value : 5
       }
     });
     const preferences = {

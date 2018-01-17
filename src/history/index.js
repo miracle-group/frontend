@@ -1,5 +1,5 @@
 import React from 'react'
-import './search.css'
+import '../home/search.css'
 import io from 'socket.io-client';
 import gql from 'graphql-tag'
 import Item from './item'
@@ -13,7 +13,7 @@ import { Item as Items, Grid } from 'semantic-ui-react'
 import { setPosts, setLoading } from '../redux/actions/actionPost';
 const KEYS_TO_FILTERS = ['postId.title']
 
-class Home extends React.Component {
+class History extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -56,7 +56,7 @@ class Home extends React.Component {
         }
         for (let idx = 0; idx < randomArticle.length; idx++) {
           if(calculation <= times + 3) {
-            if(!randomArticle[idx].read_status){
+            if(randomArticle[idx].read_status){
               arrArticles.push(randomArticle[idx])
               calculation += randomArticle[idx].postId.read_time
             }
@@ -196,4 +196,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(graphql(getAllData)(Home)));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(graphql(getAllData)(History)));

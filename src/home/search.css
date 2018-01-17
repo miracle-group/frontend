@@ -34,3 +34,8 @@
 .search-input > input:focus {
   outline: none;
 }
+
+img {
+  height: auto;
+  width: 100%;
+}
