@@ -1,4 +1,4 @@
-const host = "http://repod.ga:8000";
+const host = "https://repod.ga";
 
 const initialState = {
   loginStatus : false,

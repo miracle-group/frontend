@@ -91,7 +91,7 @@ class App extends Component {
   render(){
     return(
       <Provider store={store}>
-      <Router>
+        <Router>
           <ApolloProvider client={client}>
             <Fabric className="App">
               {store.getState().configReducer.loginStatus ? <NavBar/> : null}
@@ -110,8 +110,7 @@ class App extends Component {
               </div>
             </Fabric>
           </ApolloProvider>
-
-      </Router>
+        </Router>
       </Provider>
     )
   }
