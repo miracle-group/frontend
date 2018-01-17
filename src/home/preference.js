@@ -9,10 +9,10 @@ import { withRouter } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import { Input, Image, Label } from 'semantic-ui-react'
 import { BounceLoader } from 'react-spinners'
-import { buttonQuestion } from 'react-icons-kit/metrize/buttonQuestion'
+import { clock } from 'react-icons-kit/metrize/clock';       
 import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
-import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
-import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
+import { arrowRightBig } from 'react-icons-kit/metrize/arrowRightBig'
+import { arrowLeftBig } from 'react-icons-kit/metrize/arrowLeftBig';       
 import {setPosts,setLoading} from '../redux/actions/actionPost';
 
 class Preference extends Component {
@@ -188,11 +188,11 @@ class Preference extends Component {
                 bottom : "5%",
                 margin : "auto",
                 left : 0,
-                right : 0
+                right : 0,
               }}>
               <Icon
                 size={60}
-                icon={arrowRightThin}
+                icon={arrowRightBig}
                 onClick={ () => this.setState({prefer: false})}
               />
             </div>
@@ -208,19 +208,19 @@ class Preference extends Component {
             textAlign: 'center',
             top: '45%',
             bottom: '25%',
-            width: '200px',
+            width: '250px',
             left : 0,
             right : 0 ,
           }}>
           <span>
             <span
-              data-tip="This is info for everithing you want to do. So, do it... bos" >
+              data-tip="Reading Time" >
             <Icon
                 style={{
                   color: '#4DB6AC'
                 }}
-                size={50}
-                icon={buttonQuestion}
+                size={80}
+                icon={clock}
               />
             </span>
             <br/>
@@ -235,7 +235,7 @@ class Preference extends Component {
             fluid
             size='large'
             placeholder='Reading time preferences...'
-            value={this.state.time}
+            // value={this.state.time}
             onChange={(time) => this.timing(time)}
             />
         </div>
@@ -251,7 +251,7 @@ class Preference extends Component {
           }}>
           <Icon
             size={60}
-            icon={arrowLeftThin}
+            icon={arrowLeftBig}
             onClick={ () => this.setState({prefer: true})}
           />
           <div
