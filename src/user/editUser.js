@@ -109,13 +109,8 @@ class EditUser extends React.Component {
     const userData = JSON.parse(localStorage.getItem('repodId'));
     const userCategories = JSON.parse(localStorage.getItem('repodIdCategories'))
     const category = this.state.category.map(item => {
-<<<<<<< HEAD
-      for(let i = 0; i < userData.preferences.length; i++){
-        const edited = userData.preferences[i].name[0].toUpperCase()+userData.preferences[i].name.slice(1);
-=======
       for(let i = 0; i < userCategories.length; i++){
         const edited = userCategories[i].name[0].toUpperCase()+userCategories[i].name.slice(1);
->>>>>>> update-tomy
         if(item.name === edited){
           item.status = true
         }

@@ -49,7 +49,7 @@ class User extends Component {
             </Card.Meta>
             <Card.Description style={{ width: '300px', padding: '10px', textAlign: 'center', margin: 'auto'}}>
               <div style={{width: '300px', textAlign: 'center'}}>
-                { tags }
+                { tag }
               </div>
             </Card.Description>
           </Card.Content>
