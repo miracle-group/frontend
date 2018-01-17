@@ -6166,10 +6166,6 @@ react-icons-kit@^1.0.7:
     camel-case "^3.0.0"
     prop-types "^15.5.8"
 
-react-rating@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-rating/-/react-rating-1.0.4.tgz#3bbd8bc11b0370460c3eb0c3295ced49af29f073"
-
 react-reconciler@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.7.0.tgz#9614894103e5f138deeeb5eabaf3ee80eb1d026d"
