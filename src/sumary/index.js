@@ -1,4 +1,4 @@
-import { Button, Card, Image } from 'semantic-ui-react'
+import { Button, Card, Image, Container, Header } from 'semantic-ui-react'
 import React, { Component } from 'react'
 import { Chart, Cloud, Transform } from 'rumble-charts'
 
@@ -29,43 +29,73 @@ const series = [{
 class Sumary extends Component {
   render() {
     return (
-      <div 
-        style={{
-          padding: '10px',
-          marginTop: '100px',
-          paddingLeft: '50px',
-          textAlign: 'center',
-          height: '100px',
-          width: '100%',
-          zIndex: 50,
-          margin: 'auto'
-        }}>
-        <Card.Group style={{margin: 'auto', textAlign: 'center', paddingTop: '50px'}}>
-          <Card>
-            <Card.Content>
-              <Card.Header>
-                Most reads
-              </Card.Header>
-              <Card.Meta>
-                Statistic by category
-              </Card.Meta>
-              <Card.Description style={{margin: 'auto', textAlign: 'center'}}>
-                <br/>
-                <Chart width={200} height={200} series={series} minY={0}>
-                  <Transform method='transpose'>
-                    <Cloud
-                      minFontSize={24}
-                      maxFontSize={62}
-                      padding={2}
-                    />
-                  </Transform>
-                </Chart>
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-            </Card.Content>
-          </Card>
-        </Card.Group>
+      <div>
+        <Container text>
+          <div 
+          style={{
+            padding: '10px',
+            paddingLeft: '50px',
+            textAlign: 'center',
+            zIndex: 50,
+          }}>
+          <Header 
+            as='h3'
+            style={{
+              padding: '10px',
+              marginTop: '50px',
+            }}
+            >Most reads
+            </Header>
+            <Chart 
+              width={200} 
+              height={200} 
+              series={series} 
+              minY={0}>
+              <Transform method='transpose'>
+                <Cloud
+                  minFontSize={24}
+                  maxFontSize={82}
+                  padding={1}
+                />
+              </Transform>
+            </Chart>
+          </div>
+        </Container>
+        <hr 
+          style={{
+            paddingLeft: 0,
+          }}
+        />
+        <Container text>
+          <div 
+            style={{
+              padding: '10px',
+              paddingLeft: '50px',
+              textAlign: 'center',
+              zIndex: 50,
+            }}>
+            <Header 
+              as='h3'
+              style={{
+                padding: '10px',
+                marginTop: '5px',
+              }}>Most reads
+            </Header>
+            <Chart 
+              width={200} 
+              height={200} 
+              series={series} 
+              minY={0}>
+              <Transform method='transpose'>
+                <Cloud
+                  minFontSize={24}
+                  maxFontSize={82}
+                  padding={1}
+                />
+              </Transform>
+            </Chart>
+          </div>
+        </Container>
       </div>
     )
   }

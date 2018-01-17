@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import './App.css'
 import 'semantic-ui-css/semantic.min.css'
-import firebaseui from 'firebaseui'
 import * as firebase from 'firebase'
+import io from 'socket.io-client';
+import Home from './home'
+import User from './user'
 import store from './redux'
 import Login from './login'
-import Home from './home'
 import NavBar from './NavBar.js'
+import Sumary from './sumary'
+import History from './history'
+import EditUser from './user/editUser'
+import firebaseui from 'firebaseui'
 import DetailArticle from './home/detailArticle'
 import Preference from './home/preference'
-import User from './user'
-import Sumary from './sumary'
-import EditUser from './user/editUser'
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric'
 import { HttpLink } from 'apollo-link-http'
 import { Provider } from 'react-redux'
@@ -23,7 +25,6 @@ import { initializeIcons } from '@uifabric/icons'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { setNewPost,setLoading } from './redux/actions/actionPost';
 import { setUserLogin } from './redux/actions/actionConfig'
-import io from 'socket.io-client';
 
 const socket = io(store.getState().configReducer.host);
 socket.on('connect',() => {
@@ -101,6 +102,7 @@ class App extends Component {
                   <Route path="/preference" component={Preference}/>
                   <Route path="/user" component={ User }/>
                   <Route path="/edituser" component={ EditUser }/>
+                  <Route path="/history" component={ History }/>
                   <Route path="/sumary" component={ Sumary }/>
                   <Route exact path='/article/detail/:id' component={ DetailArticle }/>
                   <Route path="/login" render={() => <Login ui={this.state.ui}/>} />
