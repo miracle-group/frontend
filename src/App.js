@@ -22,6 +22,7 @@ import { setLoginStatus,setClientId } from './redux/actions/actionConfig'
 import { initializeIcons } from '@uifabric/icons'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { setNewPost,setLoading } from './redux/actions/actionPost';
+import { setUserLogin } from './redux/actions/actionConfig'
 import io from 'socket.io-client';
 
 const socket = io(store.getState().configReducer.host);
@@ -73,6 +74,7 @@ class App extends Component {
     const storage = localStorage.getItem('repodId');
     if(storage){
       const newStorage = JSON.parse(storage);
+      store.dispatch(setUserLogin(newStorage));
       store.dispatch(setLoginStatus(true));
       socket.on(`conjuction-${newStorage._id}`,article => {
         // Ini data post

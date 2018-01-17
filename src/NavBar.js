@@ -19,19 +19,24 @@ class NavBar extends React.Component {
       user : null
     }
   }
+
   componentWillReceiveProps(nextProps){
+    // debugger
     this.setState({
       user : nextProps.loggedinUser
     });
   }
   componentWillMount(){
-    const storage = JSON.parse(localStorage.getItem('repodId'))
+    const storage = localStorage.getItem('repodId')
+    // debugger
     if(storage) {
+      const newstorage = JSON.parse(storage)
       this.setState({
-        user: storage
+        user: newstorage
       });
     }
   }
+
   logout(){
     firebase.auth().signOut().then(function(){
       localStorage.removeItem('repodIdCategories');
@@ -40,8 +45,10 @@ class NavBar extends React.Component {
       console.log(err)
     });
   }
+
   render(){
     const { user } = this.state
+    // debugger
     return(
       <Menu
         className="bm-menu bm-cross"
