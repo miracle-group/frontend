@@ -6,33 +6,36 @@ class User extends Component {
   constructor () {
     super()
     this.state = {
-      user : null, 
-      preferences: null
+      user : null,
+      categoies : []
     }
   }
 
   componentWillMount () {
-    const storage = localStorage.getItem('repodId')
-    const preferences = localStorage.getItem('repodIdCategories')
+    const storage = localStorage.getItem('repodId');
+    const categoies = JSON.parse(localStorage.getItem('repodIdCategories'));
     if(storage) {
       this.setState({
-        user: storage,
-        preferences: preferences
-      })
+        user : storage,
+        categoies : categoies
+      });
     }
   }
-
-  render() {
-    const user = JSON.parse(this.state.user)
-    const preferences = JSON.parse(this.state.preferences)
-    let tags = null
+  updateUserCategory(){
+    this.setState({
+      update : Math.random()
+    });
+  }
+  render(){
+    const user = JSON.parse(this.state.user);
+    let tag = null
     if(user){
-      tags =
-      preferences.map((tag, i) => {
-        return (
-          <Label style={{margin: '5px'}} key={i} as='a' color='teal' tag>{ tag.name }</Label>
+      tag = this.state.categoies.map((category,i) => {
+        const edited = category.name[0].toUpperCase()+category.name.slice(1);
+        return(
+          <Label style={{margin: '5px'}} key={i} as='a' color='teal' tag>{edited}</Label>
         )
-      })
+      });
     }
     return (
       <div className="container" style={{padding: '10px', textAlign: 'center', paddingTop:'10px'}}>
@@ -52,7 +55,7 @@ class User extends Component {
           </Card.Content>
           <Card.Content extra>
             <div style={{ padding: '20px' }}>
-              <Link to={{ pathname: `/edituser`, query: { user } }}>
+              <Link to={{ pathname: `/edituser`, query : {user}, updateCategory : () => this.updateUserCategory()}}>
                 <Button>
                   Edit preferences
                 </Button>
