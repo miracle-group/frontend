@@ -15,3 +15,12 @@ export const setUserLogin = (user) => {
     }
   }
 }
+
+export const setClientId = (clientId) => {
+  return {
+    type : 'SET_CLIENT_ID',
+    payload : {
+      clientId
+    }
+  }
+}

@@ -1,16 +1,16 @@
-import React from 'react'
-import Item from './item'
-import gql from 'graphql-tag'
-import SearchInput, {createFilter} from 'react-search-input'
 import './search.css'
-import { BounceLoader } from 'react-spinners'
-import { withRouter } from 'react-router-dom'
-import { Item as Items, Grid } from 'semantic-ui-react'
-import { graphql } from 'react-apollo'
-import { connect } from 'react-redux'
-import axios from 'axios'
 import io from 'socket.io-client';
-import { setPosts,setLoading } from '../redux/actions/actionPost';
+import gql from 'graphql-tag'
+import Item from './item'
+import React from 'react'
+import axios from 'axios'
+import SearchInput, { createFilter } from 'react-search-input'
+import { connect } from 'react-redux'
+import { graphql } from 'react-apollo'
+import { withRouter } from 'react-router-dom'
+import { BounceLoader } from 'react-spinners'
+import { Item as Items, Grid } from 'semantic-ui-react'
+import { setPosts, setLoading } from '../redux/actions/actionPost';
 const KEYS_TO_FILTERS = ['postId.title']
 
 class Home extends React.Component {
@@ -19,7 +19,8 @@ class Home extends React.Component {
     this.state = {
       canSelect: 'all',
       searchTerm: '',
-      article: null
+      article: null,
+      clientId : null
     }
     this.searchUpdated = this.searchUpdated.bind(this)
   }
@@ -37,9 +38,9 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
-    const { config } = this.props
-    const storage = JSON.parse(localStorage.getItem('repodId'))
-    if(storage) {
+    const { config,socket } = this.props
+    const storage = JSON.parse(localStorage.getItem('repodId'));
+    if(storage){
       axios.get(`${config.expressApi}/article/all/${storage._id}`)
       .then(({data}) => {
         const times = storage.times
@@ -59,23 +60,20 @@ class Home extends React.Component {
             calculation += randomArticle[idx].postId.read_time
           }
         }
-        this.setState({
-          article: arrArticles
-        })
+        this.props.setPosts(arrArticles);
       }).catch(err => {
         console.log(err)
       });
-      const socket = io(this.props.config.host);
-      socket.on(`conjuction-${storage._id}`,response => {
-        // Ini data post
-        console.log('INI HOME', response);
-        this.props.setLoading(false);
-      })
     }else{
       this.props.history.push('/login');
     }
   }
-
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      clientId : nextProps.config.clientId,
+      article : nextProps.post.posts
+    });
+  }
   render() {
     const { article }= this.state
     let articles = null

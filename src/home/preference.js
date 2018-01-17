@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Icon from 'react-icons-kit'
 import gql from 'graphql-tag'
 import logo from '../assets/img/logoblack.png'
+import Icon from 'react-icons-kit'
 import axios from 'axios'
 import ReactTooltip from 'react-tooltip'
 import { connect } from 'react-redux'
@@ -13,7 +13,6 @@ import { buttonQuestion } from 'react-icons-kit/metrize/buttonQuestion'
 import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
 import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
 import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
-
 import {setPosts,setLoading} from '../redux/actions/actionPost';
 
 class Preference extends Component {
@@ -36,10 +35,10 @@ class Preference extends Component {
         val.status = true
       }
       return val
-    })
+    });
     this.setState({
       category : changed
-    })
+    });
   }
   timing(time){
     this.setState({
@@ -55,7 +54,7 @@ class Preference extends Component {
         name : value.name.toLowerCase(),
         value : 0
       }
-    })
+    });
     const preferences = {
       _id : this.state.userId,
       times : this.state.time,
@@ -69,10 +68,10 @@ class Preference extends Component {
         const userData = JSON.parse(localStorage.getItem('repodId'))
         const edited = {...userData,
           times : this.state.time,
-          name : this.state.name,
-          preferences : filtered
+          name : this.state.name
         }
         localStorage.setItem('repodId',JSON.stringify(edited))
+        localStorage.setItem('repodIdCategories',JSON.stringify(filtered));
         this.props.history.push('/')
       }
     }).catch(err => {
@@ -107,21 +106,24 @@ class Preference extends Component {
     }
   }
   parseSelected(){
-    const userData = JSON.parse(localStorage.getItem('repodId'))
+    const userData = JSON.parse(localStorage.getItem('repodId'));
+    const userCategories = JSON.parse(localStorage.getItem('repodIdCategories'))
     const category = this.state.category.map(item => {
-      for(let i = 0; i < userData.preferences.length; i++){
-        const edited = userData.preferences[i].name[0].toUpperCase()+userData.preferences[i].name.slice(1);
-        if(item.name === edited){
-          item.status = true
+      if(userCategories){
+        for(let i = 0; i < userCategories.length; i++){
+          const edited = userCategories[i].name[0].toUpperCase()+userCategories[i].name.slice(1);
+          if(item.name === edited){
+            item.status = true
+          }
         }
       }
       return item
-    })
+    });
     this.setState({
       name : userData.name,
       time : userData.times,
       category : category
-    })
+    });
   }
   render() {
     let time = null

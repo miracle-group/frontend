@@ -23,12 +23,12 @@ class Login extends Component {
   }
   checkLogin(){
     const storage = localStorage.getItem('repodId');
-    if(storage){
+    if (storage) {
       this.props.setLoginStatus(true)
       this.props.history.push('/');
-    }else{
+    } else {
       firebase.auth().onAuthStateChanged(user => {
-        if(user){
+        if (user) {
           let objUser = {
             name: user.displayName,
             email: user.email,
@@ -39,7 +39,8 @@ class Login extends Component {
           mutate({variables: objUser}).then(({data}) => {
             this.props.setLoginStatus(true);
             this.props.setLoggedinUser(data.userAdd);
-            localStorage.setItem('repodId',JSON.stringify(data.userAdd))
+            localStorage.setItem('repodId',JSON.stringify(data.userAdd));
+            localStorage.setItem('repodIdCategories',JSON.stringify(data.userAdd.preferences));
             if(data.userAdd.times === 0 || data.userAdd.preferences.length === 0){
               this.props.history.push('/preference');
             }else if(data.userAdd.times !== 0 && data.userAdd.preferences.length > 0){
