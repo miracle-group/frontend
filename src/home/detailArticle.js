@@ -18,8 +18,9 @@ class DetailArticle extends Component {
       jumpInterval: 0,
       tolerance: 0,
       maxDuration: 0,
-      currentLocation: 0, 
-      open: false
+      currentLocation: 0,
+      open: false,
+      readRating: ''
     }
     this.checker = ''
     this.articleHeight = 0
@@ -49,10 +50,31 @@ class DetailArticle extends Component {
     let newReadTime = this.state.readTime + 1
     let currentLocation = b.scrollTop
 
+    // Counting reading time rating
+    let toSecond = this.state.articleDuration
+    let bad = toSecond * 0.2
+    let medium = toSecond * 0.4
+    let good = toSecond * 0.6
+    let veryGood = toSecond * 0.8
+    let status = ''
+
+    if (newReadTime >= veryGood) {
+      status = 'Very Good'
+    } else if (newReadTime >= good) {
+      status ='Good'
+    } else if (newReadTime >= medium) {
+      status = 'Medium'
+    } else if (newReadTime >= bad) {
+      status = 'Bad'
+    } else {
+      status = 'Very Bad'
+    }
+
     this.setState({
       readTime: newReadTime,
       currentLocation: currentLocation,
-      articleHeight: b.scrollHeight
+      articleHeight: b.scrollHeight,
+      readRating: status
     })
 
     this.checkScroll(newReadTime, currentLocation)
@@ -70,6 +92,7 @@ class DetailArticle extends Component {
       console.log('mencurigakan')
       console.log('kondisiA', isReadingNotTooFast)
       console.log('kondisiB', isReadingNotTooSlow)
+      console.log('articleDuration', this.state.articleDuration);
     }
   }
   componentWillMount(){
@@ -93,7 +116,7 @@ class DetailArticle extends Component {
       articleHeight,
       readTime,
       maxDuration
-    } = this.state    
+    } = this.state
     let very_good = articleHeight * 0.8
     let good = articleHeight * 0.6
     let medium = articleHeight * 0.4
@@ -172,8 +195,8 @@ class DetailArticle extends Component {
     const { open } = this.state
     let showArticle = null
     if(!article) {
-      showArticle = 
-      <div 
+      showArticle =
+      <div
         style = {{
           position : "relative",
           margin : "auto",
@@ -184,13 +207,13 @@ class DetailArticle extends Component {
         }}>
         <div className='sweet-loading'>
           <BounceLoader
-            color={'#4DB6AC'} 
-            loading={true} 
+            color={'#4DB6AC'}
+            loading={true}
           />
         </div>
       </div>
     } else {
-      showArticle = 
+      showArticle =
         <div
           style = {{
             paddingTop: '80px'
@@ -211,8 +234,8 @@ class DetailArticle extends Component {
                 onOpen={this.handleOpen}
                 onClose={this.handleClose}
                 openOnTriggerClick
-                trigger={(       
-                  open ? 
+                trigger={(
+                  open ?
                   <div
                     style={{
                       position : "fixed",
@@ -236,9 +259,9 @@ class DetailArticle extends Component {
                           open: true
                         })}
                       />
-                    </div> 
+                    </div>
                   </div>
-                  : 
+                  :
                   <div
                     style={{
                       position : "fixed",
@@ -265,17 +288,26 @@ class DetailArticle extends Component {
                     </div>
                   </div>
                   )}>
-                <Segment 
-                  style={{ 
-                    left: 0, 
-                    position: 'fixed', 
-                    zIndex: 1000, 
-                    bottom: '1%', 
-                    right: '22%' 
+                <Segment
+                  style={{
+                    left: 0,
+                    position: 'fixed',
+                    zIndex: 1000,
+                    bottom: '1%',
+                    right: '22%',
+                    backgroundColor: '#88acad'
                   }}>
-                  <Header>This is an example portal</Header>
-                  <p>Portals have tons of great callback functions to hook into.</p>
-                  <p>To close, simply click the close button or click away</p>
+                  <Header style={{color: 'white'}}>Article Rating Based on Reading Time</Header>
+                  {(() => {
+                    switch (this.state.readRating) {
+                      case 'Very Bad': return (<h2 style={{ color: 'red'}}>{this.state.readRating}</h2>)
+                      case 'Bad': return (<h2 style={{ color: 'yellow'}}>{this.state.readRating}</h2>)
+                      case 'Medium': return (<h2 style={{ color: 'yellow'}}>{this.state.readRating}</h2>)
+                      case 'Good': return (<h2 style={{ color: 'green'}}>{this.state.readRating}</h2>)
+                      case 'Very Good': return (<h2 style={{ color: 'green'}}>{this.state.readRating}</h2>)
+                      default: return (<p>none</p>)
+                    }
+                  })()}
                 </Segment>
               </TransitionablePortal>
             </Grid.Column>
