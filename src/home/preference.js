@@ -23,7 +23,7 @@ class Preference extends Component {
       prefer: true,
       category: null,
       time : 0,
-      name : '',
+      name : null,
       userId : ''
     }
   }
@@ -181,21 +181,33 @@ class Preference extends Component {
                   }
               </Label>
             ))}
-            <div
-              style={{
-                position : "fixed",
-                width : "60px",
-                bottom : "5%",
-                margin : "auto",
-                left : 0,
-                right : 0,
-              }}>
-              <Icon
-                size={60}
-                icon={arrowRightBig}
-                onClick={ () => this.setState({prefer: false})}
-              />
-            </div>
+              <div
+                style={{
+                  position: 'fixed',
+                  height: '70px',
+                  width: '100%',
+                  backgroundColor: '#4DB6AC',
+                  zIndex: 50,
+                  margin: 'auto',
+                  left : 0,
+                  right : 0,
+                  bottom:0
+                }}>
+                <div
+                  style={{
+                    top: '50%',
+                    position: 'relative',
+                    transform: 'translateY(-50%)',
+                    fontSize: '25px',
+                    color: '#fff',
+                  }}>
+                  <Icon
+                    size={45}
+                    icon={arrowRightBig}
+                    onClick={ () => this.setState({prefer: false})}
+                  />
+                </div>
+              </div>
           </div>
       }
     } else {
@@ -206,7 +218,7 @@ class Preference extends Component {
             position : "fixed",
             margin : "auto",
             textAlign: 'center',
-            top: '45%',
+            top: '35%',
             bottom: '25%',
             width: '250px',
             left : 0,
@@ -214,14 +226,14 @@ class Preference extends Component {
           }}>
           <span>
             <span
-              data-tip="Reading Time" >
+              data-tip="Reading time preferences" >
             <Icon
-                style={{
-                  color: '#4DB6AC'
-                }}
-                size={80}
-                icon={clock}
-              />
+              style={{
+                color: '#4DB6AC'
+              }}
+              size={80}
+              icon={clock}
+            />
             </span>
             <br/>
             <br/>
@@ -230,54 +242,103 @@ class Preference extends Component {
               type="dark"
               effect="float"
             />
+            <p
+            style={{
+              paddingBottom: '10px',
+              fontSize: '15px',
+              color: '#333333',
+              fontWeight: 'bold'
+            }}>
+            Reading time preference
+          </p>
           </span>
           <Input
             fluid
-            size='large'
-            placeholder='Reading time preferences...'
+            size='small'
+            placeholder='Please input your time preferences'
             // value={this.state.time}
             onChange={(time) => this.timing(time)}
             />
+            <p
+              style={{
+                paddingTop: '10px',
+                paddingBottom: '10px',
+                fontSize: '15px',
+                color: '#333333'
+              }}>
+            ( in minutes )</p>
         </div>
         <div
           style={{
-            position : "fixed",
-            width : "140px",
-            bottom : "5%",
-            margin : "auto",
+            position: 'fixed',
+            height: '70px',
+            width: '100%',
+            backgroundColor: '#4DB6AC',
+            zIndex: 50,
+            margin: 'auto',
             left : 0,
-            right : 0 ,
-            flexDirection:'row'
+            right : 0,
+            bottom:0
           }}>
-          <Icon
-            size={60}
-            icon={arrowLeftBig}
-            onClick={ () => this.setState({prefer: true})}
-          />
           <div
             style={{
-              width : "60px",
-              height : "60px",
-              display : "inline-flex",
-              marginLeft:'10px'
+              top: '50%',
+              position: 'relative',
+              transform: 'translateY(-50%)',
+              fontSize: '25px',
+              color: '#fff',
             }}>
-            <Image
-              src={logo}
-              centered
-              size='small'
-              className='logoColor'
-              onClick={ () => this.submit()}
+            <Icon
+              size={45}
+              icon={arrowLeftBig}
+              onClick={ () => this.setState({prefer: true})}
             />
+            <div
+              style={{
+                width : "45px",
+                height : "45px",
+                display : "inline-flex",
+                marginLeft:'10px'
+              }}>
+              <Image
+                src={logo}
+                centered
+                size='small'
+                className='logoColor'
+                onClick={ () => this.submit()}
+              />
+            </div>
           </div>
         </div>
       </div>
     }
     return (
-      <div
-        className="container">
+      <div>
         <div
-          className="selections">
-          {time}
+          style={{
+            position: 'fixed',
+            height: '70px',
+            width: '100%',
+            backgroundColor: '#4DB6AC',
+            zIndex: 50,
+            margin: 'auto',
+            top: 0
+          }}>
+          <p style={{
+            top: '50%',
+            position: 'relative',
+            transform: 'translateY(-50%)',
+            fontSize: '20px',
+            color: '#fff',
+            fontWeight: 'bold'
+          }}>Preferences & Time</p>
+        </div>
+        <div
+          className="container">
+          <div
+            className="selections">
+            {time}
+          </div>
         </div>
       </div>
     )

@@ -38,33 +38,55 @@ class User extends Component {
       });
     }
     return (
-      <div className="container" style={{padding: '10px', textAlign: 'center', paddingTop:'10px'}}>
-        <div className="selection" style={{padding: '10px', textAlign: 'center', paddingTop:'50px', marginTop: '10px'}}>
-          <Card.Content style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
-            <Card.Header style={{ padding: '10px'}}>
-            <h3>Hallo, { user && user.name }</h3>
-            <img size='small' className="photoprofil" alt='profile' src={ user && user.profileImage} />
-            </Card.Header>
-            <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
-            </Card.Meta>
-            <Card.Description style={{ width: '300px', padding: '10px', textAlign: 'center', margin: 'auto'}}>
-              <div style={{width: '300px', textAlign: 'center'}}>
-                { tag }
+      <div>
+        <div
+          style={{
+            position: 'fixed',
+            height: '70px',
+            width: '100%',
+            backgroundColor: '#4DB6AC',
+            zIndex: 50,
+            margin: 'auto'
+          }}>
+          <p style={{
+            top: '50%',
+            position: 'relative',
+            transform: 'translateY(-50%)',
+            fontSize: '20px',
+            color: '#fff',
+            fontWeight: 'bold'
+          }}>User Setting</p>
+        </div>
+          <div className="container" style={{padding: '10px', textAlign: 'center', paddingTop:'10px'}}>
+          <div className="selection" style={{padding: '10px', textAlign: 'center', paddingTop:'30px', marginTop: '10px'}}>
+            <Card.Content style={{padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
+              <Card.Header style={{ padding: '10px'}}>
+              <h3>Hello, { user && user.name }</h3>
+              <img size='small' className="photoprofil" alt='profile' src={ user && user.profileImage} />
+              </Card.Header>
+              <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
+              </Card.Meta>
+              <Card.Description style={{ width: '300px', padding: '10px', textAlign: 'center', margin: 'auto'}}>
+                <div style={{width: '300px', textAlign: 'center'}}>
+                  <p>Your preferences</p>
+                  { tag }
+                </div>
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <div style={{ padding: '20px' }}>
+                <Link to={{ pathname: `/edituser`, query : {user}, updateCategory : () => this.updateUserCategory()}}>
+                  <Button>
+                    Edit preferences
+                  </Button>
+                </Link>
               </div>
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <div style={{ padding: '20px' }}>
-              <Link to={{ pathname: `/edituser`, query : {user}, updateCategory : () => this.updateUserCategory()}}>
-                <Button>
-                  Edit preferences
-                </Button>
-              </Link>
-            </div>
-          </Card.Content>
+            </Card.Content>
 
+          </div>
         </div>
       </div>
+      
     )
   }
 }

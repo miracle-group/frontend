@@ -149,7 +149,7 @@ class EditUser extends React.Component {
         <div
           style={{
             paddingTop:'5px',
-            margin: '20px',
+            margin: '10px',
             paddingBottom: '80px'
           }}>
           { this.state.prefer && this.state.category.map((prefer, i) =>(
@@ -176,74 +176,95 @@ class EditUser extends React.Component {
         </div>
       }
     return (
-      <div className="container" style={{ padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
-        <div className="selection" style={{ padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
-          <Card.Content style={{ padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
-            <Card.Header style={{ padding: '10px'}}>
-            <h3>{ user && user.name }</h3>
-            <img className="photoprofil" alt='profile logo' src={ user && user.profileImage } />
-            </Card.Header>
-            <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
-              <span className='date'>
-                Your reading time
-              </span>
-              <br/>
-              <div
-                style = {{
-                  margin : "auto",
-                  textAlign: 'center',
-                  top: '45%',
-                  bottom: '25%',
-                  width: '200px',
-                  left : 0,
-                  right : 0 ,
-                }}>
-                <Input
-                  fluid
-                  size='large'
-                  placeholder='Enter time...'
-                  value={this.state.time}
-                  onChange={(time) => this.timing(time)}
-                  />
-              </div>
-            </Card.Meta>
-            <Card.Description style={{ padding: '10px' }}>
-              <h4>List preferences</h4>
-              <FocusZone direction={ FocusZoneDirection.vertical } style={{ padding: '10px', height: '400px' }}>
-                { time }
-              </FocusZone>
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-          <div
-            style={{
-              position : "fixed",
-              bottom : 0,
-              margin : "auto",
-              left : 0,
-              right : 0,
-              backgroundColor: '#4DB6AC',
-              height: '60px',
-              textAlign: 'center'
-            }}>
-            <Button.Group
+      <div>
+        <div
+          style={{
+            position: 'fixed',
+            height: '70px',
+            width: '100%',
+            backgroundColor: '#4DB6AC',
+            zIndex: 50,
+            margin: 'auto',
+            top: 0
+          }}>
+          <p style={{
+            top: '50%',
+            position: 'relative',
+            transform: 'translateY(-50%)',
+            fontSize: '20px',
+            color: '#fff',
+            fontWeight: 'bold'
+          }}>Edit Preferences & Time</p>
+        </div>
+        <div className="container" style={{ padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
+          <div className="selection" style={{ padding: '10px', textAlign: 'center', paddingTop:'20px', marginTop: '10px'}}>
+            <Card.Content style={{ padding: '10px', textAlign: 'center', paddingTop:'10px', marginTop: '10px'}}>
+              <Card.Header style={{ padding: '10px'}}>
+              <h3>{ user && user.name }</h3>
+              <img className="photoprofil" alt='profile logo' src={ user && user.profileImage } />
+              </Card.Header>
+              <Card.Meta style={{ padding: '10px', textAlign: 'center'}}>
+                <span className='date'>
+                  Your reading time
+                </span>
+                <br/>
+                <div
+                  style = {{
+                    margin : "auto",
+                    textAlign: 'center',
+                    top: '45%',
+                    bottom: '25%',
+                    width: '200px',
+                    left : 0,
+                    right : 0 ,
+                  }}>
+                  <Input
+                    fluid
+                    size='large'
+                    placeholder='Enter time...'
+                    value={this.state.time}
+                    onChange={(time) => this.timing(time)}
+                    />
+                </div>
+              </Card.Meta>
+              <Card.Description style={{ padding: '5px' }}>
+                <h4>List preferences</h4>
+                <FocusZone direction={ FocusZoneDirection.vertical } style={{ padding: '10px', height: '400px' }}>
+                  { time }
+                </FocusZone>
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+            <div
               style={{
-              top: '50%',
-              position: 'relative',
-              transform: 'translateY(-50%)'
-            }}>
-              <Link to="/user">
-                <Button>Cancel</Button>
-              </Link>
-              <Button.Or />
-              <Button
-              onClick={ () => this.submit()}
-              positive
-              >Save</Button>
-            </Button.Group>
-          </div>
-          </Card.Content>
+                position : "fixed",
+                bottom : 0,
+                margin : "auto",
+                left : 0,
+                right : 0,
+                backgroundColor: '#4DB6AC',
+                height: '60px',
+                textAlign: 'center'
+              }}>
+              <Button.Group
+                style={{
+                  top: '50%',
+                  position: 'relative',
+                  transform: 'translateY(-50%)'
+                }}>
+                <Link to="/user">
+                  <Button>Cancel</Button>
+                </Link>
+                <Button.Or />
+                <Button
+                onClick={ () => this.submit()}
+                positive
+                >Save</Button>
+              </Button.Group>
+            </div>
+            </Card.Content>
 
+          </div>
         </div>
       </div>
     )

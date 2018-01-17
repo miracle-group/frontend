@@ -33,6 +33,7 @@ class DetailArticle extends Component {
   handleClose = () => this.setState({ open: false })
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     let b = document.documentElement
     let jumpInterval = b.scrollHeight / this.state.articleDuration
     let tolerance = window.innerHeight * 0.10
@@ -209,6 +210,7 @@ class DetailArticle extends Component {
         nilai(5)
       }
     }
+    clearInterval(this.checker)
   }
   render() {
     const article = this.props.location.query.article.postId
@@ -255,6 +257,16 @@ class DetailArticle extends Component {
     }
     return (
       <div className="container">
+        <div
+          style={{
+            position: 'fixed',
+            height: '80px',
+            width: '100%',
+            backgroundColor: '#4DB6AC',
+            zIndex: 50,
+            margin: 'auto'
+          }}>
+        </div>
         <div className="selection">
           <Grid centered>
             <Grid.Column width={14}>

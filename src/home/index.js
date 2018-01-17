@@ -123,7 +123,7 @@ class Home extends React.Component {
         <div
           style={{
             position: 'fixed',
-            height: '100px',
+            height: '70px',
             width: '100%',
             backgroundColor: '#4DB6AC',
             zIndex: 50,
@@ -133,12 +133,12 @@ class Home extends React.Component {
             className="search-input"
             onChange={this.searchUpdated}
             style={{
-              top: '80%',
+              top: '35%',
               margin: 'auto',
               width: 'auto',
               zIndex: 100,
               marginTop: '0',
-              marginLeft: '80px',
+              marginLeft: '50px',
             }}/>
         </div>
         <div
@@ -146,7 +146,7 @@ class Home extends React.Component {
           <div
             className="selection"
             style={{
-              paddingTop:'150px',
+              paddingTop:'100px',
               paddingRight: '20px',
               height: '100px',
             }}>
