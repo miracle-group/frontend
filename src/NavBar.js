@@ -2,9 +2,10 @@ import React from 'react'
 import Icon from 'react-icons-kit'
 import logo from './assets/img/logo.svg'
 import * as firebase from 'firebase'
-import { home } from 'react-icons-kit/entypo/home'
 import { cog } from 'react-icons-kit/entypo/cog'
 import { out } from 'react-icons-kit/entypo/out'
+import { home } from 'react-icons-kit/entypo/home'
+import { inTime } from 'react-icons-kit/entypo/inTime'
 import { Image, List } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { graph } from 'react-icons-kit/entypo/graph';
@@ -67,6 +68,14 @@ class NavBar extends React.Component {
             size={23}
             icon={graph}
           /> Sumary
+        </Link>
+        <Link
+          className="bm-item-list"
+          to="/history">
+          <Icon
+            size={23}
+            icon={inTime}
+          /> History
         </Link>
         <Link
           className="bm-item-list"

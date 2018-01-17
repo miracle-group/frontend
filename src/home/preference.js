@@ -12,8 +12,8 @@ import { BounceLoader } from 'react-spinners'
 import { buttonQuestion } from 'react-icons-kit/metrize/buttonQuestion'
 import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
 import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
-import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin';
-import {setPosts,setLoading} from '../redux/actions/actionPost';
+import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin'
+import {setPosts,setLoading} from '../redux/actions/actionPost'
 
 class Preference extends Component {
   constructor(){

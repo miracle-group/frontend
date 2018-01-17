@@ -1,3 +1,4 @@
+import './search.css'
 import React, { Component } from 'react'
 import axios from 'axios'
 import logo from '../assets/img/logo.png'
@@ -38,9 +39,6 @@ class DetailArticle extends Component {
     this.clientHeight = b.clientHeight
     this.setState({jumpInterval: jumpInterval, tolerance: tolerance})
     this.checker = setInterval(this.getCurrentLocation.bind(this), 1000)
-    console.log('====================================')
-    console.log(this.props)
-    console.log('====================================')
   }
 
   getCurrentLocation(){
@@ -75,8 +73,12 @@ class DetailArticle extends Component {
   componentWillMount(){
     const { article } = this.props.location.query
     const storage = JSON.parse(localStorage.getItem('repodId'))
+    console.log('====================================')
+    console.log(article)
+    console.log('====================================')
     if(storage){
       axios.post(`http://repod.ga:8000/api/article/${article._id}/${true}`)
+      axios.post(`http://repod.ga:8000/api/category/user/${storage._id}/${article._id}`)
       this.setState({
         articleDuration: article.postId.read_time * 60,
         maxDuration: (article.postId.read_time * 60) * 2
@@ -204,7 +206,6 @@ class DetailArticle extends Component {
         <div className="selection">
           <Grid centered>
             <Grid.Column width={14}>
-              {this.state.readTime}
               { showArticle }
               <TransitionablePortal
                 closeOnTriggerClick
