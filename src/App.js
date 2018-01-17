@@ -22,11 +22,17 @@ import { setLoginStatus,setClientId } from './redux/actions/actionConfig'
 import { initializeIcons } from '@uifabric/icons'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { setNewPost,setLoading } from './redux/actions/actionPost';
+import { setUserLogin } from './redux/actions/actionConfig'
 import io from 'socket.io-client';
 
 const socket = io(store.getState().configReducer.host);
 socket.on('connect',() => {
+  console.log('Connected!');
   store.dispatch(setClientId(socket.id));
+});
+socket.on('disconnect',() => {
+  console.log('Disconnected!');
+  store.dispatch(setClientId(null));
 });
 
 initializeIcons(undefined, { disableWarnings: true })
@@ -68,18 +74,20 @@ class App extends Component {
   }
   componentWillMount(){
     this.setupFirebase();
-  }
-  componentDidMount(){
     const storage = localStorage.getItem('repodId');
     if(storage){
       const newStorage = JSON.parse(storage);
+      store.dispatch(setUserLogin(newStorage));
       store.dispatch(setLoginStatus(true));
-      socket.on(`conjuction-${newStorage._id}`,article => {
-        // Ini data post
-        console.log('New Article');
-        store.dispatch(setNewPost(article.response));
-        store.dispatch(setLoading(false));
+      socket.on(`conjuction`,data => {
+        console.log(data);
       });
+      // socket.on(`conjuction-${newStorage._id}`,article => {
+      //   // Ini data post
+      //   console.log('New Article');
+      //   store.dispatch(setNewPost(article.response));
+      //   store.dispatch(setLoading(false));
+      // });
     }
   }
   render(){
