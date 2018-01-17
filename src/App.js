@@ -18,9 +18,16 @@ import { Provider } from 'react-redux'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
-import { setLoginStatus } from './redux/actions/actionConfig'
+import { setLoginStatus,setClientId } from './redux/actions/actionConfig'
 import { initializeIcons } from '@uifabric/icons'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { setNewPost,setLoading } from './redux/actions/actionPost';
+import io from 'socket.io-client';
+
+const socket = io(store.getState().configReducer.host);
+socket.on('connect',() => {
+  store.dispatch(setClientId(socket.id));
+});
 
 initializeIcons(undefined, { disableWarnings: true })
 
@@ -60,24 +67,33 @@ class App extends Component {
     })
   }
   componentWillMount(){
-    this.setupFirebase()
-    const storage = localStorage.getItem('repodId')
+    this.setupFirebase();
+  }
+  componentDidMount(){
+    const storage = localStorage.getItem('repodId');
     if(storage){
-      store.dispatch(setLoginStatus(true))
+      const newStorage = JSON.parse(storage);
+      store.dispatch(setLoginStatus(true));
+      socket.on(`conjuction-${newStorage._id}`,article => {
+        // Ini data post
+        console.log('New Article');
+        store.dispatch(setNewPost(article.response));
+        store.dispatch(setLoading(false));
+      });
     }
   }
   render(){
     return(
+      <Provider store={store}>
       <Router>
-        <Provider store={store}>
           <ApolloProvider client={client}>
             <Fabric className="App">
               {store.getState().configReducer.loginStatus ? <NavBar/> : null}
               <div className="body">
                 <div className="content">
-                  <Route exact path="/" component={ Home }/>
+                  <Route exact path="/" render={() => <Home socket={socket}/>}/>
                   <Route path="/about" component={ DetailArticle }/>
-                  <Route path="/preference" component={ Preference }/>
+                  <Route path="/preference" component={Preference}/>
                   <Route path="/user" component={ User }/>
                   <Route path="/edituser" component={ EditUser }/>
                   <Route path="/sumary" component={ Sumary }/>
@@ -87,8 +103,9 @@ class App extends Component {
               </div>
             </Fabric>
           </ApolloProvider>
-        </Provider>
+
       </Router>
+      </Provider>
     )
   }
 }

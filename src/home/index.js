@@ -19,7 +19,8 @@ class Home extends React.Component {
     this.state = {
       canSelect: 'all',
       searchTerm: '',
-      article: null
+      article: null,
+      clientId : null
     }
     this.searchUpdated = this.searchUpdated.bind(this)
   }
@@ -37,9 +38,9 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
-    const { config } = this.props
-    const storage = JSON.parse(localStorage.getItem('repodId'))
-    if(storage) {
+    const { config,socket } = this.props
+    const storage = JSON.parse(localStorage.getItem('repodId'));
+    if(storage){
       axios.get(`${config.expressApi}/article/all/${storage._id}`)
       .then(({data}) => {
         const times = storage.times
@@ -59,29 +60,20 @@ class Home extends React.Component {
             calculation += randomArticle[idx].postId.read_time
           }
         }
-        this.setState({
-          article: arrArticles
-        });
+        this.props.setPosts(arrArticles);
       }).catch(err => {
         console.log(err)
-      });
-      const socket = io(this.props.config.host);
-      socket.on(`conjuction-${storage._id}`,article => {
-        // Ini data post
-        console.log(article.response);
-        let userArticles = this.state.article;
-        userArticles.push(article.response);
-        this.setState({
-          article: userArticles
-        },() => {
-          this.props.setLoading(false);
-        });
       });
     }else{
       this.props.history.push('/login');
     }
   }
-
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      clientId : nextProps.config.clientId,
+      article : nextProps.post.posts
+    });
+  }
   render() {
     const { article }= this.state
     let articles = null

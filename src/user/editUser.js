@@ -122,7 +122,6 @@ class EditUser extends React.Component {
       time : userData.times,
       category : category
     });
-    console.log(userData);
   }
   render(){
     const { user } = this.props.location.query

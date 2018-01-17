@@ -5,7 +5,8 @@ const initialState = {
   user : null,
   graphqlApi : `${host}/graphql`,
   expressApi : `${host}/api`,
-  host : host
+  host : host,
+  clientId : null
 }
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +15,8 @@ const reducer = (state = initialState, action) => {
       return {...state,loginStatus : action.payload.status}
     case 'SET_LOGGEDIN_USER':
       return {...state,user : action.payload.user}
+    case 'SET_CLIENT_ID':
+      return {...state,clientId : action.payload.clientId}
     default:
       return state
   }

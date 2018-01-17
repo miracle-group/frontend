@@ -39,7 +39,8 @@ class Login extends Component {
           mutate({variables: objUser}).then(({data}) => {
             this.props.setLoginStatus(true);
             this.props.setLoggedinUser(data.userAdd);
-            localStorage.setItem('repodId',JSON.stringify(data.userAdd))
+            localStorage.setItem('repodId',JSON.stringify(data.userAdd));
+            localStorage.setItem('repodIdCategories',JSON.stringify(data.userAdd.preferences));
             if(data.userAdd.times === 0 || data.userAdd.preferences.length === 0){
               this.props.history.push('/preference');
             }else if(data.userAdd.times !== 0 && data.userAdd.preferences.length > 0){
