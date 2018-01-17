@@ -1,12 +1,12 @@
-import './search.css'
 import React, { Component } from 'react'
-import axios from 'axios'
+import './search.css'
+import './readStatus.css'
 import logo from '../assets/img/logo.png'
+import axios from 'axios'
 import logoblack from '../assets/img/logoblack.png'
 import ReactHtmlParser from 'react-html-parser'
 import { BounceLoader } from 'react-spinners'
 import { Grid, Button, Header, Segment, TransitionablePortal, Image } from 'semantic-ui-react'
-import readCss from './readStatus.css'
 
 class DetailArticle extends Component {
   constructor(){

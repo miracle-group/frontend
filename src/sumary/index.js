@@ -1,33 +1,59 @@
 import { Button, Card, Image, Container, Header } from 'semantic-ui-react'
 import React, { Component } from 'react'
 import { Chart, Cloud, Transform } from 'rumble-charts'
-
-const series = [{
-  data: [
-    {label: 'Highcharts', y: 30},
-    {label: 'amCharts', y: 13},
-    {label: 'Google Charts', y: 31},
-    {label: 'ChartJS', y: 15},
-    {label: 'TauCharts', y: 8},
-    {label: 'FusionCharts', y: 2},
-    {label: 'ZingChart', y: 2},
-    {label: 'uvCharts', y: 1},
-    {label: 'jQuery Sparklines', y: 1},
-    {label: 'Ember Charts', y: 2},
-    {label: 'Canvas.js', y: 16},
-    {label: 'Flot', y: 1},
-    {label: 'D3.js', y: 27},
-    {label: 'n3-charts', y: 3},
-    {label: 'NVD3', y: 3},
-    {label: 'Chartist.js', y: 3},
-    {label: 'C3.js', y: 14},
-    {label: 'Cubism.js', y: 1},
-    {label: 'Rickshaw', y: 2}
-  ]
-}];
+// import WordCloud from 'react-d3-cloud'
+const seriess = [{data: [{label: 'Highcharts', y: 30}]}];
 
 class Sumary extends Component {
+  constructor () {
+    super()
+    this.state = {
+      series: null
+    }
+  }
+  componentWillMount () {
+    const categories = JSON.parse(localStorage.getItem('repodIdCategories'))
+    let newSeries = []
+    categories.map(category => {
+      let newData = {
+        label: category.name,
+        y: +category.value
+      }
+      newSeries.push(newData)
+    })
+    let data = newSeries
+    this.setState({
+      series: [{data}]
+    })
+  }
+
   render() {
+    const fontSizeMapper = word => Math.log2(word.value) * 5;
+    const rotate = word => word.value % 360;
+    const { series } = this.state
+    let chart = null
+    console.log('====================================')
+    console.log('A', series[0])
+    console.log('====================================')
+    console.log('====================================')
+    console.log('B', seriess[0])
+    console.log('====================================')
+    if(series) {
+      chart = 
+      <Chart width={300} height={300} series={series} minY={0}>
+        <Transform method='transpose'>
+          <Cloud
+            font='Open Sans Condensed'
+            minFontSize={24}
+            maxFontSize={72}
+            padding={2}
+            rotate={() => (~~(Math.random() * 12) - 6) * 15}
+          />
+        </Transform>
+      </Chart>
+    } else {
+      chart = 'Empty'
+    }
     return (
       <div>
         <Container text>
@@ -46,19 +72,7 @@ class Sumary extends Component {
             }}
             >Most reads
             </Header>
-            <Chart 
-              width={200} 
-              height={200} 
-              series={series} 
-              minY={0}>
-              <Transform method='transpose'>
-                <Cloud
-                  minFontSize={24}
-                  maxFontSize={82}
-                  padding={1}
-                />
-              </Transform>
-            </Chart>
+            {chart}
           </div>
         </Container>
         <hr 
@@ -79,21 +93,8 @@ class Sumary extends Component {
               style={{
                 padding: '10px',
                 marginTop: '5px',
-              }}>Most reads
+              }}>Empty
             </Header>
-            <Chart 
-              width={200} 
-              height={200} 
-              series={series} 
-              minY={0}>
-              <Transform method='transpose'>
-                <Cloud
-                  minFontSize={24}
-                  maxFontSize={82}
-                  padding={1}
-                />
-              </Transform>
-            </Chart>
           </div>
         </Container>
       </div>
