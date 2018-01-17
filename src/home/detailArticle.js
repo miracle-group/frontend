@@ -20,7 +20,8 @@ class DetailArticle extends Component {
       maxDuration: 0,
       currentLocation: 0,
       open: false,
-      readRating: ''
+      readRating: '',
+      readingTimeCounter: 0
     }
     this.checker = ''
     this.articleHeight = 0
@@ -74,7 +75,8 @@ class DetailArticle extends Component {
       readTime: newReadTime,
       currentLocation: currentLocation,
       articleHeight: b.scrollHeight,
-      readRating: status
+      readRating: status,
+      readingTimeCounter: newReadTime
     })
 
     this.checkScroll(newReadTime, currentLocation)
@@ -298,6 +300,7 @@ class DetailArticle extends Component {
                     backgroundColor: '#88acad'
                   }}>
                   <Header style={{color: 'white'}}>Article Rating Based on Reading Time</Header>
+                  <h2 style={{color: 'white'}}>Rating Status:</h2>
                   {(() => {
                     switch (this.state.readRating) {
                       case 'Very Bad': return (<h2 style={{ color: 'red'}}>{this.state.readRating}</h2>)
@@ -308,6 +311,7 @@ class DetailArticle extends Component {
                       default: return (<p>none</p>)
                     }
                   })()}
+                  <h2 style={{color: 'white'}}>Reading Time Counter: {this.state.readingTimeCounter}</h2>
                 </Segment>
               </TransitionablePortal>
             </Grid.Column>
