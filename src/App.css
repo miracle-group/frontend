@@ -539,7 +539,8 @@ button:hover {
 .bm-menu a {
   text-decoration: none;
   color: rgb(255, 248, 248);
-  font-size: 20px
+  font-size: 15px;
+  padding-left: 0;
 }
 .bm-menu a:hover {
   text-decoration: none;
@@ -556,6 +557,12 @@ button:hover {
 .bm-item-list {
   color: #b8b7ad;
   padding: 0.5em;
+}
+a .bm-item-list {
+  color: #b8b7ad;
+  padding: 0.3em;
+  padding-left: 0;
+  left: 0;
 }
 
 /* Styling of overlay */

@@ -56,7 +56,7 @@ class NavBar extends React.Component {
         style={{
           overflow: 'hidden'
         }}>
-        <Image src={user && user.profileImage} size='small' circular />
+        <Image style={{margin: 'auto'}} src={user && user.profileImage} size='small' circular />
         <br/>
         <h2 style={{color: '#fff'}}>{user && user.name}</h2>
         <br/>
