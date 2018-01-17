@@ -77,15 +77,12 @@ class App extends Component {
     if(storage){
       const newStorage = JSON.parse(storage);
       store.dispatch(setLoginStatus(true));
-      socket.on(`conjuction`,data => {
-        console.log(data);
+      socket.on(`conjuction-${newStorage._id}`,article => {
+        // Ini data post
+        console.log('New Article');
+        store.dispatch(setNewPost(article.response));
+        store.dispatch(setLoading(false));
       });
-      // socket.on(`conjuction-${newStorage._id}`,article => {
-      //   // Ini data post
-      //   console.log('New Article');
-      //   store.dispatch(setNewPost(article.response));
-      //   store.dispatch(setLoading(false));
-      // });
     }
   }
   render(){
