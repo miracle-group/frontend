@@ -292,26 +292,26 @@ class DetailArticle extends Component {
                   )}>
                 <Segment
                   style={{
-                    left: 0,
                     position: 'fixed',
                     zIndex: 1000,
                     bottom: '1%',
-                    right: '22%',
+                    right: '10%',
+                    width: '30%',
                     backgroundColor: '#88acad'
                   }}>
                   <Header style={{color: 'white'}}>Article Rating Based on Reading Time</Header>
-                  <h2 style={{color: 'white'}}>Rating Status:</h2>
+                  <h4 style={{color: 'white'}}>Rating Status:</h4>
                   {(() => {
                     switch (this.state.readRating) {
-                      case 'Very Bad': return (<h2 style={{ color: 'red'}}>{this.state.readRating}</h2>)
-                      case 'Bad': return (<h2 style={{ color: 'yellow'}}>{this.state.readRating}</h2>)
-                      case 'Medium': return (<h2 style={{ color: 'yellow'}}>{this.state.readRating}</h2>)
-                      case 'Good': return (<h2 style={{ color: 'green'}}>{this.state.readRating}</h2>)
-                      case 'Very Good': return (<h2 style={{ color: 'green'}}>{this.state.readRating}</h2>)
+                      case 'Very Bad': return (<h4 style={{ color: 'red'}}>{this.state.readRating}</h4>)
+                      case 'Bad': return (<h4 style={{ color: 'yellow'}}>{this.state.readRating}</h4>)
+                      case 'Medium': return (<h4 style={{ color: 'yellow'}}>{this.state.readRating}</h4>)
+                      case 'Good': return (<h4 style={{ color: 'green'}}>{this.state.readRating}</h4>)
+                      case 'Very Good': return (<h4 style={{ color: 'green'}}>{this.state.readRating}</h4>)
                       default: return (<p>none</p>)
                     }
                   })()}
-                  <h2 style={{color: 'white'}}>Reading Time Counter: {this.state.readingTimeCounter}</h2>
+                  <h4 style={{color: 'white'}}>Reading Time Counter: {this.state.readingTimeCounter}</h4>
                 </Segment>
               </TransitionablePortal>
             </Grid.Column>
