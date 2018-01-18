@@ -1,9 +1,9 @@
 {
   "short_name": "RePod",
-  "name": "Reading Podcast",
+  "name": "RePod",
   "icons": [
     {
-      "src": "/src/assets/img/favicon-230x230.png",
+      "src": "/favicon-230x230.png",
       "type": "image/png",
       "sizes": "512x512"
     }
@@ -11,5 +11,5 @@
   "start_url": "./",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#64FFDA"
 }
