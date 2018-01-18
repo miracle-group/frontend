@@ -558,6 +558,7 @@ button:hover {
 .bm-item-list {
   color: #b8b7ad;
   padding: 0.5em;
+  bottom: 0;
 }
 a .bm-item-list {
   color: #b8b7ad;

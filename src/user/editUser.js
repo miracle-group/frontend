@@ -182,7 +182,8 @@ class EditUser extends React.Component {
             backgroundColor: '#4DB6AC',
             zIndex: 50,
             margin: 'auto',
-            top: 0
+            top: 0,
+            boxShadow: "1px 2px 1px #9E9E9E"
           }}>
           <p style={{
             top: '50%',
