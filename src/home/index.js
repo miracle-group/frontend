@@ -177,7 +177,6 @@ class Home extends React.Component {
                   paddingRight: '0px',
                   paddingLeft: '0px'
                 }}>
-                {console.log(articles)}
                 { article ? articles : <div></div> }
               </Grid.Column>
             </Grid>

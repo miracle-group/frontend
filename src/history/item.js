@@ -1,13 +1,11 @@
 import React from 'react'
 import Rating from 'react-star-ratings'
-import Striptag from 'string-strip-html'
 import { Link } from 'react-router-dom'
 import { Button, Item, Label } from 'semantic-ui-react'
 
 class List extends React.Component {
   render () {
     const article = this.props.article.postId
-    let content =  Striptag(article.content)
     const reducer = (accumulator, currentValue) => accumulator + currentValue
     let rate = article.rate.reduce(reducer)/ article.rate.length
     return(
@@ -37,7 +35,7 @@ class List extends React.Component {
           </Item.Meta>
           <Item.Description> 
             <p>
-              {content.substring(0,100)}...
+              ...
             </p>
           </Item.Description>
           <Item.Extra>
