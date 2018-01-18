@@ -1,6 +1,5 @@
 import React from 'react'
 import './search.css'
-import io from 'socket.io-client';
 import gql from 'graphql-tag'
 import Item from './item'
 import axios from 'axios'
@@ -38,7 +37,7 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
-    const { config, socket } = this.props
+    const { config } = this.props
     const storage = JSON.parse(localStorage.getItem('repodId'));
     if(storage){
       axios.get(`${config.expressApi}/article/all/${storage._id}`)
@@ -90,8 +89,8 @@ class Home extends React.Component {
             paddingBottom: '25%',
             width: '50%',
           }}>
-          <div 
-            className='sweet-loading' 
+          <div
+            className='sweet-loading'
             style={{
               display: 'inline-block'
             }}>
@@ -106,7 +105,7 @@ class Home extends React.Component {
       const filteredArticle = article.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
       articles =
       <Items.Group
-        divided 
+        divided
         style={{
           backgroundColor: '#FFF',
           padding: '15px',
