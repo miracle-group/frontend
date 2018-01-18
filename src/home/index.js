@@ -89,8 +89,8 @@ class Home extends React.Component {
             paddingBottom: '25%',
             width: '50%',
           }}>
-          <div 
-            className='sweet-loading' 
+          <div
+            className='sweet-loading'
             style={{
               display: 'inline-block'
             }}>
@@ -124,7 +124,7 @@ class Home extends React.Component {
       // }]
       articles =
       <Items.Group
-        divided 
+        divided
         style={{
           backgroundColor: '#FFF',
           padding: '15px',
