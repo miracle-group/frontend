@@ -6,7 +6,7 @@ import axios from 'axios'
 import logoblack from '../assets/img/logoblack.png'
 import ReactHtmlParser from 'react-html-parser'
 import { BounceLoader } from 'react-spinners'
-import { Grid, Button, Header, Segment, TransitionablePortal, Image } from 'semantic-ui-react'
+import { Grid, Header, Segment, TransitionablePortal, Image } from 'semantic-ui-react'
 
 class DetailArticle extends Component {
   constructor(){
@@ -45,17 +45,17 @@ class DetailArticle extends Component {
   }
 
   getCurrentLocation(){
-    const article = this.props.location.query.article.postId
+    // const article = this.props.location.query.article.postId
     let b = document.documentElement
     let newReadTime = this.state.readTime + 1
     let currentLocation = b.scrollTop
     const {
       articleDuration,
-      articleHeight,
+      // articleHeight,
       readTime,
-      maxDuration
+      // maxDuration
     } = this.state
-    let time_very_good = articleDuration * 0.10
+    // let time_very_good = articleDuration * 0.10
     let time_good = articleDuration * 0.8
     let time_medium = articleDuration * 0.6
     let time_bad = articleDuration * 0.4
@@ -94,7 +94,7 @@ class DetailArticle extends Component {
     console.log(`currentPostition = ${currentPostition}`)
     const isReadingNotTooFast = currentPostition <= ((newReadTime * this.state.jumpInterval) + this.state.tolerance)
     const isReadingNotTooSlow = currentPostition >= (((newReadTime / 2) * this.state.jumpInterval) + this.state.tolerance)
-    const startCounting = newReadTime < 3
+    // const startCounting = newReadTime < 3
     if ( isReadingNotTooFast && isReadingNotTooSlow ) {
       console.log('masih oke')
     }
@@ -112,15 +112,18 @@ class DetailArticle extends Component {
     console.log('====================================')
     if(storage){
       axios.post(`https://repod.ga/api/article/${article._id}/${true}`)
-      axios.put(`https://repod.ga/api/category/user/${storage._id}/${article._id}`)
-      .then(({data})=>{
-        localStorage.setItem('repodIdCategories', JSON.stringify(data))
+      .then(suc => {
+        axios.put(`https://repod.ga/api/category/user/${storage._id}/${article._id}`)
+        .then(({data})=>{
+          localStorage.setItem('repodIdCategories', JSON.stringify(data))
+        })
+        .catch(err => {
+          console.log('====================================')
+          console.log(err)
+          console.log('====================================')
+        })
       })
-      .catch(err => {
-        console.log('====================================')
-        console.log(err)
-        console.log('====================================')
-      })
+      .catch(err => console.log(err))
       this.setState({
         articleDuration: article.postId.read_time * 60,
         maxDuration: (article.postId.read_time * 60) * 2
@@ -136,7 +139,7 @@ class DetailArticle extends Component {
       currentLocation,
       articleHeight,
       readTime,
-      maxDuration
+      // maxDuration
     } = this.state
     let very_good = articleHeight * 0.8
     let good = articleHeight * 0.6

@@ -2,9 +2,7 @@ import React from 'react'
 import Rating from 'react-star-ratings'
 import Striptag from 'string-strip-html'
 import { Link } from 'react-router-dom'
-import { iosHeart } from 'react-icons-kit/ionicons/iosHeart'
-import { iosHeartOutline } from 'react-icons-kit/ionicons/iosHeartOutline'
-import { Button, Icon, Image as ImageComponent, Item, Label } from 'semantic-ui-react'
+import { Button, Item, Label } from 'semantic-ui-react'
 
 class List extends React.Component {
   render () {

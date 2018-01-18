@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Image as img, Input, Button, Label } from 'semantic-ui-react'
+import { Card, Image as img, Button, Label } from 'semantic-ui-react'
 
 class User extends Component {
   constructor () {

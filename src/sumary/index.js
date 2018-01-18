@@ -1,17 +1,7 @@
-import { Button, Card, Image, Container, Header } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import React, { Component } from 'react'
-import { Chart, Cloud, Transform } from 'rumble-charts'
-import { Radar, RadarChart, PolarGrid, Legend,
+import { Radar, RadarChart, PolarGrid,
   PolarAngleAxis, PolarRadiusAxis} from 'recharts'
-const dataSumary = [
-  { subject: 'Math', A: 50},
-  { subject: 'Chinese', A: 70},
-  { subject: 'English', A: 30},
-  { subject: 'Geography', A: 20},
-  { subject: 'Physics', A: 30},
-  { subject: 'History', A: 20},
-];
-const seriess = [{data: [{label: 'Highcharts', y: 30}]}];
 
 class Sumary extends Component {
   constructor () {
@@ -36,8 +26,6 @@ class Sumary extends Component {
   }
 
   render() {
-    const fontSizeMapper = word => Math.log2(word.value) * 5;
-    const rotate = word => word.value % 360;
     const { series } = this.state
     let chart = null
     if(series) {
