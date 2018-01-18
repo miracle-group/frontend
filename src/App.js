@@ -91,26 +91,25 @@ class App extends Component {
   render(){
     return(
       <Provider store={store}>
-      <Router>
-          <ApolloProvider client={client}>
-            <Fabric className="App">
-              {store.getState().configReducer.loginStatus ? <NavBar/> : null}
-              <div className="body">
-                <div className="content">
-                  <Route exact path="/" render={() => <Home socket={socket}/>}/>
-                  <Route path="/about" component={ DetailArticle }/>
-                  <Route path="/preference" component={Preference}/>
-                  <Route path="/user" component={ User }/>
-                  <Route path="/edituser" component={ EditUser }/>
-                  <Route path="/history" component={ History }/>
-                  <Route path="/sumary" component={ Sumary }/>
-                  <Route exact path='/article/detail/:id' component={ DetailArticle }/>
-                  <Route path="/login" render={() => <Login ui={this.state.ui}/>} />
-                </div>
-              </div>
-            </Fabric>
-          </ApolloProvider>
-
+       <Router>
+           <ApolloProvider client={client}>
+             <Fabric className="App">
+               {store.getState().configReducer.loginStatus ? <NavBar/> : null}
+               <div className="body">
+                 <div className="content">
+                   <Route exact path="/" render={() => <Home socket={socket}/>}/>
+                   <Route path="/about" component={ DetailArticle }/>
+                   <Route path="/preference" component={Preference}/>
+                   <Route path="/user" component={ User }/>
+                   <Route path="/edituser" component={ EditUser }/>
+                   <Route path="/history" component={ History }/>
+                   <Route path="/sumary" component={ Sumary }/>
+                   <Route exact path='/article/detail/:id' component={ DetailArticle }/>
+                   <Route path="/login" render={() => <Login ui={this.state.ui}/>} />
+                 </div>
+               </div>
+             </Fabric>
+           </ApolloProvider>
       </Router>
       </Provider>
     )

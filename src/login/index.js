@@ -41,11 +41,12 @@ class Login extends Component {
             this.props.setLoggedinUser(data.userAdd);
             localStorage.setItem('repodId',JSON.stringify(data.userAdd));
             localStorage.setItem('repodIdCategories',JSON.stringify(data.userAdd.preferences));
+            console.log(data.userAdd.times === 0,data.userAdd.preferences.length === 0);
             if(data.userAdd.times === 0 || data.userAdd.preferences.length === 0){
-              console.log(data.userAdd.times === 0 || data.userAdd.preferences.length === 0);
+              // console.log(data.userAdd.times === 0 || data.userAdd.preferences.length === 0);
               this.props.history.push('/preference');
             }else if(data.userAdd.times !== 0 && data.userAdd.preferences.length > 0){
-              console.log(data.userAdd.times !== 0 && data.userAdd.preferences.length > 0);
+              // console.log(data.userAdd.times !== 0 && data.userAdd.preferences.length > 0);
               this.props.history.push('/');
             }
           }).catch(err => {

@@ -1,6 +1,5 @@
 import React from 'react'
 import '../home/search.css'
-import io from 'socket.io-client';
 import gql from 'graphql-tag'
 import Item from './item'
 import axios from 'axios'
@@ -38,7 +37,7 @@ class History extends React.Component {
   }
 
   componentWillMount(){
-    const { config, socket } = this.props
+    const { config } = this.props
     const storage = JSON.parse(localStorage.getItem('repodId'));
     if(storage){
       axios.get(`${config.expressApi}/article/all/${storage._id}`)

@@ -7,12 +7,9 @@ import { connect } from 'react-redux'
 import { graphql } from 'react-apollo'
 import { withRouter } from 'react-router-dom'
 import { BounceLoader } from 'react-spinners'
-import { arrowLeftThin } from 'react-icons-kit/metrize/arrowLeftThin'
-import { buttonQuestion } from 'react-icons-kit/metrize/buttonQuestion'
 import { checkmarkRound } from 'react-icons-kit/ionicons/checkmarkRound'
-import { arrowRightThin } from 'react-icons-kit/metrize/arrowRightThin'
 import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone'
-import { Input, Image, Label, Button, Card } from 'semantic-ui-react'
+import { Input, Label, Button, Card } from 'semantic-ui-react'
 
 class EditUser extends React.Component {
   constructor(){
