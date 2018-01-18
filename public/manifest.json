@@ -1,9 +1,9 @@
 {
   "short_name": "RePod",
-  "name": "RePod",
+  "name": "",
   "icons": [
     {
-      "src": "/favicon-230x230.png",
+      "src": "/favicon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
